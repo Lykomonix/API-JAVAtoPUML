@@ -1,0 +1,108 @@
+@startuml
+skinparam style Strictuml
+'Classes
+class StandardDoclet implements Doclet
+{
+    + <<Create>> StandardDoclet()
+    + getLocale(): Locale
+    + getName(): String
+    + getReporter(): Reporter
+    + getSupportedOptions(): Set<? extends Doclet.Option>
+    + getSupportedSourceVersion(): SourceVersion
+    + init(Locale locale,Reporter reporter)
+    + run(DocletEnvironment docEnv): boolean
+}
+
+'Enum
+class "<<enum>>\nDoclet.Option.Kind" as Kind
+{
+    + valueOf(String name): Doclet.Option.Kind{static}
+    + values(): Doclet.Option.Kind[]{static}
+}
+
+class "<<enum>>\nDocletEnvironment.ModuleMode" as ModuleMode
+{
+    valueOf(String name): DocletEnvironment.ModuleMode{static}
+    values(): DocletEnvironment.ModuleMode[]{static}
+}
+class "<<enum>>\nTaglet.Location" as Location
+{
+    +valueOf(String name): Taglet.Location{static}
+    +values(): Taglet.Location[]{static}
+}
+
+'Interfaces
+class ToolProvider
+{
+    findFirst(String name): Optional<ToolProvider>{static}
+    name():String
+    run(PrintStream out, PrintStream err, String... args): int
+    run(PrintWriter out, PrintWriter err, String... args): int{default}
+}
+
+class "<<interface>>\nDoclet" as Doclet
+{
+    getName(): String
+    getSupportedOptions(): Set<? extends Doclet.Option>
+    getSupportedSourceVersion(): SourceVersion
+    init(Locale locale, Reporter reporter)
+    run(DocletEnvironment environment): boolean
+}
+
+class "<<interface>>\nDoclet.Option" as Option
+{
+    getArgumentCount(): int
+    getDescription(): String
+    getKind(): Doclet.Option.Kind
+    getNames(): List<String>
+    getParameters(): String
+    process(String option, List<String> arguments): boolean
+}
+
+class "<<interface>>\nDocletEnvironment"  as DocletEnvironment
+{
+    getDocTrees(): DocTrees
+    getElementUtils(): Elements
+    getFileKind(TypeElement type): JavaFileObject.Kind
+    getIncludedElements(): Set<? extends Element>
+    getJavaFileManager(): JavaFileManager
+    getModuleMode(): DocletEnvironment.ModuleMode
+    getSourceVersion(): SourceVersion
+    getSpecifiedElements(): Set<? extends Element>
+    getTypeUtils(): Types
+    isIncluded(Element e): boolean
+    isSelected(Element e): boolean
+}
+
+class "<<interface>>\nReporter" as Reporter
+{
+    getDiagnosticWriter(): PrintWriter{default}
+    getStandardWriter(): PrintWriter{default}
+    print(Diagnostic.Kind kind, DocTreePath path, int start, int pos, int end, String message){default}
+    print(Diagnostic.Kind kind, DocTreePath path, String message)
+    print(Diagnostic.Kind kind, String message)
+    print(Diagnostic.Kind kind, Element element, String message){default}
+}
+
+class "<<interface>>\nTaglet" as Taglet
+{
+    getAllowedLocations(): Set<Taglet.Location>
+    getName(): String
+    init(DocletEnvironment env, Doclet doclet){default}
+    isBlockTag(): boolean{default}
+    isInlineTag(): boolean
+    toString(List<? extends DocTree> tags, Element element): String
+}
+
+
+'lien sale
+StandardDoclet -- Taglet : > Taglet.toString()
+StandardDoclet *--+ Option : Nested Classes
+Taglet *--+ Location : Nested Classes
+Option *--+ Kind : Nested Classes
+DocletEnvironment *--+ ModuleMode : Nested Classes
+ToolProvider ..> StandardDoclet : use
+Doclet ..> Reporter : use
+Doclet ..> DocletEnvironment : use
+
+@enduml

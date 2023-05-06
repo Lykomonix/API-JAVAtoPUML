@@ -1,0 +1,46 @@
+@startuml
+skinparam style Strictuml
+'Classes
+class StandardDoclet implements Doclet
+
+
+'Enum
+class "<<enum>>\nDoclet.Option.Kind" as Kind
+
+
+class "<<enum>>\nDocletEnvironment.ModuleMode" as ModuleMode
+
+class "<<enum>>\nTaglet.Location" as Location
+
+
+'Interfaces
+class ToolProvider
+
+
+class "<<interface>>\nDoclet" as Doclet
+
+
+class "<<interface>>\nDoclet.Option" as Option
+
+
+class "<<interface>>\nDocletEnvironment"  as DocletEnvironment
+
+
+class "<<interface>>\nReporter" as Reporter
+
+
+class "<<interface>>\nTaglet" as Taglet
+
+
+
+'lien sale
+StandardDoclet -- Taglet : > Taglet.toString()
+StandardDoclet *--+ Option : Nested Classes
+Taglet *--+ Location : Nested Classes
+Option *--+ Kind : Nested Classes
+DocletEnvironment *--+ ModuleMode : Nested Classes
+ToolProvider ..> StandardDoclet : use
+Doclet ..> Reporter : use
+Doclet ..> DocletEnvironment : use
+
+@enduml
