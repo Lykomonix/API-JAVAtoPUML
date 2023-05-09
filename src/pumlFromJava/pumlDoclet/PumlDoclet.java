@@ -4,6 +4,7 @@ import jdk.javadoc.doclet.Reporter;
 
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +14,7 @@ import java.util.*;
 
 public class PumlDoclet implements Doclet {
     private Set<Option> options;
+    private String directory;
     private String pumlPATH;
     private FileWriter writer;
 
@@ -38,19 +40,19 @@ public class PumlDoclet implements Doclet {
     @Override
     public boolean run(DocletEnvironment environment)
     {
-        InitPumlFile();
+        InitPumlFile(environment);
         RetrieveClasses(environment);
         ClosePumlFile();
         return true;
     }
 
-    private void InitPumlFile()
+    private void InitPumlFile(DocletEnvironment environment)
     {
         try
         {
             if(pumlPATH == null)
             {
-                pumlPATH = "./default.puml";
+                pumlPATH = directory + "/" + "default.puml";
             }
             writer = new FileWriter(pumlPATH);
 
@@ -113,6 +115,42 @@ public class PumlDoclet implements Doclet {
         @Override
         public List<String> getNames() {
             return List.of("-out");
+        }
+
+        @Override
+        public String getParameters() {
+            return null;
+        }
+
+        @Override
+        public boolean process(String option, List<String> arguments) {
+
+            pumlPATH = "./" + arguments.get(0) + ".puml";
+
+            return true;
+        }
+    }
+
+    private class DirectoryOption implements Doclet.Option
+    {
+        @Override
+        public int getArgumentCount() {
+            return 1;
+        }
+
+        @Override
+        public String getDescription() {
+            return "Set the directory of the puml output file.";
+        }
+
+        @Override
+        public Kind getKind() {
+            return Kind.STANDARD;
+        }
+
+        @Override
+        public List<String> getNames() {
+            return List.of("-d");
         }
 
         @Override
