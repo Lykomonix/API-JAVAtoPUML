@@ -8,17 +8,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Locale;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class PumlDoclet implements Doclet {
-
-    private String pumlPATH = "./test.puml";
+    private Set<Option> options;
+    private String pumlPATH;
     private FileWriter writer;
 
     @Override
     public void init(Locale locale, Reporter reporter) {
-        InitPumlFile();
+        options = Set.of(new OutOption());
     }
 
     @Override
@@ -26,7 +26,8 @@ public class PumlDoclet implements Doclet {
 
     @Override
     public Set<? extends Option> getSupportedOptions() {
-        return null;
+
+        return options;
     }
 
     @Override
@@ -37,6 +38,7 @@ public class PumlDoclet implements Doclet {
     @Override
     public boolean run(DocletEnvironment environment)
     {
+        InitPumlFile();
         RetrieveClasses(environment);
         ClosePumlFile();
         return true;
@@ -46,7 +48,12 @@ public class PumlDoclet implements Doclet {
     {
         try
         {
+            if(pumlPATH == null)
+            {
+                pumlPATH = "./default.puml";
+            }
             writer = new FileWriter(pumlPATH);
+
             writer.write("@startuml\n\n" +
                     "skinparam style strictuml\n" +
                     "skinparam classAttributeIconSize 0\n" +
@@ -62,7 +69,7 @@ public class PumlDoclet implements Doclet {
     {
         try
         {
-            writer.append("@enduml\n");
+            writer.append("\n@enduml\n");
             writer.close();
         }
         catch (IOException ex)
@@ -83,6 +90,42 @@ public class PumlDoclet implements Doclet {
         catch (IOException ex)
         {
             System.out.println("The file cannot be accessed !");
+        }
+    }
+
+    private class OutOption implements Doclet.Option
+    {
+        @Override
+        public int getArgumentCount() {
+            return 1;
+        }
+
+        @Override
+        public String getDescription() {
+            return "Set the name of the puml output file.";
+        }
+
+        @Override
+        public Kind getKind() {
+            return Kind.STANDARD;
+        }
+
+        @Override
+        public List<String> getNames() {
+            return List.of("-out");
+        }
+
+        @Override
+        public String getParameters() {
+            return null;
+        }
+
+        @Override
+        public boolean process(String option, List<String> arguments) {
+
+            pumlPATH = "./" + arguments.get(0) + ".puml";
+
+            return true;
         }
     }
 }

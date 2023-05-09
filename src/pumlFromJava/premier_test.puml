@@ -16,4 +16,5 @@ class Nommable
 class Personnage
 class Ripou
 class Substantif
+
 @enduml
