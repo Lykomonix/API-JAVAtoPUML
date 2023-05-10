@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant javadoc
+participant "Doclet : doclet" as Doclet
+
+activate javadoc
+javadoc -->> Doclet ** : <<create>> doclet()
+|||
+javadoc -> Doclet : init(Locale, Reporter)
+activate Doclet
+deactivate Doclet
+|||
+javadoc -> Doclet ++ : getSupportedOptions()
+return
+|||
+javadoc -> Doclet ++ : getSupportedSourceVersion()
+return
+|||
+javadoc -> Doclet : run()
+activate Doclet
+|||
+deactivate Doclet
+@enduml

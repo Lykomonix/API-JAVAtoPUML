@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+skinparam style Strictuml
+
+title javax.lang.model.element
+
+interface Element
+}
+
+@enduml
