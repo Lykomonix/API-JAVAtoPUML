@@ -21,6 +21,4 @@ public class PumlInterface extends PumlElement {
 
         return builder.toString();
     }
-
-
 }

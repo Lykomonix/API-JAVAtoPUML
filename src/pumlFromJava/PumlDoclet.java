@@ -48,7 +48,7 @@ public class PumlDoclet implements Doclet {
 
         if(filename == null)
         {
-            pumlDiagram.setFilename(pumlDiagram.getClassList().get(0).getName());
+            pumlDiagram.setFilename(pumlDiagram.getPackageList().get(0).getName());
         }
         else
         {

@@ -20,12 +20,14 @@ public class PumlEnum extends PumlElement{
     public String toDCC() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("class \"<<enumeration>>\\n" + this.element.getSimpleName()+"\"");
-
+        builder.append("class \"<<enumeration>>\\n" + this.element.getSimpleName()+"\"\n" );
+        builder.append("{\n");
+        builder.append(getEnumElements());
+        builder.append("}\n");
 
         return builder.toString();
     }
-    public String getEnumElement()
+    public String getEnumElements()
     {
         StringBuilder builder = new StringBuilder();
         for(Element elementN : element.getEnclosedElements())

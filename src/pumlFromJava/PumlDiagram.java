@@ -14,35 +14,26 @@ public class PumlDiagram extends PumlElement{
             "skinparam classAttributeIconSize 0\n" +
             "skinparam classFontStyle Bold\n\n";
 
-    private String directory = ".";
+    private String directory = "./";
     private String filename;
 
-    private List<PumlClass> classList = new ArrayList<>();
-    private List<PumlInterface> interfaceList = new ArrayList<>();
-    private List<PumlEnum> enumList = new ArrayList<>();
+    private List<PumlPackage> packageList = new ArrayList<>();
 
     private DocletEnvironment env;
 
     PumlDiagram(DocletEnvironment env)
     {
         this.env = env;
-        RetrieveFiles();
+        RetrievePackages();
     }
 
-    private void RetrieveFiles()
+    private void RetrievePackages()
     {
         for(Element element : env.getSpecifiedElements())
         {
-            System.out.println(element.getEnclosedElements());
-            for(Element el : element.getEnclosedElements())
+            if(element.getKind() == ElementKind.PACKAGE)
             {
-                System.out.println(el.getSimpleName());
-                switch(el.getKind())
-                {
-                    case CLASS -> classList.add(new PumlClass(el));
-                    case INTERFACE -> interfaceList.add(new PumlInterface(el));
-                    case ENUM -> enumList.add(new PumlEnum(el));
-                }
+                packageList.add(new PumlPackage(element));
             }
         }
     }
@@ -56,21 +47,13 @@ public class PumlDiagram extends PumlElement{
 
         builder.append(skinparam);
 
-        for(PumlElement element : classList)
+        for(PumlPackage pumlPackage : packageList)
         {
-            builder.append(element.toDCC() + "\n");
+            builder.append(pumlPackage.toDCC());
         }
 
-        for(PumlElement element : interfaceList)
-        {
-            builder.append(element.toDCC() + "\n");
-        }
+        builder.append("\n@enduml\n\n");
 
-        for(PumlElement element : enumList)
-        {
-            builder.append(element.toDCC() + "\n");
-        }
-        builder.append("\n\n@enduml");
         return builder.toString();
     }
 
@@ -82,23 +65,15 @@ public class PumlDiagram extends PumlElement{
         this.filename = filename;
     }
 
-    public List<PumlClass> getClassList() {
-        return classList;
-    }
-
-    public List<PumlInterface> getInterfaceList() {
-        return interfaceList;
-    }
-
-    public List<PumlEnum> getEnumList() {
-        return enumList;
-    }
-
     public String getDirectory() {
         return directory;
     }
 
     public String getFilename() {
         return filename;
+    }
+
+    public List<PumlPackage> getPackageList() {
+        return packageList;
     }
 }
