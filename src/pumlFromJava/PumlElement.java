@@ -2,6 +2,6 @@ package pumlFromJava;
 
 public abstract class PumlElement {
 
-    public abstract String toUml();
+    public abstract String toDCC();
 
 }

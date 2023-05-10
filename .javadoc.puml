@@ -1,0 +1,21 @@
+@startuml
+
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+
+class Boisson
+class Brigand
+class Cowboy
+class Dame
+class Histoire4
+class Narrateur
+class Personnage
+class Ripou
+class Substantif
+class "<<interface>>\n HorsLaLoi"
+class "<<interface>>\n Nommable"
+class "<<enumeration>>\nGenre"
+
+
+@enduml

@@ -33,17 +33,22 @@ public class PumlDiagram extends PumlElement{
     {
         for(Element element : env.getSpecifiedElements())
         {
-            switch(element.getKind())
+            System.out.println(element.getEnclosedElements());
+            for(Element el : element.getEnclosedElements())
             {
-                case CLASS -> classList.add(new PumlClass(element));
-                case INTERFACE -> interfaceList.add(new PumlInterface(element));
-                case ENUM -> enumList.add(new PumlEnum(element));
+                System.out.println(el.getSimpleName());
+                switch(el.getKind())
+                {
+                    case CLASS -> classList.add(new PumlClass(el));
+                    case INTERFACE -> interfaceList.add(new PumlInterface(el));
+                    case ENUM -> enumList.add(new PumlEnum(el));
+                }
             }
         }
     }
 
     @Override
-    public String toUml()
+    public String toDCC()
     {
         StringBuilder builder = new StringBuilder();
 
@@ -53,19 +58,19 @@ public class PumlDiagram extends PumlElement{
 
         for(PumlElement element : classList)
         {
-            builder.append(element.toUml() + "\n");
+            builder.append(element.toDCC() + "\n");
         }
 
         for(PumlElement element : interfaceList)
         {
-            builder.append(element.toUml() + "\n");
+            builder.append(element.toDCC() + "\n");
         }
 
         for(PumlElement element : enumList)
         {
-            builder.append(element.toUml() + "\n");
+            builder.append(element.toDCC() + "\n");
         }
-
+        builder.append("\n\n@enduml");
         return builder.toString();
     }
 

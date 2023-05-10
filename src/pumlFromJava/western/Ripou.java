@@ -1,5 +1,4 @@
-package western;
-
+package pumlFromJava.western;
 import java.util.List;
 
 public class Ripou extends Cowboy implements HorsLaLoi

@@ -1,5 +1,4 @@
-package western;
-
+package pumlFromJava.western;
 public class Narrateur extends Personnage
 {
     public Narrateur()

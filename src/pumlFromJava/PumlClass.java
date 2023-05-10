@@ -14,7 +14,7 @@ public class PumlClass extends PumlElement{
     }
 
     @Override
-    public String toUml() {
+    public String toDCC() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("class " + this.element.getSimpleName());

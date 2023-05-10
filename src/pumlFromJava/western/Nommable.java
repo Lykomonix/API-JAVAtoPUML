@@ -1,4 +1,4 @@
-package western;
+package pumlFromJava.western;
 
 public interface Nommable
 {

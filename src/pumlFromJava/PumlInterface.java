@@ -14,11 +14,13 @@ public class PumlInterface extends PumlElement {
     }
 
     @Override
-    public String toUml() {
+    public String toDCC() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("class " + this.element.getSimpleName());
+        builder.append("class \"<<interface>>\\n " + this.element.getSimpleName()+"\"");
 
         return builder.toString();
     }
+
+
 }

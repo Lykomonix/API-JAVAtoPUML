@@ -27,7 +27,7 @@ public class PumlDoclet implements Doclet {
 
     @Override
     public Set<? extends Option> getSupportedOptions() {
-        return Set.of(new OutOption());
+        return Set.of(new OutOption(), new DirectoryOption());
     }
 
     @Override
@@ -70,7 +70,7 @@ public class PumlDoclet implements Doclet {
                             pumlDiagram.getFilename() + ".puml");
 
             writer.write("");
-            writer.append(pumlDiagram.toUml());
+            writer.append(pumlDiagram.toDCC());
             writer.close();
         }
         catch (Exception ex)

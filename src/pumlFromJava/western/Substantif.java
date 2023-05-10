@@ -1,4 +1,4 @@
-package western;
+package pumlFromJava.western;
 
 public class Substantif // un nom
 {

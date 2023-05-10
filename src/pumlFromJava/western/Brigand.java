@@ -1,4 +1,4 @@
-package western;
+package pumlFromJava.western;
 
 import java.util.ArrayList;
 import java.util.List;

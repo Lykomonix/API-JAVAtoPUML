@@ -1,4 +1,4 @@
-package western;
+package pumlFromJava.western;
 
 //  @ Project : Western
 //  @ File Name : Histoire6.java
