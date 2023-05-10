@@ -1,8 +1,8 @@
-package pumlFromJava.pumlDocletV3;
+package pumlFromJava;
 
 import javax.lang.model.element.Element;
 
-public class PumlEnum implements PumlElement{
+public class PumlEnum extends PumlElement{
     private Element element;
     PumlEnum(Element element)
     {

@@ -1,35 +1,33 @@
+package pumlFromJava;
+
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
 import jdk.javadoc.doclet.Reporter;
 
 import javax.lang.model.SourceVersion;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 
 public class PumlDoclet implements Doclet {
-    private Set<Option> options;
+    private PumlDiagram pumlDiagram;
+    private String filename;
     private String directory;
-    private String pumlPATH;
-    private FileWriter writer;
 
     @Override
     public void init(Locale locale, Reporter reporter) {
-        options = Set.of(new OutOption());
+
     }
 
     @Override
-    public String getName() {return getClass().getSimpleName();}
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
 
     @Override
     public Set<? extends Option> getSupportedOptions() {
-
-        return options;
+        return Set.of(new OutOption());
     }
 
     @Override
@@ -38,60 +36,46 @@ public class PumlDoclet implements Doclet {
     }
 
     @Override
-    public boolean run(DocletEnvironment environment)
-    {
-        InitPumlFile(environment);
-        RetrieveClasses(environment);
-        ClosePumlFile();
+    public boolean run(DocletEnvironment environment) {
+        InitPumlDiagram(environment);
+        WritePuml();
         return true;
     }
 
-    private void InitPumlFile(DocletEnvironment environment)
+    private void InitPumlDiagram(DocletEnvironment env)
     {
-        try
-        {
-            if(pumlPATH == null)
-            {
-                pumlPATH = directory + "/" + "default.puml";
-            }
-            writer = new FileWriter(pumlPATH);
+        pumlDiagram = new PumlDiagram(env);
 
-            writer.write("@startuml\n\n" +
-                    "skinparam style strictuml\n" +
-                    "skinparam classAttributeIconSize 0\n" +
-                    "skinparam classFontStyle Bold\n\n");
-        }
-        catch (IOException ex)
+        if(filename == null)
         {
-            System.out.println("The file cannot be accessed !");
+            pumlDiagram.setFilename(pumlDiagram.getClassList().get(0).getName());
+        }
+        else
+        {
+            pumlDiagram.setFilename(this.filename);
+        }
+
+        if(directory != null)
+        {
+            pumlDiagram.setDirectory(this.directory);
         }
     }
 
-    private void ClosePumlFile()
+    private void WritePuml()
     {
         try
         {
-            writer.append("\n@enduml\n");
+            FileWriter writer = new FileWriter(
+                    pumlDiagram.getDirectory() +
+                            pumlDiagram.getFilename() + ".puml");
+
+            writer.write("");
+            writer.append(pumlDiagram.toUml());
             writer.close();
         }
-        catch (IOException ex)
+        catch (Exception ex)
         {
-            System.out.println("The file cannot be accessed !");
-        }
-    }
-
-    private void RetrieveClasses(DocletEnvironment environment)
-    {
-        try
-        {
-            for(Element element : environment.getSpecifiedElements())
-            {
-                writer.append("class " + element.getSimpleName() + "\n");
-            }
-        }
-        catch (IOException ex)
-        {
-            System.out.println("The file cannot be accessed !");
+            System.out.println("The file cannot be written");
         }
     }
 
@@ -104,7 +88,7 @@ public class PumlDoclet implements Doclet {
 
         @Override
         public String getDescription() {
-            return "Set the name of the puml output file.";
+            return "Set the output file's name";
         }
 
         @Override
@@ -124,9 +108,7 @@ public class PumlDoclet implements Doclet {
 
         @Override
         public boolean process(String option, List<String> arguments) {
-
-            pumlPATH = "./" + arguments.get(0) + ".puml";
-
+            filename = arguments.get(0);
             return true;
         }
     }
@@ -140,7 +122,7 @@ public class PumlDoclet implements Doclet {
 
         @Override
         public String getDescription() {
-            return "Set the directory of the puml output file.";
+            return "Set the file's output directory";
         }
 
         @Override
@@ -160,9 +142,7 @@ public class PumlDoclet implements Doclet {
 
         @Override
         public boolean process(String option, List<String> arguments) {
-
-            pumlPATH = "./" + arguments.get(0) + ".puml";
-
+            directory = arguments.get(0);
             return true;
         }
     }

@@ -1,8 +1,8 @@
-package pumlFromJava.pumlDocletV3;
+package pumlFromJava;
 
 import javax.lang.model.element.Element;
 
-public class PumlInterface implements PumlElement {
+public class PumlInterface extends PumlElement {
     private Element element;
     PumlInterface(Element element)
     {

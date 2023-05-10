@@ -1,4 +1,4 @@
-package pumlFromJava.pumlDocletV3;
+package pumlFromJava;
 
 import jdk.javadoc.doclet.DocletEnvironment;
 
@@ -7,7 +7,7 @@ import javax.lang.model.element.ElementKind;
 import java.util.List;
 import java.util.ArrayList;
 
-public class PumlDiagram implements PumlElement{
+public class PumlDiagram extends PumlElement{
 
     private String skinparam =
             "skinparam style strictuml\n" +
