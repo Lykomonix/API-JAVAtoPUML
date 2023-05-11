@@ -6,6 +6,8 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.ElementType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PumlClass extends PumlElement{
     private Element element;
@@ -41,9 +43,10 @@ public class PumlClass extends PumlElement{
         {
             if(enclosedElement.getKind() == ElementKind.FIELD)
             {
-                //System.out.println(enclosedElement.asType().getKind()) ;
-
-                builder.append(enclosedElement.getSimpleName() + "\n");
+                if(enclosedElement.asType().getKind() != TypeKind.DECLARED)
+                {
+                    builder.append(enclosedElement.getSimpleName() + "\n");
+                }
             }
         }
 
