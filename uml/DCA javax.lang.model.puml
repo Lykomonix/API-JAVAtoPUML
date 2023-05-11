@@ -1,0 +1,82 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+skinparam style Strictuml
+
+package javax/lang/model
+{
+    class AnnotatedConstruct
+    class SourceVersion
+    class UnknownEntityException
+}
+
+package javax/lang/model.element
+{
+    interface Element
+    interface AnnotationMirror
+    interface AnnotationValue
+    interface AnnotationValueVisitor
+    interface Element
+    interface ElementVisitor
+    interface ExecutableElement
+    interface ModuleElement
+    interface ModuleElement/Directive
+    interface ModuleElement/DirectiveVisitor
+    interface ModuleElement/ExportsDirective
+    interface ModuleElement/OpensDirective
+    interface ModuleElement/ProvidesDirective
+    interface ModuleElement/RequiresDirective
+    interface ModuleElement/UsesDirective
+    interface Name
+    interface PackageElement
+    interface Parameterizable
+    interface QualifiedNameable
+    interface RecordComponentElement
+    interface TypeParameterElement
+    interface VariableElement
+}
+
+package javax/lang/model.type
+{
+    interface ArrayType
+    interface DeclaredType
+    interface ErrorType
+    interface ExecutableType
+    interface IntersectionType
+    class MirroredTypeException
+    class MirroredTypesException
+    interface NoType
+    interface NullType
+    interface PrimitiveType
+    interface ReferenceType
+    class TypeKind
+    interface TypeMirror
+    interface TypeVariable
+    interface TypeVisitor
+    interface UnionType
+    class UnknownTypeException
+    interface WildcardType
+    enum TypeKind
+}
+
+package javax/lang/model.util
+{
+    interface Elements
+    interface Types
+    enum Elements/Origin
+    class AbstractAnnotationValueVisitor?
+    class AbstractElementVisitor?
+    class AbstractTypeVisitor?
+    class ElementFilter
+    class ElementKindVisitor?
+    class ElementScanner?
+    class SimpleAnnotationValueVisitor?
+    class SimpleElementVisitor?
+    class SimpleTypeVisitor?
+    class TypeKindVisitor?
+}
+
+
+
+
+
+@enduml
