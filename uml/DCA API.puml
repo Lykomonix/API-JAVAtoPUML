@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+skinparam style Strictuml
+
+package pumlFromJava
+{
+
+class Java2Puml
+
+}
+@enduml

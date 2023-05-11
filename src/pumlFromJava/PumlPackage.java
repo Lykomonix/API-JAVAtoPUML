@@ -32,23 +32,23 @@ public class PumlPackage extends PumlElement{
     }
 
     @Override
-    public String toDCC() {
+    public String toDCA() {
 
         StringBuilder builder = new StringBuilder();
 
         for(PumlElement element : classList)
         {
-            builder.append(element.toDCC() + "\n");
+            builder.append(element.toDCA() + "\n");
         }
 
         for(PumlElement element : interfaceList)
         {
-            builder.append(element.toDCC() + "\n");
+            builder.append(element.toDCA() + "\n");
         }
 
         for(PumlElement element : enumList)
         {
-            builder.append(element.toDCC() + "\n");
+            builder.append(element.toDCA() + "\n");
         }
 
         return builder.toString();

@@ -40,7 +40,7 @@ public class PumlDiagram extends PumlElement{
     }
 
     @Override
-    public String toDCC()
+    public String toDCA()
     {
         StringBuilder builder = new StringBuilder();
 
@@ -51,7 +51,7 @@ public class PumlDiagram extends PumlElement{
         for(PumlPackage pumlPackage : packageList)
         {
             builder.append("Package \""+pumlPackage.getName()+"\" {\n");
-            builder.append(pumlPackage.toDCC());
+            builder.append(pumlPackage.toDCA());
             builder.append("}\n");
         }
 

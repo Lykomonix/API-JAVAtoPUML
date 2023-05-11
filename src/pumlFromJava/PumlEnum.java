@@ -17,7 +17,7 @@ public class PumlEnum extends PumlElement{
     }
 
     @Override
-    public String toDCC() {
+    public String toDCA() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("class \"<<enumeration>>\\n" + this.element.getSimpleName()+"\"\n" );

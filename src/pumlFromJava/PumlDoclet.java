@@ -70,7 +70,7 @@ public class PumlDoclet implements Doclet {
                             pumlDiagram.getFilename() + ".puml");
 
             writer.write("");
-            writer.append(pumlDiagram.toDCC());
+            writer.append(pumlDiagram.toDCA());
             writer.close();
         }
         catch (Exception ex)

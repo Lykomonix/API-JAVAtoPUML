@@ -14,7 +14,7 @@ public class PumlInterface extends PumlElement {
     }
 
     @Override
-    public String toDCC() {
+    public String toDCA() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("class \"<<interface>>\\n " + this.element.getSimpleName()+"\"");
