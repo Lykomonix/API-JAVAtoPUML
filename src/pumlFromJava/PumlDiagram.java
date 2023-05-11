@@ -12,7 +12,8 @@ public class PumlDiagram extends PumlElement{
     private String skinparam =
             "skinparam style strictuml\n" +
             "skinparam classAttributeIconSize 0\n" +
-            "skinparam classFontStyle Bold\n\n";
+            "skinparam classFontStyle Bold\n" +
+            "hide empty members\n\n";
 
     private String directory = "./";
     private String filename;
@@ -49,7 +50,9 @@ public class PumlDiagram extends PumlElement{
 
         for(PumlPackage pumlPackage : packageList)
         {
+            builder.append("Package \""+pumlPackage.getName()+"\" {\n");
             builder.append(pumlPackage.toDCC());
+            builder.append("}\n");
         }
 
         builder.append("\n@enduml\n\n");
