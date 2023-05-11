@@ -1,11 +1,51 @@
 @startuml
-'https://plantuml.com/sequence-diagram
 
-autonumber
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+hide empty members
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+Package "pumlFromJava" {
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+class Java2Puml
+{
+}
+
+class PumlDoclet implements Doclet
+{
+}
+
+class PumlElement
+{
+}
+
+class PumlDiagram extends PumlElement
+{
+}
+
+class PumlClass extends PumlElement
+{
+}
+
+class PumlEnum extends PumlElement
+{
+}
+
+class PumlInterface extends PumlElement
+{
+}
+
+class PumlPackage extends PumlElement
+{
+}
+
+PumlDoclet ..> PumlDiagram : use
+Java2Puml ..> PumlDoclet : lance
+PumlDiagram o...> PumlPackage : use
+PumlPackage o..> PumlClass : use
+PumlPackage o..> PumlInterface : use
+PumlPackage o..> PumlEnum : use
+}
+
 @enduml
+
