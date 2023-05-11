@@ -5,37 +5,53 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 hide empty members
 
-Package "pumlFromJava" {
-class Java2Puml
+Package "western" {
+class Boisson
 {
 }
 
-class PumlClass
+class Brigand
+{
+recompense
+estLibre
+}
+
+class Cowboy
+{
+gains
+}
+
+class Dame
+{
+estLibre
+}
+
+class Histoire4
 {
 }
 
-class PumlDiagram
+class Narrateur
 {
 }
 
-class PumlDoclet
+class Personnage
 {
 }
 
-class PumlElement
+class Ripou
 {
 }
 
-class PumlEnum
+class Substantif
 {
 }
 
-class PumlInterface
+class "<<interface>>\n HorsLaLoi"
+class "<<interface>>\n Nommable"
+class "<<enumeration>>\nGenre"
 {
-}
-
-class PumlPackage
-{
+FEMININ
+MASCULIN
 }
 
 }
