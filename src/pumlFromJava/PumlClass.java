@@ -20,11 +20,11 @@ public class PumlClass extends PumlElement{
 
         builder.append("class " + this.element.getSimpleName() + "\n");
 
-        //builder.append("{\n");
+        builder.append("{\n");
 
-        //builder.append(getPrimitiveVariables());
+        builder.append(getPrimitiveVariables());
 
-        //builder.append("}\n");
+        builder.append("}\n");
 
         return builder.toString();
     }

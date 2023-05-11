@@ -7,22 +7,62 @@ hide empty members
 
 Package "western" {
 class Boisson
+{
+substantif
+EAU
+}
 
 class Brigand
+{
+LOOK_PAR_DEFAUT
+look
+recompense
+estLibre
+captives
+gardien
+boissonParDefaut
+}
 
 class Cowboy
+{
+gains
+captures
+boissonParDefaut
+}
 
 class Dame
+{
+estLibre
+sauveur
+ravisseur
+boissonParDefaut
+}
 
 class Histoire4
+{
+}
 
 class Narrateur
+{
+}
 
 class Personnage
+{
+BOISSON_PAR_DEFAUT
+nom
+boisson
+}
 
 class Ripou
+{
+brigand
+}
 
 class Substantif
+{
+nom
+genre
+}
 
 class "<<interface>>\n HorsLaLoi"
 class "<<interface>>\n Nommable"
