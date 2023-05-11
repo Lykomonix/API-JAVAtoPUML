@@ -7,7 +7,7 @@ import java.util.Enumeration;
 
 public class PumlEnum extends PumlElement{
     private Element element;
-    PumlEnum(Element element)
+    public PumlEnum(Element element)
     {
         this.element = element;
     }

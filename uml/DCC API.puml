@@ -9,18 +9,64 @@ Package "pumlFromJava" {
 
 class Java2Puml
 {
+    + {static} Main(String[] args)
 }
 
 class PumlDoclet implements Doclet
 {
+    -pumlDiagram: PumlDiagram
+    -filename: String
+    -directory: String
+    + init(Locale locale, Reporter reporter){redefines Doclet::init}
+    + getName(): String{redefines Doclet::getName}
+    + getSupportedOptions(): Set<? extends Option>{redefines Doclet::getSupportedOptions}
+    + getSupportedSourceVersion(): SourceVersion{redefines Doclet::getSupportedSourceVersion}
+    + run(DocletEnvironment environment): boolean{redefines Doclet::run}
+    - InitPumlDiagram(DocletEnvironment env)
+    - WritePuml()
+}
+
+class OutOption implements Doclet.Option
+{
+    + getArgumentCount(): int{redefines Doclet.Option::getArgumentCount}
+    + getDescription(): String{redefines Doclet.Option::getDescription}
+    + getKind(): Kind{redefines Doclet.Option::getKind}
+    + getNames(): List<String>{redefines Doclet.Option::getNames}
+    + getParameters(): String{redefines Doclet.Option::getParameters}
+    + process(String option, List<String> arguments): boolean{redefines Doclet.Option::process}
+}
+
+class DirectoryOption implements Doclet.Option
+{
+    + getArgumentCount(): int{redefines Doclet.Option::getArgumentCount}
+    + getDescription(): String{redefines Doclet.Option::getDescription}
+    + getKind(): Kind{redefines Doclet.Option::getKind}
+    + getNames(): List<String>{redefines Doclet.Option::getNames}
+    + getParameters(): String{redefines Doclet.Option::getParameters}
+    + process(String option, List<String> arguments): boolean{redefines Doclet.Option::process}
+
 }
 
 class PumlElement
 {
+    +toDCA(): String{abstract}
 }
 
 class PumlDiagram extends PumlElement
 {
+    - skinparam: String
+    - directory: String
+    - filename: String
+    - package: List<PumlPackage>
+    - env: DocletEnvironment
+    + <<create>> PumlDiagram(DocletEnvironment env)
+    - RetrievePackages()
+    + toDCA(): String{redefines PumlElement::toDCA}
+    + setDirectory(String directory)
+    + setFilename(String filename)
+    + getDirectory(): String
+    + getFilename(): String
+    + getPackageList(): List<PumlPackage>
 }
 
 class PumlClass extends PumlElement
@@ -45,6 +91,8 @@ PumlDiagram o...> PumlPackage : use
 PumlPackage o..> PumlClass : use
 PumlPackage o..> PumlInterface : use
 PumlPackage o..> PumlEnum : use
+PumlDoclet *--> OutOption : nested class
+PumlDoclet *--> DirectoryOption : nested class
 }
 
 @enduml

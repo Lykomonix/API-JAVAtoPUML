@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PumlClass extends PumlElement{
     private Element element;
-    PumlClass(Element element)
+    public PumlClass(Element element)
     {
         this.element = element;
     }

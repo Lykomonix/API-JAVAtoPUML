@@ -4,7 +4,7 @@ import javax.lang.model.element.Element;
 
 public class PumlInterface extends PumlElement {
     private Element element;
-    PumlInterface(Element element)
+    public PumlInterface(Element element)
     {
         this.element = element;
     }

@@ -22,7 +22,7 @@ public class PumlDiagram extends PumlElement{
 
     private DocletEnvironment env;
 
-    PumlDiagram(DocletEnvironment env)
+    public PumlDiagram(DocletEnvironment env)
     {
         this.env = env;
         RetrievePackages();

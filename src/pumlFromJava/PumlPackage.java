@@ -12,7 +12,7 @@ public class PumlPackage extends PumlElement{
 
     private Element element;
 
-    PumlPackage(Element element)
+    public PumlPackage(Element element)
     {
         this.element = element;
         RetrieveElements();
