@@ -5,6 +5,7 @@ skinparam style Strictuml
 title javax.lang.model.element
 
 interface Element
+{
 }
 
 @enduml
