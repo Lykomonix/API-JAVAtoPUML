@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+skinparam style Strictuml
+
+
+package javax/lang/model.type
+{
+    interface ArrayType
+    interface DeclaredType
+    interface ErrorType
+    interface ExecutableType
+    interface IntersectionType
+    class MirroredTypeException
+    class MirroredTypesException
+    interface NoType
+    interface NullType
+    interface PrimitiveType
+    interface ReferenceType
+    class TypeKind
+    interface TypeMirror
+    interface TypeVariable
+    interface TypeVisitor
+    interface UnionType
+    class UnknownTypeException
+    interface WildcardType
+    enum TypeKind
+}
+
+
+
+
+
+@enduml

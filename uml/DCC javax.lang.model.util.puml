@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+skinparam style Strictuml
+
+
+package javax/lang/model.util
+{
+    interface Elements
+    interface Types
+    enum Elements/Origin
+    class AbstractAnnotationValueVisitor?
+    class AbstractElementVisitor?
+    class AbstractTypeVisitor?
+    class ElementFilter
+    class ElementKindVisitor?
+    class ElementScanner?
+    class SimpleAnnotationValueVisitor?
+    class SimpleElementVisitor?
+    class SimpleTypeVisitor?
+    class TypeKindVisitor?
+}
+
+
+
+
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+skinparam style Strictuml
+
+
+package javax/lang/model.element
+{
+
+    interface AnnotationMirror
+    {
+    getAnnotationType() : DeclaredType
+    getElementValues() : Map<? extends ExecutableElement,? extends AnnotationValue>
+    }
+    interface AnnotationValue
+    {
+    accept(AnnotationValueVisitor<R,P> v, P p) : <R, P> R
+    getValue() : Object
+    toString() : String
+    }
+    interface AnnotationValueVisitor
+    {
+
+    }
+    interface Element
+    {
+        accept(ElementVisitor<R,P> v, P p) : <R, P> R
+        asType() : TypeMirror
+        equals(Object obj) : boolean
+        getAnnotation(Class<A> annotationType) : <A extends Annotation> A
+        getAnnotationMirrors() : List<? extends AnnotationMirror>
+        getAnnotationsByType(Class<A> annotationType) : <A extends Annotation> A[]
+        getEnclosedElements() : List<? extends Element>
+        getEnclosingElement() : Element
+        getKind() : ElementKind
+        getModifiers() : Set<Modifier>
+        getSimpleName() : Name
+        hashCode() : int
+    }
+    interface ExecutableElement
+    interface ModuleElement
+    interface ModuleElement/Directive
+    interface ModuleElement/DirectiveVisitor
+    interface ModuleElement/ExportsDirective
+    interface ModuleElement/OpensDirective
+    interface ModuleElement/ProvidesDirective
+    interface ModuleElement/RequiresDirective
+    interface ModuleElement/UsesDirective
+    interface Name
+    interface PackageElement
+    interface Parameterizable
+    interface QualifiedNameable
+    interface RecordComponentElement
+    interface TypeParameterElement
+    interface VariableElement
+}
+
+
+
+
+@enduml
