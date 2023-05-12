@@ -5,28 +5,153 @@ skinparam style Strictuml
 
 package javax/lang/model.type
 {
-    interface ArrayType
-    interface DeclaredType
-    interface ErrorType
-    interface ExecutableType
-    interface IntersectionType
-    class MirroredTypeException
-    class MirroredTypesException
-    interface NoType
-    interface NullType
-    interface PrimitiveType
-    interface ReferenceType
-    class TypeKind
-    interface TypeMirror
-    interface TypeVariable
-    interface TypeVisitor
-    interface UnionType
-    class UnknownTypeException
-    interface WildcardType
+    interface ArrayType extends ReferenceType
+    {
+        getComponentType(): TypeMirror
+    }
+
+    interface DeclaredType extends ReferenceType
+    {
+        asElement(): Element
+        getEnclosingType(): TypeMirror
+        getTypeArguments(): List<? extends TypeMirror>
+    }
+
+    interface ErrorType extends DeclaredType
+    {
+
+    }
+
+    interface ExecutableType extends TypeMirror
+    {
+        getParameterTypes(): List<? extends TypeMirror>
+        getReceiverType(): TypeMirror
+        getReturnType(): TypeMirror
+        getThrownTypes(): List<? extends TypeMirror>
+        getTypeVariables(): List<? extends TypeVariable>
+    }
+
+    interface IntersectionType extends TypeMirror
+    {
+        getBounds(): List<? extends TypeMirror>
+    }
+
+    class MirroredTypeException extends MirroredTypesException
+    {
+        + <<create>> MirroredTypeException(TypeMirror type)
+        + getTypeMirror(): TypeMirror
+    }
+
+    class MirroredTypesException extends RuntimeException
+    {
+        + MirroredTypesException(List<? extends TypeMirror> types)
+        + getTypeMirrors(): List<? extends TypeMirror>
+    }
+
+    interface NoType extends TypeMirror
+    {
+
+    }
+
+    interface NullType extends ReferenceType
+    {
+
+    }
+
+    interface PrimitiveType extends TypeMirror
+    {
+
+    }
+
+    interface ReferenceType extends TypeMirror
+    {
+
+    }
+
     enum TypeKind
+    {
+        {static}+TypeKind: ARRAY{readOnly}
+        {static}+TypeKind: DECLARED{readOnly}
+        {static}+TypeKind: ERROR{readOnly}
+        {static}+TypeKind: TYPEVAR{readOnly}
+        {static}+TypeKind: WILDCARD{readOnly}
+        {static}+TypeKind: PACKAGE{readOnly}
+        {static}+TypeKind: EXECUTABLE{readOnly}
+        {static}+TypeKind: OTHER{readOnly}
+        {static}+TypeKind: UNION{readOnly}
+        {static}+TypeKind: INTERSECTION{readOnly}
+        {static}+TypeKind: MODULE{readOnly}
+        {static}+TypeKind: BOOLEAN{readOnly}
+        {static}+TypeKind: BYTE{readOnly}
+        {static}+TypeKind: SHORT{readOnly}
+        {static}+TypeKind: INT{readOnly}
+        {static}+TypeKind: LONG{readOnly}
+        {static}+TypeKind: CHAR{readOnly}
+        {static}+TypeKind: DOUBLE{readOnly}
+        {static}+TypeKind: VOID{readOnly}
+        {static}+TypeKind: FLOAT{readOnly}
+        {static}+TypeKind: NONE{readOnly}
+        {static}+TypeKind: NULL{readOnly}
+        {static}+values(): TypeKind[]
+        {static}+valueOf(String name): TypeKind
+        +isPrimitive(): boolean
+    }
+
+    interface TypeMirror extends AnnotatedConstruct
+    {
+        getKind(): TypeKind
+        equals(Object obj): boolean
+        hashCode(): int
+        toString(): String
+        getAnnotationMirrors(): List<? extends AnnotationMirror>
+        getAnnotation(Class<A> annotationType): <A extends Annotation> A
+        getAnnotationsByType(Class<A> annotationType): <A extends Annotation> A[]
+        accept(TypeVisitor<R,P> v, P p): <R,P> R
+    }
+
+    interface TypeVariable extends ReferenceType
+    {
+        asElement(): Element
+        getUpperBound(): TypeMirror
+        getLowerBound(): TypeMirror
+    }
+
+    interface TypeVisitor<R,P>
+    {
+        visit(TypeMirror t,P p): R
+        visit(TypeMirror t): default R
+        visitPrimitive(PrimitiveType t,P p): R
+        visitNull(NullType t,P p): R
+        visitArray(ArrayType t,P p): R
+        visitDeclared(DeclaredType t,P p): R
+        visitError(ErrorType t,P p): R
+        visitTypeVariable(TypeVariable t,P p): R
+        visitWildcard(WildcardType t,P p): R
+        visitExecutable(ExecutableType t,P p): R
+        visitNoType(NoType t,P p): R
+        visitUnknown(TypeMirror t,P p): R
+        visitUnion(UnionType t,P p): R
+        visitIntersection(IntersectionType t,P p): R
+    }
+
+    interface UnionType extends TypeMirror
+    {
+        getAlternatives(): List<? extends TypeMirror>
+    }
+
+    class UnknownTypeException extends UnknownEntityException
+    {
+        +UnknownTypeException(TypeMirror t,Object p)
+        +getUnknownType(): TypeMirror
+        +getArgument(): Object
+    }
+
+    interface WildcardType extends TypeMirror
+    {
+        getExtendsBound(): TypeMirror
+        getSuperBound(): TypeMirror
+    }
 }
-
-
 
 
 
