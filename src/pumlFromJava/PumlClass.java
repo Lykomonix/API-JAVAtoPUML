@@ -11,6 +11,7 @@ import java.util.List;
 
 public class PumlClass extends PumlElement{
     private Element element;
+    private List<PumlLink> links= new ArrayList<>();
     public PumlClass(Element element)
     {
         this.element = element;
@@ -51,5 +52,10 @@ public class PumlClass extends PumlElement{
         }
 
         return builder.toString();
+    }
+
+    private void RetrieveLinks()
+    {
+
     }
 }

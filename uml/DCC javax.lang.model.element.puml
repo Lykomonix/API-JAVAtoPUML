@@ -19,7 +19,12 @@ package javax/lang/model.element
     }
     interface AnnotationValueVisitor
     {
-
+    visit(AnnotationValue av) : R
+    visit(AnnotationValue av, P p) : R
+    visitAnnotation(AnnotationMirror a, P p) : R
+    visitArray(List<? extends AnnotationValue> vals, P p) : R
+    visitBoolean(boolean b, P p) : R
+    visitByte(byte b, P p) : R
     }
     interface Element
     {
