@@ -5,7 +5,6 @@ skinparam style Strictuml
 
 package javax/lang/model.element
 {
-
     interface AnnotationMirror
     {
     getAnnotationType() : DeclaredType
@@ -25,7 +24,18 @@ package javax/lang/model.element
     visitArray(List<? extends AnnotationValue> vals, P p) : R
     visitBoolean(boolean b, P p) : R
     visitByte(byte b, P p) : R
+    visitChar(char c, P p) : R
+    visitDouble(double d, P p) : R
+    visitEnumConstant(VariableElement c, P p) : R
+    visitFloat(float f, P p)  : R
+    visitInt(int i, P p) : R
+    visitLong(long i, P p)  : R
+    visitShort(short s, P p) : R
+    visitString(String s, P p) : R
+    visitType(TypeMirror t, P p) : R
+    visitUnknown(AnnotationValue av, P p) : R
     }
+
     interface Element
     {
         accept(ElementVisitor<R,P> v, P p) : <R, P> R
@@ -41,25 +51,142 @@ package javax/lang/model.element
         getSimpleName() : Name
         hashCode() : int
     }
+    interface ElementVisitor
+    {
+    visit(Element e) : R
+    visit(Element e, P p) : R
+    visitExecutable(ExecutableElement e, P p) : R
+    visitPackage(PackageElement e, P p) : R
+    visitType(TypeElement e, P p) : R
+    visitTypeParameter(TypeParameterElement e, P p) : R
+    visitUnknown(Element e, P p) : R
+    visitVariable(VariableElement e, P p)  : R
+    }
     interface ExecutableElement
-    interface ModuleElement
-    interface ModuleElement/Directive
-    interface ModuleElement/DirectiveVisitor
-    interface ModuleElement/ExportsDirective
-    interface ModuleElement/OpensDirective
-    interface ModuleElement/ProvidesDirective
-    interface ModuleElement/RequiresDirective
-    interface ModuleElement/UsesDirective
+    {
+    getDefaultValue() : AnnotationValue
+    getParameters() : List<? extends VariableElement>
+    getReceiverType() : TypeMirror
+    getReturnType() : TypeMirror
+    getSimpleName() : Name
+    getThrownTypes() : List<? extends TypeMirror>
+    getTypeParameters() : List<? extends TypeParameterElement>
+    isDefault() : boolean
+    isVarArgs() : boolean
+    }
     interface Name
+    {
+    contentEquals(CharSequence cs) : boolean
+    equals(Object obj) : boolean
+    hashCode()  : int
+    }
     interface PackageElement
+    {
+    getEnclosedElements() : List<? extends Element>
+    getEnclosingElement() : Element
+    getQualifiedName() : Name
+    getSimpleName() : Name
+    isUnnamed() : boolean
+    }
     interface Parameterizable
+    {
+    getTypeParameters() : List<? extends TypeParameterElement>
+    }
     interface QualifiedNameable
-    interface RecordComponentElement
+    {
+    getQualifiedName() : Name
+    }
+    interface TypeElement
+    {
+    getEnclosedElements() : getEnclosedElements()
+    getEnclosingElement() : Element
+    getInterfaces() : List<? extends TypeMirror>
+    getNestingKind() : NestingKind
+    getQualifiedName() : Name
+    getSimpleName() : Name
+    getSuperclass() : TypeMirror
+    getTypeParameters() : List<? extends TypeParameterElement>
+    }
     interface TypeParameterElement
+    {
+    getBounds() : List<? extends TypeMirror>
+    getEnclosingElement() : Element
+    getGenericElement() : Element
+    }
     interface VariableElement
+    {
+    getConstantValue() : Object
+    getEnclosingElement() : Element
+    getSimpleName() : Name
+    }
+    enum ElementKind
+    {
+    ANNOTATION_TYPE
+    CLASS
+    CONSTRUCTOR
+    ENUM
+    ENUM_CONSTANT
+    EXCEPTION_PARAMETER
+    FIELD
+    INSTANCE_INIT
+    INTERFACE
+    LOCAL_VARIABLE
+    METHOD
+    OTHER
+    PACKAGE
+    PARAMETER
+    RESOURCE_VARIABLE
+    STATIC_INIT
+    TYPE_PARAMETER
+    }
+
+    enum Modifier
+    {
+    ABSTRACT
+    DEFAULT
+    FINAL
+    NATIVE
+    PRIVATE
+    PROTECTED
+    PUBLIC
+    STATIC
+    STRICTFP
+    SYNCHRONIZED
+    TRANSIENT
+    VOLATILE
+    }
+
+    enum NestingKind
+    {
+    ANONYMOUS
+    LOCAL
+    MEMBER
+    TOP_LEVEL
+    }
+
 }
 
+AnnotationValueVisitor ..> AnnotationValue : use
+AnnotationValueVisitor ..> AnnotationMirror : use
+AnnotationValueVisitor ..> VariableElement : use
+AnnotationValue ..> AnnotationValueVisitor : use
+
+ElementVisitor ..> Element : use
+ElementVisitor ..> ExecutableElement : use
 
 
 
+PackageElement ..|> Element
+ExecutableElement ..|> Element
+Parameterizable ..|> Element
+QualifiedNameable ..|> Element
+TypeParameterElement ..|> Element
+VariableElement ..|> Element
+
+ElementVisitor ..|> Parameterizable
+PackageElement ..|> QualifiedNameable
+
+TypeElement ..|> QualifiedNameable
+TypeElement ..|> Element
+TypeElement ..|> Parameterizable
 @enduml

@@ -4,6 +4,8 @@ import jdk.javadoc.doclet.DocletEnvironment;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 import java.util.List;
 import java.util.ArrayList;
 

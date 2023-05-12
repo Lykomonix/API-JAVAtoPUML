@@ -2,6 +2,7 @@ package pumlFromJava;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import java.lang.annotation.ElementType;
@@ -10,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PumlClass extends PumlElement{
-    private Element element;
+    private TypeElement element;
     private List<PumlLink> links= new ArrayList<>();
     public PumlClass(Element element)
     {
-        this.element = element;
+        this.element = (TypeElement)element;
     }
 
     public String getName() {
