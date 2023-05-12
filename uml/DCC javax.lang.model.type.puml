@@ -151,6 +151,24 @@ package javax/lang/model.type
         getExtendsBound(): TypeMirror
         getSuperBound(): TypeMirror
     }
+
+    MirroredTypeException ..> TypeMirror : use
+    MirroredTypesException ..> TypeMirror : use
+    TypeMirror ..> TypeVisitor : use
+    TypeVisitor ..> TypeMirror : use
+    TypeVisitor ..> ArrayType : use
+    TypeVisitor ..> DeclaredType : use
+    TypeVisitor ..> ErrorType : use
+    TypeVisitor ..> ExecutableType : use
+    TypeVisitor ..> IntersectionType : use
+    TypeVisitor ..> NoType : use
+    TypeVisitor ..> NullType : use
+    TypeVisitor ..> PrimitiveType : use
+    TypeVisitor ..> TypeVariable : use
+    TypeVisitor ..> UnionType : use
+    TypeVisitor ..> WildcardType : use
+    UnknownTypeException ..> TypeMirror : use
+
 }
 
 
