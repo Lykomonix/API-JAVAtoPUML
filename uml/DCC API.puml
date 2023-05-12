@@ -69,21 +69,45 @@ class PumlDiagram extends PumlElement
     + getPackageList(): List<PumlPackage>
 }
 
+class PumlPackage extends PumlElement
+{
+    - classList: List<PumlClass>
+    - interfaceList: List<PumlInterface>
+    - enumList: List<PumlEnum>
+    - element: Element
+    + <<create>> PumlPackage(Element element)
+    - RetrieveElements()
+    + toDCA(): String{redefines PumlElement::toDCA}
+    + getName(): String
+}
+
 class PumlClass extends PumlElement
 {
+    - element: Element
+    + <<create>> PumlPackage(Element element)
+    + getName(): String
+    + toDCA(): String{redefines PumlElement::toDCA}
+    - getPrimitiveVariables(): String
 }
 
 class PumlEnum extends PumlElement
 {
+    - element: Element
+    + <<create>> PumlPackage(Element element)
+    + getName(): String
+    + toDCA(): String{redefines PumlElement::toDCA}
+    - getEnumElements(): String
 }
 
 class PumlInterface extends PumlElement
 {
+    - element: Element
+    + <<create>> PumlPackage(Element element)
+    + getName(): String
+    + toDCA(): String{redefines PumlElement::toDCA}
 }
 
-class PumlPackage extends PumlElement
-{
-}
+
 
 PumlDoclet ..> PumlDiagram : use
 Java2Puml ..> PumlDoclet : lance
