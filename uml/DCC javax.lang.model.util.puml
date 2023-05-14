@@ -6,7 +6,45 @@ skinparam style Strictuml
 package javax/lang/model.util
 {
     interface Elements
+    {
+    getAllAnnotationMirrors(Element e) : List<? extends AnnotationMirror>
+    getAllMembers(TypeElement type)  : List<? extends Element>
+    getBinaryName(TypeElement type) : Name
+    getConstantExpression(Object value) : String
+    getDocComment(Element e) : String
+    getElementValuesWithDefaults(AnnotationMirror a) : Map<? extends ExecutableElement,? extends AnnotationValue>
+    getName(CharSequence cs) : Name
+    getPackageElement(CharSequence name) : PackageElement
+    getPackageOf(Element type) : PackageElement
+    getTypeElement(CharSequence name) : TypeElement
+    hides(Element hider, Element hidden) : boolean
+    isDeprecated(Element e) : boolean
+    isFunctionalInterface(TypeElement type) : boolean
+    overrides(ExecutableElement overrider, ExecutableElement overridden, TypeElement type) : boolean
+    printElements(Writer w, Element... elements)
+    }
     interface Types
+    {
+    asElement(TypeMirror t) : Element
+    asMemberOf(DeclaredType containing, Element element) : TypeMirror
+    boxedClass(PrimitiveType p) : TypeElement
+    capture(TypeMirror t) : TypeMirror
+    contains(TypeMirror t1, TypeMirror t2) : boolean
+    directSupertypes(TypeMirror t) : List<? extends TypeMirror>
+    erasure(TypeMirror t) : TypeMirror
+    getArrayType(TypeMirror componentType) : ArrayType
+    getDeclaredType(DeclaredType containing, TypeElement typeElem, TypeMirror... typeArgs) : DeclaredType
+    getDeclaredType(TypeElement typeElem, TypeMirror... typeArgs) : DeclaredType
+    getNoType(TypeKind kind) : NoType
+    getNullType() : NullType
+    getPrimitiveType(TypeKind kind) : PrimitiveType
+    getWildcardType(TypeMirror extendsBound, TypeMirror superBound) : WildcardType
+    isAssignable(TypeMirror t1, TypeMirror t2) : boolean
+    isSameType(TypeMirror t1, TypeMirror t2) : boolean
+    isSubsignature(ExecutableType m1, ExecutableType m2) : boolean
+    isSubtype(TypeMirror t1, TypeMirror t2) : boolean
+    unboxedType(TypeMirror t) : PrimitiveType
+    }
     enum Elements/Origin
     class AbstractAnnotationValueVisitor?
     class AbstractElementVisitor?

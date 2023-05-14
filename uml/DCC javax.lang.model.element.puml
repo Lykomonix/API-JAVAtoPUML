@@ -173,6 +173,7 @@ AnnotationValue ..> AnnotationValueVisitor : use
 
 ElementVisitor ..> Element : use
 ElementVisitor ..> ExecutableElement     : use
+ElementVisitor ..> PackageElement : use
 
 
 
@@ -189,4 +190,6 @@ PackageElement ..|> QualifiedNameable
 TypeElement ..|> QualifiedNameable
 TypeElement ..|> Element
 TypeElement ..|> Parameterizable
+
+Element ..> type.TypeMirror
 @enduml
