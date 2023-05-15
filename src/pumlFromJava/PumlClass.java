@@ -2,6 +2,7 @@ package pumlFromJava;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
@@ -34,6 +35,8 @@ public class PumlClass extends PumlElement implements PumlLinkable{
 
         builder.append("}\n");
 
+        ArrayList<PumlLink> test = getDCALinks();
+
         return builder.toString();
     }
 
@@ -54,9 +57,16 @@ public class PumlClass extends PumlElement implements PumlLinkable{
 
         return builder.toString();
     }
-
-    private void RetrieveLinks()
+    @Override
+    public ArrayList<PumlLink> getDCALinks()
     {
+        ArrayList<PumlLink> Links = new ArrayList<>();
 
+        for(Modifier modifier : this.element.getModifiers())
+        {
+            System.out.println(modifier.name().toString());
+        }
+
+        return Links;
     }
 }
