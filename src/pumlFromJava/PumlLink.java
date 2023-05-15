@@ -29,5 +29,5 @@ public class PumlLink
 
 enum LinkType
 {
-    EXTENDS,IMPLEMENT;
+    EXTENDS,IMPLEMENTS,ASSOCIATE;
 }

@@ -51,6 +51,16 @@ public class PumlPackage extends PumlElement{
             builder.append(element.toDCA() + "\n");
         }
 
+        for(PumlClass element : classList)
+        {
+            builder.append(element.linksToString() + "\n");
+        }
+
+        for(PumlInterface element : interfaceList)
+        {
+            builder.append(element.linksToString() + "\n");
+        }
+
         return builder.toString();
     }
 
@@ -58,4 +68,5 @@ public class PumlPackage extends PumlElement{
     {
         return this.element.getSimpleName().toString();
     }
+
 }

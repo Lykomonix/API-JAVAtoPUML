@@ -66,9 +66,33 @@ public class PumlInterface extends PumlElement implements PumlLinkable {
             String[] interfacesFullName = typeMirror.toString().split("\\.");
 
             PumlLink Link = new PumlLink(this.element.getSimpleName().toString(),
-                    interfacesFullName[interfacesFullName.length - 1], LinkType.IMPLEMENT);
+                    interfacesFullName[interfacesFullName.length - 1], LinkType.IMPLEMENTS);
             Links.add(Link);
         }
         return Links;
+    }
+
+    @Override
+    public String linksToString() {
+
+        StringBuilder builder = new StringBuilder();
+
+        for(PumlLink link : getLinks())
+        {
+            if(link.getLinkType() == LinkType.EXTENDS && !link.getSecondElement().equals("Object"))
+            {
+                builder.append(link.getFirstElement() + " --|> " + link.getSecondElement() + "\n");
+            }
+            else if(link.getLinkType() == LinkType.IMPLEMENTS)
+            {
+                builder.append(link.getFirstElement() + " ..|> " + link.getSecondElement() + "\n");
+            }
+            else if(link.getLinkType() == LinkType.ASSOCIATE)
+            {
+                builder.append(link.getFirstElement() + " --> " + link.getSecondElement() + "\n");
+            }
+        }
+
+        return builder.toString();
     }
 }

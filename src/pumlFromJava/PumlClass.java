@@ -33,22 +33,6 @@ public class PumlClass extends PumlElement implements PumlLinkable{
 
         builder.append("}\n");
 
-        for(PumlLink link : getLinks())
-        {
-            if(link.getLinkType() == LinkType.EXTENDS && !link.getSecondElement().equals("Object"))
-            {
-                builder.append(link.getFirstElement() + " --|> " + link.getSecondElement() + "\n");
-            }
-            else if(link.getLinkType() == LinkType.IMPLEMENTS)
-            {
-                builder.append(link.getFirstElement() + " ..|> " + link.getSecondElement() + "\n");
-            }
-            else if(link.getLinkType() == LinkType.ASSOCIATE)
-            {
-                builder.append(link.getFirstElement() + " --> " + link.getSecondElement() + "\n");
-            }
-        }
-
         return builder.toString();
     }
 
@@ -120,18 +104,37 @@ public class PumlClass extends PumlElement implements PumlLinkable{
         {
             if(enclosedElement.getKind() == ElementKind.FIELD)
             {
-                System.out.println(enclosedElement);
                 if(enclosedElement.asType().getKind() == TypeKind.DECLARED)
                 {
                     PumlLink link = new PumlLink(this.element.getSimpleName().toString(),
                             enclosedElement.getSimpleName().toString(),LinkType.ASSOCIATE);
-
-                    System.out.println(enclosedElement.toString());
-
-                    links.add(link);
                 }
             }
         }
         return links;
+    }
+
+    @Override
+    public String linksToString() {
+
+        StringBuilder builder = new StringBuilder();
+
+        for(PumlLink link : getLinks())
+        {
+            if(link.getLinkType() == LinkType.EXTENDS && !link.getSecondElement().equals("Object"))
+            {
+                builder.append(link.getFirstElement() + " --|> " + link.getSecondElement() + "\n");
+            }
+            else if(link.getLinkType() == LinkType.IMPLEMENTS)
+            {
+                builder.append(link.getFirstElement() + " ..|> " + link.getSecondElement() + "\n");
+            }
+            else if(link.getLinkType() == LinkType.ASSOCIATE)
+            {
+                builder.append(link.getFirstElement() + " --> " + link.getSecondElement() + "\n");
+            }
+        }
+
+        return builder.toString();
     }
 }
