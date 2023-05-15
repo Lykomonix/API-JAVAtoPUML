@@ -4,6 +4,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +34,13 @@ public class PumlClass extends PumlElement implements PumlLinkable{
 
         for(PumlLink link : getLinks())
         {
-            if(!link.getSecondElement().equals("Object"))
+            if(!link.getSecondElement().equals("Object") && link.getLinkType() == LinkType.EXTENDS)
             {
                 builder.append(link.getFirstElement() + " --|> " + link.getSecondElement() + "\n");
+            }
+            else if(link.getLinkType() == LinkType.IMPLEMENT)
+            {
+                builder.append(link.getFirstElement() + " ..|> " + link.getSecondElement() + "\n");
             }
         }
 
@@ -64,13 +69,13 @@ public class PumlClass extends PumlElement implements PumlLinkable{
     {
         ArrayList<PumlLink> links = new ArrayList<>();
 
-        links.add(this.getSuperClasse());
+        links.add(this.getSuperClass());
         links.addAll(this.getInterfaces());
 
         return links;
     }
 
-    private PumlLink getSuperClasse()
+    private PumlLink getSuperClass()
     {
         TypeElement typeElement = this.element;
 
@@ -85,5 +90,19 @@ public class PumlClass extends PumlElement implements PumlLinkable{
     private ArrayList<PumlLink> getInterfaces()
     {
         ArrayList<PumlLink> links = new ArrayList<>();
+
+        TypeElement typeElement = this.element;
+
+        for(TypeMirror typeMirror : typeElement.getInterfaces())
+        {
+            String[] interfaceFullName = typeMirror.toString().split("\\.");
+
+            PumlLink link = new PumlLink(typeElement.getSimpleName().toString(),
+                    interfaceFullName[interfaceFullName.length - 1], LinkType.IMPLEMENT);
+
+            links.add(link);
+        }
+
+        return links;
     }
 }

@@ -24,7 +24,7 @@ public class PumlInterface extends PumlElement implements PumlLinkable {
     }
 
     @Override
-    public ArrayList<PumlLink> getDCALinks() {
+    public ArrayList<PumlLink> getLinks() {
         return null;
     }
 }

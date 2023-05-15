@@ -16,6 +16,7 @@ recompense
 estLibre
 }
 Brigand --|> Personnage
+Brigand ..|> HorsLaLoi
 
 class Cowboy
 {
@@ -41,11 +42,13 @@ Narrateur --|> Personnage
 class Personnage
 {
 }
+Personnage ..|> Nommable
 
 class Ripou
 {
 }
 Ripou --|> Cowboy
+Ripou ..|> HorsLaLoi
 
 class Substantif
 {
