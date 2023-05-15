@@ -2,7 +2,7 @@ package pumlFromJava;
 
 import javax.lang.model.element.Element;
 
-public class PumlInterface extends PumlElement {
+public class PumlInterface extends PumlElement implements PumlLinkable {
     private Element element;
     public PumlInterface(Element element)
     {

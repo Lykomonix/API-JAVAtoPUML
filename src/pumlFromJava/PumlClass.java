@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PumlClass extends PumlElement{
+public class PumlClass extends PumlElement implements PumlLinkable{
     private TypeElement element;
     private List<PumlLink> links= new ArrayList<>();
     public PumlClass(Element element)
