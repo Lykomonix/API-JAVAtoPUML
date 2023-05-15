@@ -2,12 +2,8 @@ package pumlFromJava;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
-import javax.lang.model.type.TypeMirror;
-import java.lang.annotation.ElementType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,27 +64,26 @@ public class PumlClass extends PumlElement implements PumlLinkable{
     {
         ArrayList<PumlLink> links = new ArrayList<>();
 
-        links.addAll(getSuperClasses());
+        links.add(this.getSuperClasse());
+        links.addAll(this.getInterfaces());
 
         return links;
     }
 
-    private ArrayList<PumlLink> getSuperClasses()
+    private PumlLink getSuperClasse()
     {
-        ArrayList<PumlLink> links = new ArrayList<>();
-
         TypeElement typeElement = this.element;
 
         String[] superClassFullName = typeElement.getSuperclass().toString().split("\\.");
 
-        links.add(new PumlLink(typeElement.getSimpleName().toString(),
-                superClassFullName[superClassFullName.length - 1], LinkType.EXTENDS));
+        PumlLink link = new PumlLink(typeElement.getSimpleName().toString(),
+                superClassFullName[superClassFullName.length - 1], LinkType.EXTENDS);
 
-        return links;
+        return link;
     }
 
     private ArrayList<PumlLink> getInterfaces()
     {
-
+        ArrayList<PumlLink> links = new ArrayList<>();
     }
 }
