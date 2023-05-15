@@ -5,7 +5,9 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 hide empty members
 
+
 Package "western" {
+
 class Boisson
 {
 }
@@ -46,6 +48,7 @@ Personnage ..|> Nommable
 
 class Ripou
 {
+
 }
 Ripou --|> Cowboy
 Ripou ..|> HorsLaLoi
@@ -54,8 +57,16 @@ class Substantif
 {
 }
 
-class "<<interface>>\n HorsLaLoi"
-class "<<interface>>\n Nommable"
+class "<<interface>>\n HorsLaLoi" as HorsLaLoi
+{
+
+}
+HorsLaLoi --|> none
+HorsLaLoi ..|> Nommable
+
+class "<<interface>>\n Nommable" as Nommable
+Nommable --|> none
+
 class "<<enumeration>>\nGenre"
 {
 FEMININ
