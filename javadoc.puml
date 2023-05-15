@@ -15,16 +15,19 @@ class Brigand
 recompense
 estLibre
 }
+Brigand --|> Personnage
 
 class Cowboy
 {
 gains
 }
+Cowboy --|> Personnage
 
 class Dame
 {
 estLibre
 }
+Dame --|> Personnage
 
 class Histoire4
 {
@@ -33,6 +36,7 @@ class Histoire4
 class Narrateur
 {
 }
+Narrateur --|> Personnage
 
 class Personnage
 {
@@ -41,6 +45,7 @@ class Personnage
 class Ripou
 {
 }
+Ripou --|> Cowboy
 
 class Substantif
 {

@@ -4,13 +4,13 @@ import javax.lang.model.element.Element;
 
 public class PumlLink
 {
-    private PumlElement firstElement;
-    private PumlElement secondElement;
+    private String firstElement;
+    private String secondElement;
     private LinkType linkType;
-    PumlLink(PumlElement pumlElement1,PumlElement pumlElement2, LinkType linkType)
+    PumlLink(String firstElement,String secondElement, LinkType linkType)
     {
-        this.firstElement = pumlElement1;
-        this.secondElement = pumlElement2;
+        this.firstElement = firstElement;
+        this.secondElement = secondElement;
         this.linkType = linkType;
     }
 
@@ -18,11 +18,11 @@ public class PumlLink
         return linkType;
     }
 
-    public PumlElement getFirstElement() {
+    public String getFirstElement() {
         return firstElement;
     }
 
-    public PumlElement getSecondElement() {
+    public String getSecondElement() {
         return secondElement;
     }
 }

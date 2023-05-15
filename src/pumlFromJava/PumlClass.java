@@ -35,7 +35,13 @@ public class PumlClass extends PumlElement implements PumlLinkable{
 
         builder.append("}\n");
 
-        ArrayList<PumlLink> test = getDCALinks();
+        for(PumlLink link : getDCALinks())
+        {
+            if(!link.getSecondElement().equals("Object"))
+            {
+                builder.append(link.getFirstElement() + " --|> " + link.getSecondElement() + "\n");
+            }
+        }
 
         return builder.toString();
     }
@@ -62,10 +68,12 @@ public class PumlClass extends PumlElement implements PumlLinkable{
     {
         ArrayList<PumlLink> Links = new ArrayList<>();
 
-        for(Modifier modifier : this.element.getModifiers())
-        {
-            System.out.println(modifier.name().toString());
-        }
+        TypeElement typeElement = this.element;
+
+        String[] superClassFullName = typeElement.getSuperclass().toString().split("\\.");
+
+        Links.add(new PumlLink(typeElement.getSimpleName().toString(),
+                superClassFullName[superClassFullName.length - 1], LinkType.EXTENDS));
 
         return Links;
     }
