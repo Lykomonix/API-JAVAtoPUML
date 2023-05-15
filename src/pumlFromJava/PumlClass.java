@@ -35,7 +35,7 @@ public class PumlClass extends PumlElement implements PumlLinkable{
 
         builder.append("}\n");
 
-        for(PumlLink link : getDCALinks())
+        for(PumlLink link : getLinks())
         {
             if(!link.getSecondElement().equals("Object"))
             {
@@ -64,17 +64,31 @@ public class PumlClass extends PumlElement implements PumlLinkable{
         return builder.toString();
     }
     @Override
-    public ArrayList<PumlLink> getDCALinks()
+    public ArrayList<PumlLink> getLinks()
     {
-        ArrayList<PumlLink> Links = new ArrayList<>();
+        ArrayList<PumlLink> links = new ArrayList<>();
+
+        links.addAll(getSuperClasses());
+
+        return links;
+    }
+
+    private ArrayList<PumlLink> getSuperClasses()
+    {
+        ArrayList<PumlLink> links = new ArrayList<>();
 
         TypeElement typeElement = this.element;
 
         String[] superClassFullName = typeElement.getSuperclass().toString().split("\\.");
 
-        Links.add(new PumlLink(typeElement.getSimpleName().toString(),
+        links.add(new PumlLink(typeElement.getSimpleName().toString(),
                 superClassFullName[superClassFullName.length - 1], LinkType.EXTENDS));
 
-        return Links;
+        return links;
+    }
+
+    private ArrayList<PumlLink> getInterfaces()
+    {
+
     }
 }
