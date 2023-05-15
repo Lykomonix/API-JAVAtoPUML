@@ -22,17 +22,6 @@ public class PumlInterface extends PumlElement implements PumlLinkable {
 
         builder.append("class \"<<interface>>\\n " + this.element.getSimpleName()+"\" as "+this.element.getSimpleName()+"\n");
 
-        for(PumlLink pumlLink : getLinks())
-        {
-            if(pumlLink.getLinkType() == LinkType.EXTENDS && !pumlLink.getSecondElement().equals("Object"))
-            {
-                builder.append(pumlLink.getFirstElement() + " --|> " + pumlLink.getSecondElement()+"\n");
-            }
-            else
-            {
-                builder.append(pumlLink.getFirstElement() + " ..|> " + pumlLink.getSecondElement()+"\n");
-            }
-        }
         return builder.toString();
     }
 
@@ -40,24 +29,14 @@ public class PumlInterface extends PumlElement implements PumlLinkable {
     public ArrayList<PumlLink> getLinks() {
         ArrayList<PumlLink> Links = new ArrayList<>();
 
-        Links.add(getSuperClass());
+
 
         Links.addAll(getInterfaces());
 
         return Links;
     }
 
-    private PumlLink getSuperClass() {
 
-        TypeElement typeElement = (TypeElement)this.element;
-
-        String[] superClassFullName = typeElement.getSuperclass().toString().split("\\.");
-
-        PumlLink Link = new PumlLink(typeElement.getSimpleName().toString(),
-                superClassFullName[superClassFullName.length - 1], LinkType.EXTENDS);
-
-        return Link;
-    }
 
     public ArrayList<PumlLink> getInterfaces(){
         ArrayList<PumlLink> Links = new ArrayList<PumlLink>();
@@ -79,17 +58,9 @@ public class PumlInterface extends PumlElement implements PumlLinkable {
 
         for(PumlLink link : getLinks())
         {
-            if(link.getLinkType() == LinkType.EXTENDS && !link.getSecondElement().equals("Object"))
+            if(link.getLinkType() == LinkType.IMPLEMENTS && !link.getSecondElement().equals("none"))
             {
                 builder.append(link.getFirstElement() + " --|> " + link.getSecondElement() + "\n");
-            }
-            else if(link.getLinkType() == LinkType.IMPLEMENTS)
-            {
-                builder.append(link.getFirstElement() + " ..|> " + link.getSecondElement() + "\n");
-            }
-            else if(link.getLinkType() == LinkType.ASSOCIATE)
-            {
-                builder.append(link.getFirstElement() + " --> " + link.getSecondElement() + "\n");
             }
         }
 

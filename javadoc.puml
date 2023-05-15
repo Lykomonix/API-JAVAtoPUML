@@ -47,11 +47,8 @@ class Substantif
 }
 
 class "<<interface>>\n HorsLaLoi" as HorsLaLoi
-HorsLaLoi --|> none
-HorsLaLoi ..|> Nommable
 
 class "<<interface>>\n Nommable" as Nommable
-Nommable --|> none
 
 class "<<enumeration>>\nGenre"
 {
@@ -59,45 +56,25 @@ FEMININ
 MASCULIN
 }
 
-Boisson --> substantif
-Boisson --> EAU
 
 Brigand --|> Personnage
 Brigand ..|> HorsLaLoi
-Brigand --> LOOK_PAR_DEFAUT
-Brigand --> look
-Brigand --> captives
-Brigand --> gardien
-Brigand --> boissonParDefaut
 
 Cowboy --|> Personnage
-Cowboy --> captures
-Cowboy --> boissonParDefaut
 
 Dame --|> Personnage
-Dame --> sauveur
-Dame --> ravisseur
-Dame --> boissonParDefaut
 
 
 Narrateur --|> Personnage
 
 Personnage ..|> Nommable
-Personnage --> BOISSON_PAR_DEFAUT
-Personnage --> nom
-Personnage --> boisson
 
 Ripou --|> Cowboy
 Ripou ..|> HorsLaLoi
-Ripou --> brigand
 
-Substantif --> nom
-Substantif --> genre
 
-HorsLaLoi --|> none
-HorsLaLoi ..|> Nommable
+HorsLaLoi --|> Nommable
 
-Nommable --|> none
 
 }
 
