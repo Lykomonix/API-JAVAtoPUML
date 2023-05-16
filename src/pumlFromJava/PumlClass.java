@@ -5,16 +5,22 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.type.TypeVariable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PumlClass extends PumlElement implements PumlLinkable{
+public class PumlClass extends PumlElement {
+
     private TypeElement element;
-    private List<PumlLink> links= new ArrayList<>();
+
+    private ArrayList<PumlLink> links;
+
+    private ArrayList<PumlVariable> variableList = new ArrayList<>();
+
     public PumlClass(Element element)
     {
         this.element = (TypeElement)element;
+        RetrieveVariables();
+        links = PumlLink.RetrieveLinks(this.element, variableList);
     }
 
     public String getName() {
@@ -29,112 +35,35 @@ public class PumlClass extends PumlElement implements PumlLinkable{
 
         builder.append("{\n");
 
-        builder.append(getPrimitiveVariables());
+        for(PumlVariable variable : variableList)
+        {
+            if(variable.getKind() == VariableKind.PRIMITIVE)
+            {
+                builder.append(variable.toDCA());
+            }
+        }
 
         builder.append("}\n");
 
         return builder.toString();
     }
 
-    private String getPrimitiveVariables()
+    private void RetrieveVariables()
     {
-        StringBuilder builder = new StringBuilder();
-
         for(Element enclosedElement : this.element.getEnclosedElements())
         {
-            if(enclosedElement.getKind() == ElementKind.FIELD)
+            if(enclosedElement.getKind() == ElementKind.FIELD && enclosedElement.asType().getKind() == TypeKind.DECLARED)
             {
-                if(enclosedElement.asType().getKind() != TypeKind.DECLARED)
-                {
-                    builder.append(enclosedElement.getSimpleName() + "\n");
-                }
+                variableList.add(new PumlVariable(enclosedElement,VariableKind.OBJECT));
+            }
+            else if(enclosedElement.getKind() == ElementKind.FIELD)
+            {
+                variableList.add(new PumlVariable(enclosedElement,VariableKind.PRIMITIVE));
             }
         }
-
-        return builder.toString();
     }
-    @Override
-    public ArrayList<PumlLink> getLinks()
-    {
-        ArrayList<PumlLink> links = new ArrayList<>();
 
-        links.add(this.getSuperClass());
-        links.addAll(this.getInterfaces());
-        links.addAll(this.getAssociatons());
-
+    public ArrayList<PumlLink> getLinks() {
         return links;
-    }
-
-    private PumlLink getSuperClass()
-    {
-        TypeElement typeElement = this.element;
-
-        String[] superClassFullName = typeElement.getSuperclass().toString().split("\\.");
-
-        PumlLink link = new PumlLink(typeElement.getSimpleName().toString(),
-                superClassFullName[superClassFullName.length - 1], LinkType.EXTENDS);
-
-        return link;
-    }
-
-    private ArrayList<PumlLink> getInterfaces()
-    {
-        ArrayList<PumlLink> links = new ArrayList<>();
-
-        TypeElement typeElement = this.element;
-
-        for(TypeMirror typeMirror : typeElement.getInterfaces())
-        {
-            String[] interfaceFullName = typeMirror.toString().split("\\.");
-
-            PumlLink link = new PumlLink(typeElement.getSimpleName().toString(),
-                    interfaceFullName[interfaceFullName.length - 1], LinkType.IMPLEMENTS);
-
-            links.add(link);
-        }
-
-        return links;
-    }
-
-    private ArrayList<PumlLink> getAssociatons()
-    {
-        ArrayList<PumlLink> links = new ArrayList<>();
-
-        for(Element enclosedElement : this.element.getEnclosedElements())
-        {
-            if(enclosedElement.getKind() == ElementKind.FIELD)
-            {
-                if(enclosedElement.asType().getKind() == TypeKind.DECLARED)
-                {
-                    PumlLink link = new PumlLink(this.element.getSimpleName().toString(),
-                            enclosedElement.getSimpleName().toString(),LinkType.ASSOCIATE);
-                }
-            }
-        }
-        return links;
-    }
-
-    @Override
-    public String linksToString() {
-
-        StringBuilder builder = new StringBuilder();
-
-        for(PumlLink link : getLinks())
-        {
-            if(link.getLinkType() == LinkType.EXTENDS && !link.getSecondElement().equals("Object"))
-            {
-                builder.append(link.getFirstElement() + " --|> " + link.getSecondElement() + "\n");
-            }
-            else if(link.getLinkType() == LinkType.IMPLEMENTS)
-            {
-                builder.append(link.getFirstElement() + " ..|> " + link.getSecondElement() + "\n");
-            }
-            else if(link.getLinkType() == LinkType.ASSOCIATE)
-            {
-                builder.append(link.getFirstElement() + " --> " + link.getSecondElement() + "\n");
-            }
-        }
-
-        return builder.toString();
     }
 }

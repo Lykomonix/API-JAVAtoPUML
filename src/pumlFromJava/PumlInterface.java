@@ -5,11 +5,16 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
 
-public class PumlInterface extends PumlElement implements PumlLinkable {
+public class PumlInterface extends PumlElement {
+
     private Element element;
+
+    private ArrayList<PumlLink> links;
+
     public PumlInterface(Element element)
     {
         this.element = element;
+        links = PumlLink.RetrieveLinks(element,null);
     }
 
     public String getName() {
@@ -25,38 +30,11 @@ public class PumlInterface extends PumlElement implements PumlLinkable {
         return builder.toString();
     }
 
-    @Override
-    public ArrayList<PumlLink> getLinks() {
-        ArrayList<PumlLink> Links = new ArrayList<>();
-
-
-
-        Links.addAll(getInterfaces());
-
-        return Links;
-    }
-
-
-
-    public ArrayList<PumlLink> getInterfaces(){
-        ArrayList<PumlLink> Links = new ArrayList<PumlLink>();
-        for(TypeMirror typeMirror : ((TypeElement)this.element).getInterfaces())
-        {
-            String[] interfacesFullName = typeMirror.toString().split("\\.");
-
-            PumlLink Link = new PumlLink(this.element.getSimpleName().toString(),
-                    interfacesFullName[interfacesFullName.length - 1], LinkType.IMPLEMENTS);
-            Links.add(Link);
-        }
-        return Links;
-    }
-
-    @Override
     public String linksToString() {
 
         StringBuilder builder = new StringBuilder();
 
-        for(PumlLink link : getLinks())
+        for(PumlLink link : links)
         {
             if(link.getLinkType() == LinkType.IMPLEMENTS && !link.getSecondElement().equals("none"))
             {

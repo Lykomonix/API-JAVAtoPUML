@@ -6,7 +6,9 @@ import javax.lang.model.util.ElementFilter;
 import java.util.Enumeration;
 
 public class PumlEnum extends PumlElement{
+
     private Element element;
+
     public PumlEnum(Element element)
     {
         this.element = element;
@@ -39,5 +41,7 @@ public class PumlEnum extends PumlElement{
         }
         return builder.toString();
     }
+
+
 
 }

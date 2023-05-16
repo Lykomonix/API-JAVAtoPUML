@@ -53,7 +53,7 @@ public class PumlPackage extends PumlElement{
 
         for(PumlClass element : classList)
         {
-            builder.append(element.linksToString() + "\n");
+            builder.append(PumlLink.linksToString(element.getLinks()) + "\n");
         }
 
         for(PumlInterface element : interfaceList)
