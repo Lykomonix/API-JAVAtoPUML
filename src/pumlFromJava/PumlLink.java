@@ -112,7 +112,7 @@ public class PumlLink
             }
             else if(link.getLinkType() == LinkType.ASSOCIATE)
             {
-                builder.append(link.getFirstElement() + " --> " + link.getSecondElement() + "\n");
+                builder.append(link.getFirstElement() + " -- " + link.getSecondElement() + "\n");
             }
         }
 

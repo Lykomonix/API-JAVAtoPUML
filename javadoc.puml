@@ -50,40 +50,40 @@ class "<<interface>>\n HorsLaLoi" as HorsLaLoi
 
 class "<<interface>>\n Nommable" as Nommable
 
-class "<<enumeration>>\nGenre"
+class "<<enumeration>>\n Genre" as Genre
 {
 FEMININ
 MASCULIN
 }
 
-Boisson --> Substantif
-Boisson --> Boisson
+Boisson -- Substantif
+Boisson -- Boisson
 
 Brigand --|> Personnage
 Brigand ..|> HorsLaLoi
-Brigand --> Cowboy
-Brigand --> Boisson
+Brigand -- Cowboy
+Brigand -- Boisson
 
 Cowboy --|> Personnage
-Cowboy --> Boisson
+Cowboy -- Boisson
 
 Dame --|> Personnage
-Dame --> Cowboy
-Dame --> HorsLaLoi
-Dame --> Boisson
+Dame -- Cowboy
+Dame -- HorsLaLoi
+Dame -- Boisson
 
 
 Narrateur --|> Personnage
 
 Personnage ..|> Nommable
-Personnage --> Boisson
-Personnage --> Boisson
+Personnage -- Boisson
+Personnage -- Boisson
 
 Ripou --|> Cowboy
 Ripou ..|> HorsLaLoi
-Ripou --> Brigand
+Ripou -- Brigand
 
-Substantif --> Genre
+Substantif -- Genre
 
 HorsLaLoi --|> Nommable
 
