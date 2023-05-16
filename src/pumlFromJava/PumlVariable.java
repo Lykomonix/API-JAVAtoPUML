@@ -47,6 +47,6 @@ public class PumlVariable extends PumlElement {
 
 enum VariableKind
 {
-    PRIMITIVE,OBJECT;
+    PRIMITIVE,OBJECT,ENUM;
 }
 
