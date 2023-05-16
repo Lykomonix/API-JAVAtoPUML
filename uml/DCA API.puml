@@ -38,7 +38,6 @@ PumlPackage o..> PumlEnum : use
 PumlLink ..> LinkType : use
 PumlInterface o--> PumlLink
 PumlClass o--> PumlLink
-
 }
 
 @enduml

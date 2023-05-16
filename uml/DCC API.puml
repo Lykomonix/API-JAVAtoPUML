@@ -81,7 +81,7 @@ class PumlPackage extends PumlElement
     + getName(): String
 }
 
-class PumlClass extends PumlElement
+class PumlClass extends PumlElement implements PumlLinkable
 {
     - element: Element
     + <<create>> PumlPackage(Element element)
@@ -99,7 +99,7 @@ class PumlEnum extends PumlElement
     - getEnumElements(): String
 }
 
-class PumlInterface extends PumlElement
+class PumlInterface extends PumlElement implements PumlLinkable
 {
     - element: Element
     + <<create>> PumlPackage(Element element)
@@ -107,6 +107,11 @@ class PumlInterface extends PumlElement
     + toDCA(): String{redefines PumlElement::toDCA}
 }
 
+class PumlLink
+
+Interface PumlLinkable
+
+enum LinkType
 
 
 PumlDoclet ..> PumlDiagram : use
@@ -117,6 +122,9 @@ PumlPackage o..> PumlInterface : use
 PumlPackage o..> PumlEnum : use
 PumlDoclet *--> OutOption : nested class
 PumlDoclet *--> DirectoryOption : nested class
+PumlLink ..> LinkType : use
+PumlInterface o--> PumlLink
+PumlClass o--> PumlLink
 }
 
 @enduml
