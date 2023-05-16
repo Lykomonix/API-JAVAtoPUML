@@ -8,36 +8,26 @@ hide empty members
 Package "pumlFromJava" {
 
 class Java2Puml
-{
-}
 
 class PumlDoclet implements Doclet
-{
-}
 
 class PumlElement
-{
-}
 
 class PumlDiagram extends PumlElement
-{
-}
 
-class PumlClass extends PumlElement
-{
-}
+class PumlClass extends PumlElement implements PumlLinkable
 
 class PumlEnum extends PumlElement
-{
-}
 
-class PumlInterface extends PumlElement
-{
-}
+class PumlInterface extends PumlElement implements PumlLinkable
 
 class PumlPackage extends PumlElement
-{
-}
+
+class PumlLink
+
+Interface PumlLinkable
+
+enum LinkType
 
 PumlDoclet ..> PumlDiagram : use
 Java2Puml ..> PumlDoclet : lance
@@ -45,6 +35,9 @@ PumlDiagram o...> PumlPackage : use
 PumlPackage o..> PumlClass : use
 PumlPackage o..> PumlInterface : use
 PumlPackage o..> PumlEnum : use
+PumlLink ..> LinkType : use
+PumlInterface o--> PumlLink
+PumlClass o--> PumlLink
 }
 
 @enduml
