@@ -11,7 +11,7 @@ public class PumlLink
     private String firstElement;
     private String secondElement;
     private LinkType linkType;
-    PumlLink(String firstElement,String secondElement, LinkType linkType)
+    public PumlLink(String firstElement,String secondElement, LinkType linkType)
     {
         this.firstElement = firstElement;
         this.secondElement = secondElement;

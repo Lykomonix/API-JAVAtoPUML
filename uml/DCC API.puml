@@ -7,6 +7,39 @@ hide empty members
 
 Package "pumlFromJava" {
 
+
+class PumlLink
+
+Interface PumlLinkable
+
+enum LinkType
+
+enum VariableKind
+
+PumlDoclet ..> PumlDiagram : use
+Java2Puml ..> PumlDoclet : lance
+PumlDiagram o...> PumlPackage : use
+PumlPackage o..> PumlClass : use
+PumlPackage o..> PumlInterface : use
+PumlPackage o..> PumlEnum : use
+PumlDoclet *--> OutOption : nested class
+PumlDoclet *--> DirectoryOption : nested class
+PumlLink ..> LinkType : use
+PumlInterface o--> PumlLink
+PumlClass o--> PumlLink
+VariableKind ..> PumlVariable
+}
+
+@enduml
+@startuml
+
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+hide empty members
+
+Package "pumlFromJava" {
+
 class Java2Puml
 {
     + {static} Main(String[] args)
@@ -44,8 +77,8 @@ class DirectoryOption implements Doclet.Option
     + getNames(): List<String>{redefines Doclet.Option::getNames}
     + getParameters(): String{redefines Doclet.Option::getParameters}
     + process(String option, List<String> arguments): boolean{redefines Doclet.Option::process}
-
 }
+
 
 class PumlElement
 {
@@ -81,7 +114,7 @@ class PumlPackage extends PumlElement
     + getName(): String
 }
 
-class PumlClass extends PumlElement implements PumlLinkable
+class PumlClass extends PumlElement
 {
     - element: Element
     + <<create>> PumlPackage(Element element)
@@ -99,7 +132,7 @@ class PumlEnum extends PumlElement
     - getEnumElements(): String
 }
 
-class PumlInterface extends PumlElement implements PumlLinkable
+class PumlInterface extends PumlElement
 {
     - element: Element
     + <<create>> PumlPackage(Element element)
@@ -108,11 +141,45 @@ class PumlInterface extends PumlElement implements PumlLinkable
 }
 
 class PumlLink
+{
+    - firstElement: String
+    - secondElement: String
+    - linkType: LinkType
+    + <<create>> PumlLink(String firstElement,String secondElement, LinkType linkType)
+    + getLinkType(): LinkType
+    + getFirstElement(): String
+    + getSecondElement(): String
+    {static}+ RetrieveLinks(Element element, ArrayList<PumlVariable> variableList): ArrayList<PumlLink>
+    {static}- getSuperClassLink(Element element): PumlLink
+    {static}- getInterfacesLinks(Element element): ArrayList<PumlLink>
+    {static}- getAssociatons(Element element, ArrayList<PumlVariable> variableList): ArrayList<PumlLink>
+    {static}+ linksToString(ArrayList<PumlLink> links): String
+}
 
-Interface PumlLinkable
+class PumlVariable extends PumlElement
+{
+    - Element: element
+    - VariableKind: kind
+    + <<create>> PumlVariable(Element element, VariableKind kind)
+    + TypeToString(): String
+    + toDCA(): String
+    + getElement(): Element
+    + getKind(): VariableKind
+}
 
 enum LinkType
+{
+    EXTENDS
+    IMPLEMENTS
+    ASSOCIATE
+}
 
+enum VariableKind
+{
+    PRIMITIVE
+    OBJECT
+    ENUM
+}
 
 PumlDoclet ..> PumlDiagram : use
 Java2Puml ..> PumlDoclet : lance
@@ -120,12 +187,12 @@ PumlDiagram o...> PumlPackage : use
 PumlPackage o..> PumlClass : use
 PumlPackage o..> PumlInterface : use
 PumlPackage o..> PumlEnum : use
-PumlDoclet *--> OutOption : nested class
-PumlDoclet *--> DirectoryOption : nested class
 PumlLink ..> LinkType : use
 PumlInterface o--> PumlLink
 PumlClass o--> PumlLink
+VariableKind ..> PumlVariable
 }
 
 @enduml
+
 

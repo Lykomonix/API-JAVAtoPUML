@@ -7,7 +7,7 @@ public class PumlVariable extends PumlElement {
     private Element element;
     private VariableKind kind;
 
-    PumlVariable(Element element, VariableKind kind)
+    public PumlVariable(Element element, VariableKind kind)
     {
         this.element = element;
         this.kind = kind;
