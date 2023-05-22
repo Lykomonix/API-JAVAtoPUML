@@ -30,6 +30,15 @@ public class PumlInterface extends PumlElement {
         return builder.toString();
     }
 
+    @Override
+    public String toDCC() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("class \"<<interface>>\\n " + this.element.getSimpleName()+"\" as "+this.element.getSimpleName()+"\n");
+
+        return builder.toString();
+    }
+
     public String linksToString() {
 
         StringBuilder builder = new StringBuilder();

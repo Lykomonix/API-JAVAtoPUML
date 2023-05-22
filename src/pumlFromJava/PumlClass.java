@@ -15,6 +15,7 @@ public class PumlClass extends PumlElement {
     private ArrayList<PumlLink> links;
 
     private ArrayList<PumlVariable> variableList = new ArrayList<>();
+    private ArrayList<PumlMethod> methodList = new ArrayList<>();
 
     public PumlClass(Element element)
     {
@@ -48,6 +49,24 @@ public class PumlClass extends PumlElement {
         return builder.toString();
     }
 
+    @Override
+    public String toDCC() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("class " + this.element.getSimpleName() + "\n");
+
+        builder.append("{\n");
+
+        for(PumlVariable variable : variableList)
+        {
+            builder.append(variable.toDCC());
+        }
+
+        builder.append("}\n");
+
+        return builder.toString();
+    }
+
     private void RetrieveVariables()
     {
         for(Element enclosedElement : this.element.getEnclosedElements())
@@ -59,6 +78,17 @@ public class PumlClass extends PumlElement {
             else if(enclosedElement.getKind() == ElementKind.FIELD)
             {
                 variableList.add(new PumlVariable(enclosedElement,VariableKind.PRIMITIVE));
+            }
+        }
+    }
+
+    private void RetrieveMethods()
+    {
+        for(Element enclosedElement : this.element.getEnclosedElements())
+        {
+            if(enclosedElement.getKind() == ElementKind.METHOD)
+            {
+                methodList.add(new PumlMethod()));
             }
         }
     }

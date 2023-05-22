@@ -29,6 +29,18 @@ public class PumlEnum extends PumlElement{
 
         return builder.toString();
     }
+
+    @Override
+    public String toDCC() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("class \"<<enumeration>>\\n " + this.element.getSimpleName()+"\" as "+this.element.getSimpleName()+"\n");
+        builder.append("{\n");
+        builder.append(getEnumElements());
+        builder.append("}\n");
+
+        return builder.toString();
+    }
     public String getEnumElements()
     {
         StringBuilder builder = new StringBuilder();

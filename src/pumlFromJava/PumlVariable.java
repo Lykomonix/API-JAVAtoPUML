@@ -1,6 +1,9 @@
 package pumlFromJava;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
+import java.lang.reflect.TypeVariable;
+import java.util.ArrayList;
 
 public class PumlVariable extends PumlElement {
 
@@ -34,6 +37,26 @@ public class PumlVariable extends PumlElement {
     @Override
     public String toDCA() {
         return this.element.getSimpleName().toString() + "\n";
+    }
+
+    @Override
+    public String toDCC() {
+        StringBuilder builder = new StringBuilder();
+
+        for(Modifier modifier : this.element.getModifiers())
+        {
+            switch(modifier)
+            {
+                case STATIC -> builder.append("{static} ");
+                case PRIVATE -> builder.append("- ");
+                case PUBLIC -> builder.append("+ ");
+                case PROTECTED -> builder.append("~ ");
+            }
+        }
+
+        builder.append( this.element.getSimpleName() + " : " + this.TypeToString() + "\n");
+
+        return builder.toString();
     }
 
     public Element getElement() {

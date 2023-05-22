@@ -14,6 +14,7 @@ public class PumlDoclet implements Doclet {
     private PumlDiagram pumlDiagram;
     private String filename;
     private String directory;
+    private boolean dca = false;
 
     @Override
     public void init(Locale locale, Reporter reporter) {
@@ -27,7 +28,7 @@ public class PumlDoclet implements Doclet {
 
     @Override
     public Set<? extends Option> getSupportedOptions() {
-        return Set.of(new OutOption(), new DirectoryOption());
+        return Set.of(new OutOption(), new DirectoryOption(), new DCAOption());
     }
 
     @Override
@@ -70,7 +71,14 @@ public class PumlDoclet implements Doclet {
                             pumlDiagram.getFilename() + ".puml");
 
             writer.write("");
-            writer.append(pumlDiagram.toDCA());
+            if(dca)
+            {
+                writer.append(pumlDiagram.toDCA());
+            }
+            else
+            {
+                writer.append(pumlDiagram.toDCC());
+            }
             writer.close();
         }
         catch (Exception ex)
@@ -143,6 +151,39 @@ public class PumlDoclet implements Doclet {
         @Override
         public boolean process(String option, List<String> arguments) {
             directory = arguments.get(0);
+            return true;
+        }
+    }
+
+    private class DCAOption implements Doclet.Option {
+        @Override
+        public int getArgumentCount() {
+            return 1;
+        }
+
+        @Override
+        public String getDescription() {
+            return "If specified, creates a DCA diagram";
+        }
+
+        @Override
+        public Kind getKind() {
+            return Kind.STANDARD;
+        }
+
+        @Override
+        public List<String> getNames() {
+            return List.of("-dca");
+        }
+
+        @Override
+        public String getParameters() {
+            return null;
+        }
+
+        @Override
+        public boolean process(String option, List<String> arguments) {
+            dca = true;
             return true;
         }
     }

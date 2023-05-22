@@ -62,6 +62,28 @@ public class PumlDiagram extends PumlElement{
         return builder.toString();
     }
 
+    @Override
+    public String toDCC()
+    {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("@startuml\n\n");
+
+        builder.append(skinparam);
+
+        for(PumlPackage pumlPackage : packageList)
+        {
+            builder.append("Package \""+pumlPackage.getName()+"\" {\n");
+            builder.append(pumlPackage.toDCC());
+            builder.append("}\n");
+        }
+
+        builder.append("\n@enduml\n\n");
+
+        return builder.toString();
+    }
+
+
     public void setDirectory(String directory) {
         this.directory = directory;
     }

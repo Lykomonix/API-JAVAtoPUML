@@ -64,6 +64,39 @@ public class PumlPackage extends PumlElement{
         return builder.toString();
     }
 
+    @Override
+    public String toDCC() {
+
+        StringBuilder builder = new StringBuilder();
+
+        for(PumlElement element : classList)
+        {
+            builder.append(element.toDCC() + "\n");
+        }
+
+        for(PumlElement element : interfaceList)
+        {
+            builder.append(element.toDCC() + "\n");
+        }
+
+        for(PumlElement element : enumList)
+        {
+            builder.append(element.toDCC() + "\n");
+        }
+
+        for(PumlClass element : classList)
+        {
+            builder.append(PumlLink.linksToString(element.getLinks()) + "\n");
+        }
+
+        for(PumlInterface element : interfaceList)
+        {
+            builder.append(element.linksToString() + "\n");
+        }
+
+        return builder.toString();
+    }
+
     public String getName()
     {
         return this.element.getSimpleName().toString();
