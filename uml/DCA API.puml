@@ -15,19 +15,22 @@ class PumlElement
 
 class PumlDiagram extends PumlElement
 
-class PumlClass extends PumlElement implements PumlLinkable
+class PumlClass extends PumlElement
 
 class PumlEnum extends PumlElement
 
-class PumlInterface extends PumlElement implements PumlLinkable
+class PumlInterface extends PumlElement
 
 class PumlPackage extends PumlElement
 
 class PumlLink
 
-Interface PumlLinkable
+class PumlVariable extends PumlElement
+
 
 enum LinkType
+
+enum VariableKind
 
 PumlDoclet ..> PumlDiagram : use
 Java2Puml ..> PumlDoclet : lance
@@ -38,6 +41,7 @@ PumlPackage o..> PumlEnum : use
 PumlLink ..> LinkType : use
 PumlInterface o--> PumlLink
 PumlClass o--> PumlLink
+VariableKind ..> PumlVariable
 }
 
 @enduml

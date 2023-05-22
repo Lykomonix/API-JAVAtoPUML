@@ -22,7 +22,7 @@ public class PumlEnum extends PumlElement{
     public String toDCA() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("class \"<<enumeration>>\\n" + this.element.getSimpleName()+"\"\n" );
+        builder.append("class \"<<enumeration>>\\n " + this.element.getSimpleName()+"\" as "+this.element.getSimpleName()+"\n");
         builder.append("{\n");
         builder.append(getEnumElements());
         builder.append("}\n");
