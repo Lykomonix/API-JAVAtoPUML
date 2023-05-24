@@ -6,17 +6,17 @@ import javax.lang.model.util.ElementFilter;
 import java.util.Enumeration;
 
 /********************************************************************
-La classe PumlEnum permet de gérer la construction des enumerations
-cet classe extends la classe PumlElement
+ * La classe PumlEnum permet de gérer la construction des enumerations dans le diagramme
+ * cette classe hérite de la classe PumlElement
  ********************************************************************/
 public class PumlEnum extends PumlElement{
 
     private Element element;
 
     /********************************************************************
-    PumlEnum est le constructeur de la classe PumlEnum
-    in: Element element
-    out: NULL
+     * PumlEnum est un constructeur
+     * in: Element element
+     * out: NULL
      ********************************************************************/
     public PumlEnum(Element element)
     {
@@ -24,9 +24,9 @@ public class PumlEnum extends PumlElement{
     }
 
     /********************************************************************
-    getName est un getteur qui récupère le nom de l'element
-    in:
-    out: String
+     * getName est un getteur qui récupère le nom de l'element
+     * in: Ø
+     * out: String
      ********************************************************************/
     public String getName()
     {
@@ -34,9 +34,9 @@ public class PumlEnum extends PumlElement{
     }
 
     /********************************************************************
-    toDCA est une fonction hérité de la classe PumlElement qui permet de créer les enumérations dans un DCA
-    in:
-    out: String
+     * toDCA est une fonction héritée de la classe PumlElement, elle retourne le code permettant de créer le code pour générer les énumérations dans un DCA
+     * in:
+     * out: String
      ********************************************************************/
     @Override
     public String toDCA() {
@@ -51,9 +51,9 @@ public class PumlEnum extends PumlElement{
     }
 
     /********************************************************************
-    toDCC est une fonction hérité de la classe PumlElement qui permet de créer les énumérations dans un DCC
-    in:
-    out: String
+     * toDCC est une fonction héritée de la classe PumlElement, elle retourne le code permettant de créer le code pour générer les énumérations dans un DCC
+     * in:
+     * out: String
      ********************************************************************/
     @Override
     public String toDCC() {
@@ -68,9 +68,9 @@ public class PumlEnum extends PumlElement{
     }
 
     /********************************************************************
-    getEnumElements est un getteur qui permet de récupérer les elements présent dans une énumération
-    in:
-    out: String
+     * getEnumElements est un getteur qui permet de récupérer les éléments présents dans une énumération
+     * in:
+     * out: String
      ********************************************************************/
     public String getEnumElements()
     {
