@@ -6,11 +6,19 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
 
+/********************************************************************
+La classe PumlLink permet de gérer les liens entre les classes / enum et interface
+ ********************************************************************/
 public class PumlLink
 {
     private String firstElement;
     private String secondElement;
     private LinkType linkType;
+    /********************************************************************
+    PumlLink est le constructeur de la classe PumlLink
+    in: String firstElement,String secondElement, LinkType linkType
+    out:
+     ********************************************************************/
     public PumlLink(String firstElement,String secondElement, LinkType linkType)
     {
         this.firstElement = firstElement;
@@ -18,18 +26,38 @@ public class PumlLink
         this.linkType = linkType;
     }
 
+    /********************************************************************
+    getLinkType est un getteur qui permet de récupérer le type de liaison
+    in:
+    out: LinkType
+     ********************************************************************/
     public LinkType getLinkType() {
         return linkType;
     }
 
+    /********************************************************************
+    getFirstElement est un getteur qui permet de récupérer le premier element du lien
+    in:
+    out: String
+     ********************************************************************/
     public String getFirstElement() {
         return firstElement;
     }
 
+    /********************************************************************
+    getSecondElement est un getteur qui permet de récupérer le Second element du lien
+    in:
+    out: String
+     ********************************************************************/
     public String getSecondElement() {
         return secondElement;
     }
 
+    /********************************************************************
+    RetrieveLinks permet de récupérer tous les liens du diagramme
+    in: Element element, ArrayList<PumlVariable> variableList
+    out: ArrayList<PumlLink>
+     ********************************************************************/
     public static ArrayList<PumlLink> RetrieveLinks(Element element, ArrayList<PumlVariable> variableList)
     {
         ArrayList<PumlLink> links = new ArrayList<>();
@@ -44,6 +72,11 @@ public class PumlLink
         return links;
     }
 
+    /********************************************************************
+    getSuperClassLink permet de trouver les liens de type extends
+    in: Element element
+    out: PumlLink
+     ********************************************************************/
     private static PumlLink getSuperClassLink(Element element)
     {
         TypeElement typeElement = (TypeElement) element;
@@ -56,6 +89,11 @@ public class PumlLink
         return link;
     }
 
+    /********************************************************************
+    getInterfacesLinks permet de récupérer les liens de type implements
+    in: Element element
+    out: ArrayList<PumlLink>
+     ********************************************************************/
     private static ArrayList<PumlLink> getInterfacesLinks(Element element)
     {
         ArrayList<PumlLink> links = new ArrayList<>();
@@ -75,6 +113,11 @@ public class PumlLink
         return links;
     }
 
+    /********************************************************************
+    getAssociatons permet de récupérer les liens de type association
+    in: Element element, ArrayList<PumlVariable> variableList
+    out: ArrayList<PumlLink>
+     ********************************************************************/
     private static ArrayList<PumlLink> getAssociatons(Element element, ArrayList<PumlVariable> variableList)
     {
         ArrayList<PumlLink> links = new ArrayList<>();
@@ -96,6 +139,11 @@ public class PumlLink
         return links;
     }
 
+    /********************************************************************
+    linksToString permet de former la chaine de caractère qui permet de coder le lien
+    in: ArrayList<PumlLink> links
+    out: String
+     ********************************************************************/
     public static String linksToString(ArrayList<PumlLink> links) {
 
         StringBuilder builder = new StringBuilder();
@@ -120,6 +168,9 @@ public class PumlLink
     }
 }
 
+/********************************************************************
+LinkType est une énumération qui permet de stocker les différents type de lien
+ ********************************************************************/
 enum LinkType
 {
     EXTENDS,IMPLEMENTS,ASSOCIATE;

@@ -10,32 +10,60 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+/*
+PumlDoclet est un class qui implements l'interface Doclet. c'est notre Doclet
+ */
 public class PumlDoclet implements Doclet {
     private PumlDiagram pumlDiagram;
     private String filename;
     private String directory;
     private boolean dca = false;
 
+    /*
+    init
+    in: Locale locale, Reporter reporter
+    out: void
+     */
     @Override
     public void init(Locale locale, Reporter reporter) {
 
     }
 
+    /*
+    getName est un getteur qui récupère le nom
+    in:
+    out: String
+     */
     @Override
     public String getName() {
         return this.getClass().getSimpleName();
     }
 
+    /*
+    getSupportedOptions est un getteur qui récupère les options
+    in:
+    out: Set<? extends Option>
+     */
     @Override
     public Set<? extends Option> getSupportedOptions() {
         return Set.of(new OutOption(), new DirectoryOption(), new DCAOption());
     }
 
+    /*
+    getSupportedSourceVersion est un getteur qui récupère la version
+    in:
+    out: SourceVersion
+     */
     @Override
     public SourceVersion getSupportedSourceVersion() {
         return SourceVersion.latest();
     }
 
+    /*
+    run permet de générer un lieu pour écrire le code puml
+    in: DocletEnvironment environment
+    out: boolean
+     */
     @Override
     public boolean run(DocletEnvironment environment) {
         InitPumlDiagram(environment);
@@ -43,6 +71,11 @@ public class PumlDoclet implements Doclet {
         return true;
     }
 
+    /*
+    InitPumlDiagram permet d'initialiser la zone d'écriture
+    in: DocletEnvironment env
+    out:
+     */
     private void InitPumlDiagram(DocletEnvironment env)
     {
         pumlDiagram = new PumlDiagram(env);
@@ -62,6 +95,11 @@ public class PumlDoclet implements Doclet {
         }
     }
 
+    /*
+    WritePuml permet d'écrire dans la zone définit
+    in:
+    out:
+     */
     private void WritePuml()
     {
         try
@@ -87,8 +125,14 @@ public class PumlDoclet implements Doclet {
         }
     }
 
+    /*
+    OutOption est une nested qui implements Doclet.Option
+     */
     private class OutOption implements Doclet.Option
     {
+        /*
+        
+         */
         @Override
         public int getArgumentCount() {
             return 1;
