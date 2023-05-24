@@ -21,6 +21,7 @@ public class PumlClass extends PumlElement {
     {
         this.element = (TypeElement)element;
         RetrieveVariables();
+        RetrieveMethods();
         links = PumlLink.RetrieveLinks(this.element, variableList);
     }
 
@@ -62,6 +63,11 @@ public class PumlClass extends PumlElement {
             builder.append(variable.toDCC());
         }
 
+        for(PumlMethod method : methodList)
+        {
+            builder.append(method.toDCC());
+        }
+
         builder.append("}\n");
 
         return builder.toString();
@@ -86,9 +92,9 @@ public class PumlClass extends PumlElement {
     {
         for(Element enclosedElement : this.element.getEnclosedElements())
         {
-            if(enclosedElement.getKind() == ElementKind.METHOD)
+            if(enclosedElement.getKind() == ElementKind.METHOD || enclosedElement.getKind() == ElementKind.CONSTRUCTOR)
             {
-                methodList.add(new PumlMethod(enclosedElement, MethodKind.CONSTRUCT));
+                methodList.add(new PumlMethod(enclosedElement));
             }
         }
     }

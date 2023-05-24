@@ -40,6 +40,15 @@ public class PumlInterface extends PumlElement {
 
         builder.append("class \"<<interface>>\\n " + this.element.getSimpleName()+"\" as "+this.element.getSimpleName()+"\n");
 
+        builder.append("{\n");
+
+        for(PumlMethod method : methodList)
+        {
+            builder.append(method.toDCC());
+        }
+
+        builder.append("\n}\n");
+
         return builder.toString();
     }
 
@@ -62,7 +71,10 @@ public class PumlInterface extends PumlElement {
     {
         for(Element enclosedElement : this.element.getEnclosedElements())
         {
-            this.methodList.add(new PumlMethod(enclosedElement));
+            if(enclosedElement.getKind() == ElementKind.METHOD || enclosedElement.getKind() == ElementKind.CONSTRUCTOR)
+            {
+                methodList.add(new PumlMethod(enclosedElement));
+            }
         }
     }
 }

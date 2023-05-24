@@ -10,6 +10,13 @@ class Boisson
 {
 - substantif : Substantif
 + {static} EAU : Boisson
++ <<create>> Boisson(nom : String, genre : Genre)
++ getNom()
++ getGenre()
++ getNomAvecArticleIndefini()
++ getNomAvecArticlePartitif()
++ getNomAvecArticleDefini()
++ getNomAvecPreposition(preposition : String)
 }
 
 class Brigand
@@ -21,6 +28,20 @@ class Brigand
 - captives : List
 - gardien : Cowboy
 - {static} boissonParDefaut : Boisson
++ <<create>> Brigand(nom : String)
++ <<create>> Brigand(nom : String, boisson : Boisson)
++ <<create>> Brigand(nom : String, boisson : Boisson, look : String)
++ getLook()
++ getRecompense()
++ estLibre()
++ kidnapper(dame : Dame)
++ seFaireCapturer(cowBoy : Cowboy)
++ seFaireTirerDessus(cowBoy : Cowboy)
++ getPseudo()
++ getCaptives()
++ sePresenter()
++ {static} getBoissonParDefaut()
++ {static} setBoissonParDefaut(boisson : Boisson)
 }
 
 class Cowboy
@@ -28,6 +49,16 @@ class Cowboy
 - gains : int
 - captures : Set
 - {static} boissonParDefaut : Boisson
++ <<create>> Cowboy(nom : String)
++ <<create>> Cowboy(nom : String, boisson : Boisson)
++ getPseudo()
++ liberer(dame : Dame)
++ liberer(captives : List)
++ capturer(horsLaLoi : HorsLaLoi)
++ tirerSur(brigand : HorsLaLoi)
++ sePresenter()
++ {static} getBoissonParDefaut()
++ {static} setBoissonParDefaut(boisson : Boisson)
 }
 
 class Dame
@@ -36,14 +67,32 @@ class Dame
 - sauveur : Cowboy
 - ravisseur : HorsLaLoi
 - {static} boissonParDefaut : Boisson
++ <<create>> Dame(nom : String)
++ <<create>> Dame(nom : String, boisson : Boisson)
++ getPseudo()
++ seFaireKidnapper(horsLaLoi : HorsLaLoi)
++ seFaireLiberer(cowBoy : Cowboy)
++ estLibre()
++ sePresenter()
++ {static} getBoissonParDefaut()
++ {static} setBoissonParDefaut(boisson : Boisson)
++ getRavisseur()
 }
 
 class Histoire4
 {
++ <<create>> Histoire4()
++ {static} main(args : String[])
 }
 
 class Narrateur
 {
++ <<create>> Narrateur()
++ <<create>> Narrateur(nom : String)
++ dire(texte : String)
++ boire(boisson : Boisson)
++ boire()
++ getPseudo()
 }
 
 class Personnage
@@ -51,22 +100,77 @@ class Personnage
 - {static} BOISSON_PAR_DEFAUT : Boisson
 - nom : String
 - boisson : Boisson
++ <<create>> Personnage(nom : String)
++ <<create>> Personnage(nom : String, boisson : Boisson)
++ dire(texte : String)
++ sePresenter()
++ boire(boisson : Boisson)
++ boire()
++ getNom()
++ getBoisson()
++ {static} getPseudos(personnages : List)
++ {static} getBoissonParDefaut()
 }
 
 class Ripou
 {
 - brigand : Brigand
++ <<create>> Ripou(nom : String)
++ <<create>> Ripou(nom : String, boisson : Boisson)
++ <<create>> Ripou(nom : String, boisson : Boisson, look : String)
++ getLook()
++ estLibre()
++ getRecompense()
++ kidnapper(dame : Dame)
++ getCaptives()
++ seFaireCapturer(cowBoy : Cowboy)
++ seFaireTirerDessus(cowBoy : Cowboy)
++ getPseudo()
++ sePresenter()
++ liberer(dame : Dame)
 }
 
 class Substantif
 {
 - nom : String
 - genre : Genre
++ <<create>> Substantif(nom : String, genre : Genre)
++ getNom()
++ getGenre()
++ toString()
++ {static} isVowel(c : char)
++ {static} startsWithVowel(s : String)
++ getArticleIndefini()
++ avecArticleIndefini()
++ {static} getArticleDefini(genre : Genre)
++ getArticleDefini()
++ avecArticleDefini()
++ {static} faireElision(article : String)
++ elision()
++ getArticlePartitif()
++ avecArticlePartitif()
++ avecElision(article : String)
++ avecPreposition(preposition : String)
 }
 
 class "<<interface>>\n HorsLaLoi" as HorsLaLoi
+{
++ {abstract} estLibre()
++ {abstract} getRecompense()
++ {abstract} kidnapper(dame : Dame)
++ {abstract} seFaireCapturer(cowBoy : Cowboy)
++ {abstract} seFaireTirerDessus(cowBoy : Cowboy)
++ {abstract} getLook()
++ {abstract} getCaptives()
+
+}
 
 class "<<interface>>\n Nommable" as Nommable
+{
++ {abstract} getNom()
++ {abstract} getPseudo()
+
+}
 
 class "<<enumeration>>\n Genre" as Genre
 {
