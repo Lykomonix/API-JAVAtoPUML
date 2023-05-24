@@ -84,6 +84,7 @@ public class PumlPackage extends PumlElement{
             builder.append(element.toDCC() + "\n");
         }
 
+        /*
         for(PumlClass element : classList)
         {
             builder.append(PumlLink.linksToString(element.getLinks()) + "\n");
@@ -92,7 +93,7 @@ public class PumlPackage extends PumlElement{
         for(PumlInterface element : interfaceList)
         {
             builder.append(element.linksToString() + "\n");
-        }
+        }*/
 
         return builder.toString();
     }

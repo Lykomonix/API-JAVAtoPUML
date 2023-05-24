@@ -2,6 +2,7 @@ package pumlFromJava;
 
 import javax.lang.model.element.*;
 import javax.lang.model.type.TypeMirror;
+import java.lang.reflect.Type;
 import java.sql.SQLSyntaxErrorException;
 import java.time.temporal.ValueRange;
 import java.util.ArrayList;
@@ -9,18 +10,18 @@ import java.util.ArrayList;
 public class PumlMethod extends PumlElement {
 
     private Element element;
+    private ExecutableElement executableElement;
     private ArrayList<PumlParameter> parameters = new ArrayList<>();
 
     public PumlMethod(Element element) {
         this.element = element;
+        this.executableElement = (ExecutableElement) element;
         RetrieveParameters();
     }
 
     private void RetrieveParameters()
     {
-        ExecutableElement executableElement = (ExecutableElement) this.element;
-
-        for(VariableElement variableElement : executableElement.getParameters())
+        for(VariableElement variableElement : this.executableElement.getParameters())
         {
             this.parameters.add(new PumlParameter(variableElement));
         }
@@ -33,6 +34,7 @@ public class PumlMethod extends PumlElement {
 
     @Override
     public String toDCC() {
+
         StringBuilder builder = new StringBuilder();
 
         for (Modifier modifier : this.element.getModifiers()) {
@@ -70,7 +72,14 @@ public class PumlMethod extends PumlElement {
             }
         }
 
-        builder.append(")\n");
+        builder.append(") ");
+
+        if(!this.executableElement.getReturnType().toString().equals("void"))
+        {
+            builder.append(": " + TypeToString(this.executableElement.getReturnType()));
+        }
+
+        builder.append("\n");
 
         return builder.toString();
     }

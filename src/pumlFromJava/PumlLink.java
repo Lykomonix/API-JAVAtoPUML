@@ -6,7 +6,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
 
-public class PumlLink
+public class PumlLink extends PumlElement
 {
     private String firstElement;
     private String secondElement;
@@ -83,10 +83,12 @@ public class PumlLink
         {
             if(variable.getKind() == VariableKind.OBJECT)
             {
-                if(!variable.TypeToString().equals("String") && !variable.TypeToString().equals("Set") && !variable.TypeToString().equals("List"))
+                if(!GetElementTypeString(variable.getElement()).equals("String")
+                        && !GetElementTypeString(variable.getElement()).equals("Set")
+                        && !GetElementTypeString(variable.getElement()).equals("List"))
                 {
                     PumlLink link = new PumlLink(element.getSimpleName().toString(),
-                            variable.TypeToString(), LinkType.ASSOCIATE);
+                            GetElementTypeString(variable.getElement()), LinkType.ASSOCIATE);
 
                     links.add(link);
                 }
@@ -117,6 +119,16 @@ public class PumlLink
         }
 
         return builder.toString();
+    }
+
+    @Override
+    public String toDCA() {
+        return null;
+    }
+
+    @Override
+    public String toDCC() {
+        return null;
     }
 }
 

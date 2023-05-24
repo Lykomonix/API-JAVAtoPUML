@@ -16,24 +16,6 @@ public class PumlVariable extends PumlElement {
         this.kind = kind;
     }
 
-    public String TypeToString()
-    {
-        String FullName = element.asType().toString();
-
-        if(FullName.contains("<"))
-        {
-            String[] FullNameSplit = FullName.split("\\<");
-
-            return FullNameSplit[0].split("\\.")[FullNameSplit[0].split("\\.").length - 1];
-        }
-        else
-        {
-            String[] FullNameSplit = FullName.split("\\.");
-
-            return FullNameSplit[FullNameSplit.length - 1];
-        }
-    }
-
     @Override
     public String toDCA() {
         return this.element.getSimpleName().toString() + "\n";
@@ -54,7 +36,7 @@ public class PumlVariable extends PumlElement {
             }
         }
 
-        builder.append( this.element.getSimpleName() + " : " + this.TypeToString() + "\n");
+        builder.append( this.element.getSimpleName() + " : " + GetElementTypeString(this.element) + "\n");
 
         return builder.toString();
     }
