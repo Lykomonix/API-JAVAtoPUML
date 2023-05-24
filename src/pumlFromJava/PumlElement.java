@@ -4,6 +4,9 @@ import javax.lang.model.element.Element;
 import javax.lang.model.type.TypeMirror;
 import java.lang.reflect.Type;
 
+/********************************************************************
+ * PumlElement est une classe abstract implémenté par PumlVariable, PumlClass, PumlEnum, PumlInterface, PumlPackage et PumlDiagram
+ ********************************************************************/
 public abstract class PumlElement {
     public abstract String toDCA();
     public abstract String toDCC();
