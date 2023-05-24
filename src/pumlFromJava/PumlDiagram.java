@@ -9,6 +9,9 @@ import javax.lang.model.element.TypeElement;
 import java.util.List;
 import java.util.ArrayList;
 
+/********************************************************************
+ * PumlDiagram hérite de PumlElement est permet de gérer le Diagramme
+ ********************************************************************/
 public class PumlDiagram extends PumlElement{
 
     private String skinparam =
@@ -24,12 +27,22 @@ public class PumlDiagram extends PumlElement{
 
     private DocletEnvironment env;
 
+    /********************************************************************
+     * PumlDiagram est un constructeur
+     * in: DocletEnvironment env
+     * out: NULL
+     ********************************************************************/
     public PumlDiagram(DocletEnvironment env)
     {
         this.env = env;
         RetrievePackages();
     }
 
+    /********************************************************************
+     * RetrievePackages permet de récupérer les packages d'un code
+     * in: Ø
+     * out: void
+     ********************************************************************/
     private void RetrievePackages()
     {
         for(Element element : env.getSpecifiedElements())
@@ -41,6 +54,11 @@ public class PumlDiagram extends PumlElement{
         }
     }
 
+    /********************************************************************
+     * toDCA est une fonction redéfini. elle permet de gérer les diagrammes dans un DCA
+     * in: Ø
+     * out: String
+     ********************************************************************/
     @Override
     public String toDCA()
     {
@@ -62,6 +80,11 @@ public class PumlDiagram extends PumlElement{
         return builder.toString();
     }
 
+    /********************************************************************
+     * toDCC est une fonction redéfini. elle permet de gérer les diagrammes dans un DCC
+     * in: Ø
+     * out: String
+     ********************************************************************/
     @Override
     public String toDCC()
     {
@@ -84,22 +107,47 @@ public class PumlDiagram extends PumlElement{
     }
 
 
+    /********************************************************************
+     * setDirectory est un setteur qui définit le répertoire
+     * in: String directory
+     * out: void
+     ********************************************************************/
     public void setDirectory(String directory) {
         this.directory = directory;
     }
 
+    /********************************************************************
+     * setFilename est un setteur qui définit le fichier
+     * in: String filename
+     * out: void
+     ********************************************************************/
     public void setFilename(String filename) {
         this.filename = filename;
     }
 
+    /********************************************************************
+     * getDirectory est un getteur qui récupère le répertoire
+     * in: void
+     * out: String
+     ********************************************************************/
     public String getDirectory() {
         return directory;
     }
 
+    /********************************************************************
+     * getFilename est un getteur qui récupère le fichier
+     * in: void
+     * out: String
+     ********************************************************************/
     public String getFilename() {
         return filename;
     }
 
+    /********************************************************************
+     * getPackageList est un getteur qui récupère la liste des packages
+     * in: void
+     * out: List<PumlPackage>
+     ********************************************************************/
     public List<PumlPackage> getPackageList() {
         return packageList;
     }

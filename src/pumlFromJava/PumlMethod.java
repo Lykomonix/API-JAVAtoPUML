@@ -7,18 +7,31 @@ import java.sql.SQLSyntaxErrorException;
 import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 
+/********************************************************************
+ * PumlMethode hérite de PumlElement. la classe permet de s'occuper des méthodes des classes et interfaces
+ ********************************************************************/
 public class PumlMethod extends PumlElement {
 
     private Element element;
     private ExecutableElement executableElement;
     private ArrayList<PumlParameter> parameters = new ArrayList<>();
 
+    /********************************************************************
+     * PumlMethod est un constructeur
+     * in: Element element
+     * out: NULL
+     ********************************************************************/
     public PumlMethod(Element element) {
         this.element = element;
         this.executableElement = (ExecutableElement) element;
         RetrieveParameters();
     }
 
+    /********************************************************************
+     * RetrieveParameters permet de récupérer les paramètres des méthodes
+     * in: Ø
+     * out: void
+     ********************************************************************/
     private void RetrieveParameters()
     {
         for(VariableElement variableElement : this.executableElement.getParameters())
@@ -27,11 +40,21 @@ public class PumlMethod extends PumlElement {
         }
     }
 
+    /********************************************************************
+     * toDCA est redéfini et permet de s'occuper des méthodes dans un DCA
+     * in: Ø
+     * out: String
+     ********************************************************************/
     @Override
     public String toDCA() {
         return null;
     }
 
+    /********************************************************************
+     * toDCC est redéfini et permet de s'occuper des méthodes dans un DCC
+     * in: Ø
+     * out: String
+     ********************************************************************/
     @Override
     public String toDCC() {
 

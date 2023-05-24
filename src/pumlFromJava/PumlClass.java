@@ -8,6 +8,10 @@ import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
 import java.util.List;
 
+/********************************************************************
+ * PumlClass hérite de la classe PumlElement
+ * elle permet de gérer les classes dans les diagrammes
+ ********************************************************************/
 public class PumlClass extends PumlElement {
 
     private TypeElement element;
@@ -17,6 +21,11 @@ public class PumlClass extends PumlElement {
     private ArrayList<PumlVariable> variableList = new ArrayList<>();
     private ArrayList<PumlMethod> methodList = new ArrayList<>();
 
+    /********************************************************************
+     * C'est le Constructeur
+     * in: Element element
+     * out: NULL
+     ********************************************************************/
     public PumlClass(Element element)
     {
         this.element = (TypeElement)element;
@@ -25,10 +34,18 @@ public class PumlClass extends PumlElement {
         links = PumlLink.RetrieveLinks(this.element, variableList);
     }
 
+    /********************************************************************
+     * getName est un getteur qui récupère le nom de la classe
+     ********************************************************************/
     public String getName() {
         return this.element.getSimpleName().toString();
     }
 
+    /********************************************************************
+     * toDCA est une fonction hérité permet de faire les classes pour les DCA
+     * in: Ø
+     * out: String
+     ********************************************************************/
     @Override
     public String toDCA() {
         StringBuilder builder = new StringBuilder();
@@ -50,6 +67,11 @@ public class PumlClass extends PumlElement {
         return builder.toString();
     }
 
+    /********************************************************************
+     * toDCC est une fonction hérité permet de faire les classes pour les DCC
+     * in: Ø
+     * out: String
+     ********************************************************************/
     @Override
     public String toDCC() {
         StringBuilder builder = new StringBuilder();
@@ -76,6 +98,11 @@ public class PumlClass extends PumlElement {
         return builder.toString();
     }
 
+    /********************************************************************
+     * RetrieveVariables permet de récupérer les champs d'une classe
+     * in: Ø
+     * out: void
+     ********************************************************************/
     private void RetrieveVariables()
     {
         for(Element enclosedElement : this.element.getEnclosedElements())
@@ -91,6 +118,11 @@ public class PumlClass extends PumlElement {
         }
     }
 
+    /********************************************************************
+     * RetrieveMethods permet de récupérer les méthodes d'une classe
+     * in: Ø
+     * out: void
+     ********************************************************************/
     private void RetrieveMethods()
     {
         for(Element enclosedElement : this.element.getEnclosedElements())
@@ -102,6 +134,11 @@ public class PumlClass extends PumlElement {
         }
     }
 
+    /********************************************************************
+     * getLinks est un getteur qui récupère la liste des liens d'une classe
+     * in: Ø
+     * out: ArrayList<PumlLink>
+     ********************************************************************/
     public ArrayList<PumlLink> getLinks() {
         return links;
     }
