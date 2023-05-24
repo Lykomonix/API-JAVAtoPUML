@@ -1,6 +1,8 @@
 package pumlFromJava;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
@@ -10,11 +12,13 @@ public class PumlInterface extends PumlElement {
     private Element element;
 
     private ArrayList<PumlLink> links;
+    private ArrayList<PumlMethod> methodList = new ArrayList<>();
 
     public PumlInterface(Element element)
     {
         this.element = element;
         links = PumlLink.RetrieveLinks(element,null);
+        RetrieveMethods();
     }
 
     public String getName() {
@@ -52,5 +56,13 @@ public class PumlInterface extends PumlElement {
         }
 
         return builder.toString();
+    }
+
+    private void RetrieveMethods()
+    {
+        for(Element enclosedElement : this.element.getEnclosedElements())
+        {
+            this.methodList.add(new PumlMethod(enclosedElement));
+        }
     }
 }

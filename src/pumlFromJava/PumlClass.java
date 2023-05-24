@@ -88,7 +88,7 @@ public class PumlClass extends PumlElement {
         {
             if(enclosedElement.getKind() == ElementKind.METHOD)
             {
-                methodList.add(new PumlMethod()));
+                methodList.add(new PumlMethod(enclosedElement, MethodKind.CONSTRUCT));
             }
         }
     }

@@ -1,0 +1,112 @@
+@startuml
+
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam classFontStyle Bold
+hide empty members
+
+Package "western" {
+class Boisson
+{
+- substantif : Substantif
++ {static} EAU : Boisson
+}
+
+class Brigand
+{
+~ {static} LOOK_PAR_DEFAUT : String
+- look : String
+- recompense : int
+- estLibre : boolean
+- captives : List
+- gardien : Cowboy
+- {static} boissonParDefaut : Boisson
+}
+
+class Cowboy
+{
+- gains : int
+- captures : Set
+- {static} boissonParDefaut : Boisson
+}
+
+class Dame
+{
+- estLibre : boolean
+- sauveur : Cowboy
+- ravisseur : HorsLaLoi
+- {static} boissonParDefaut : Boisson
+}
+
+class Histoire4
+{
+}
+
+class Narrateur
+{
+}
+
+class Personnage
+{
+- {static} BOISSON_PAR_DEFAUT : Boisson
+- nom : String
+- boisson : Boisson
+}
+
+class Ripou
+{
+- brigand : Brigand
+}
+
+class Substantif
+{
+- nom : String
+- genre : Genre
+}
+
+class "<<interface>>\n HorsLaLoi" as HorsLaLoi
+
+class "<<interface>>\n Nommable" as Nommable
+
+class "<<enumeration>>\n Genre" as Genre
+{
+FEMININ
+MASCULIN
+}
+
+Boisson -- Substantif
+Boisson -- Boisson
+
+Brigand --|> Personnage
+Brigand ..|> HorsLaLoi
+Brigand -- Cowboy
+Brigand -- Boisson
+
+Cowboy --|> Personnage
+Cowboy -- Boisson
+
+Dame --|> Personnage
+Dame -- Cowboy
+Dame -- HorsLaLoi
+Dame -- Boisson
+
+
+Narrateur --|> Personnage
+
+Personnage ..|> Nommable
+Personnage -- Boisson
+Personnage -- Boisson
+
+Ripou --|> Cowboy
+Ripou ..|> HorsLaLoi
+Ripou -- Brigand
+
+Substantif -- Genre
+
+HorsLaLoi --|> Nommable
+
+
+}
+
+@enduml
+
