@@ -36,7 +36,14 @@ public class PumlVariable extends PumlElement {
             }
         }
 
-        builder.append( this.element.getSimpleName() + " : " + GetElementTypeString(this.element) + "\n");
+        switch (GetElementTypeString(this.element))
+        {
+            case ("int") -> builder.append( this.element.getSimpleName() + " : " + "Integer" + "\n");
+            case("boolean") -> builder.append( this.element.getSimpleName() + " : " + "Boolean" + "\n");
+            default -> builder.append( this.element.getSimpleName() + " : " + GetElementTypeString(this.element) + "\n");
+        }
+
+
 
         return builder.toString();
     }

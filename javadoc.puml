@@ -8,8 +8,6 @@ hide empty members
 Package "western" {
 class Boisson
 {
-- substantif : Substantif
-+ {static} EAU : Boisson
 + <<create>> Boisson(nom : String, genre : Genre) 
 + getNom() : String
 + getGenre() : Genre
@@ -21,13 +19,8 @@ class Boisson
 
 class Brigand
 {
-~ {static} LOOK_PAR_DEFAUT : String
-- look : String
-- recompense : int
-- estLibre : boolean
-- captives : List
-- gardien : Cowboy
-- {static} boissonParDefaut : Boisson
+- recompense : Integer
+- estLibre : Boolean
 + <<create>> Brigand(nom : String) 
 + <<create>> Brigand(nom : String, boisson : Boisson) 
 + <<create>> Brigand(nom : String, boisson : Boisson, look : String) 
@@ -46,9 +39,7 @@ class Brigand
 
 class Cowboy
 {
-- gains : int
-- captures : Set
-- {static} boissonParDefaut : Boisson
+- gains : Integer
 + <<create>> Cowboy(nom : String) 
 + <<create>> Cowboy(nom : String, boisson : Boisson) 
 + getPseudo() : String
@@ -63,10 +54,7 @@ class Cowboy
 
 class Dame
 {
-- estLibre : boolean
-- sauveur : Cowboy
-- ravisseur : HorsLaLoi
-- {static} boissonParDefaut : Boisson
+- estLibre : Boolean
 + <<create>> Dame(nom : String) 
 + <<create>> Dame(nom : String, boisson : Boisson) 
 + getPseudo() : String
@@ -97,9 +85,6 @@ class Narrateur
 
 class Personnage
 {
-- {static} BOISSON_PAR_DEFAUT : Boisson
-- nom : String
-- boisson : Boisson
 + <<create>> Personnage(nom : String) 
 + <<create>> Personnage(nom : String, boisson : Boisson) 
 + dire(texte : String) 
@@ -114,7 +99,6 @@ class Personnage
 
 class Ripou
 {
-- brigand : Brigand
 + <<create>> Ripou(nom : String) 
 + <<create>> Ripou(nom : String, boisson : Boisson) 
 + <<create>> Ripou(nom : String, boisson : Boisson, look : String) 
@@ -132,8 +116,6 @@ class Ripou
 
 class Substantif
 {
-- nom : String
-- genre : Genre
 + <<create>> Substantif(nom : String, genre : Genre) 
 + getNom() : String
 + getGenre() : Genre

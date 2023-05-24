@@ -60,7 +60,10 @@ public class PumlClass extends PumlElement {
 
         for(PumlVariable variable : variableList)
         {
-            builder.append(variable.toDCC());
+            if(variable.getKind() == VariableKind.PRIMITIVE)
+            {
+                builder.append(variable.toDCC());
+            }
         }
 
         for(PumlMethod method : methodList)
