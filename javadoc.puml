@@ -25,8 +25,8 @@ class Brigand
 + <<create>> Brigand(nom : String, boisson : Boisson) 
 + <<create>> Brigand(nom : String, boisson : Boisson, look : String) 
 + getLook() : String
-+ getRecompense() : int
-+ estLibre() : boolean
++ getRecompense()  : Integer
++ estLibre()  : Boolean
 + kidnapper(dame : Dame) 
 + seFaireCapturer(cowBoy : Cowboy) 
 + seFaireTirerDessus(cowBoy : Cowboy) 
@@ -60,7 +60,7 @@ class Dame
 + getPseudo() : String
 + seFaireKidnapper(horsLaLoi : HorsLaLoi) 
 + seFaireLiberer(cowBoy : Cowboy) 
-+ estLibre() : boolean
++ estLibre()  : Boolean
 + sePresenter() 
 + {static} getBoissonParDefaut() : Boisson
 + {static} setBoissonParDefaut(boisson : Boisson) 
@@ -103,8 +103,8 @@ class Ripou
 + <<create>> Ripou(nom : String, boisson : Boisson) 
 + <<create>> Ripou(nom : String, boisson : Boisson, look : String) 
 + getLook() : String
-+ estLibre() : boolean
-+ getRecompense() : int
++ estLibre()  : Boolean
++ getRecompense()  : Integer
 + kidnapper(dame : Dame) 
 + getCaptives() : List
 + seFaireCapturer(cowBoy : Cowboy) 
@@ -120,15 +120,15 @@ class Substantif
 + getNom() : String
 + getGenre() : Genre
 + toString() : String
-+ {static} isVowel(c : char) : boolean
-+ {static} startsWithVowel(s : String) : boolean
++ {static} isVowel(c : char)  : Boolean
++ {static} startsWithVowel(s : String)  : Boolean
 + getArticleIndefini() : String
 + avecArticleIndefini() : String
 + {static} getArticleDefini(genre : Genre) : String
 + getArticleDefini() : String
 + avecArticleDefini() : String
 + {static} faireElision(article : String) : String
-+ elision() : boolean
++ elision()  : Boolean
 + getArticlePartitif() : String
 + avecArticlePartitif() : String
 + avecElision(article : String) : String
@@ -137,8 +137,8 @@ class Substantif
 
 class "<<interface>>\n HorsLaLoi" as HorsLaLoi
 {
-+ {abstract} estLibre() : boolean
-+ {abstract} getRecompense() : int
++ {abstract} estLibre()  : Boolean
++ {abstract} getRecompense()  : Integer
 + {abstract} kidnapper(dame : Dame) 
 + {abstract} seFaireCapturer(cowBoy : Cowboy) 
 + {abstract} seFaireTirerDessus(cowBoy : Cowboy) 

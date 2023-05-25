@@ -99,7 +99,13 @@ public class PumlMethod extends PumlElement {
 
         if(!this.executableElement.getReturnType().toString().equals("void"))
         {
-            builder.append(": " + TypeToString(this.executableElement.getReturnType()));
+
+            switch (TypeToString(this.executableElement.getReturnType()))
+            {
+                case ("int") -> builder.append(" : " + "Integer");
+                case("boolean") -> builder.append(" : " + "Boolean");
+                default -> builder.append(": " + TypeToString(this.executableElement.getReturnType()));
+            }
         }
 
         builder.append("\n");
