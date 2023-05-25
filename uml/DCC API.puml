@@ -7,178 +7,138 @@ hide empty members
 
 Package "pumlFromJava" {
 
-
-class PumlLink
-
-Interface PumlLinkable
-
-enum LinkType
-
-enum VariableKind
-
-PumlDoclet ..> PumlDiagram : use
-Java2Puml ..> PumlDoclet : lance
-PumlDiagram o...> PumlPackage : use
-PumlPackage o..> PumlClass : use
-PumlPackage o..> PumlInterface : use
-PumlPackage o..> PumlEnum : use
-PumlDoclet *--> OutOption : nested class
-PumlDoclet *--> DirectoryOption : nested class
-PumlLink ..> LinkType : use
-PumlInterface o--> PumlLink
-PumlClass o--> PumlLink
-VariableKind ..> PumlVariable
-}
-
-@enduml
-@startuml
-
-skinparam style strictuml
-skinparam classAttributeIconSize 0
-skinparam classFontStyle Bold
-hide empty members
-
-Package "pumlFromJava" {
-
 class Java2Puml
 {
-    + {static} Main(String[] args)
++ <<create>> Java2Puml()
++ {static} main(args : String[])
 }
 
-class PumlDoclet implements Doclet
+class PumlClass
 {
-    -pumlDiagram: PumlDiagram
-    -filename: String
-    -directory: String
-    + init(Locale locale, Reporter reporter){redefines Doclet::init}
-    + getName(): String{redefines Doclet::getName}
-    + getSupportedOptions(): Set<? extends Option>{redefines Doclet::getSupportedOptions}
-    + getSupportedSourceVersion(): SourceVersion{redefines Doclet::getSupportedSourceVersion}
-    + run(DocletEnvironment environment): boolean{redefines Doclet::run}
-    - InitPumlDiagram(DocletEnvironment env)
-    - WritePuml()
++ <<create>> PumlClass(element : Element)
++ getName() : String
++ toDCA() : String
++ toDCC() : String
+- RetrieveVariables()
+- RetrieveMethods()
++ getLinks() : ArrayList
 }
 
-class OutOption implements Doclet.Option
+class PumlDiagram
 {
-    + getArgumentCount(): int{redefines Doclet.Option::getArgumentCount}
-    + getDescription(): String{redefines Doclet.Option::getDescription}
-    + getKind(): Kind{redefines Doclet.Option::getKind}
-    + getNames(): List<String>{redefines Doclet.Option::getNames}
-    + getParameters(): String{redefines Doclet.Option::getParameters}
-    + process(String option, List<String> arguments): boolean{redefines Doclet.Option::process}
++ <<create>> PumlDiagram(env : DocletEnvironment)
+- RetrievePackages()
++ toDCA() : String
++ toDCC() : String
++ setDirectory(directory : String)
++ setFilename(filename : String)
++ getDirectory() : String
++ getFilename() : String
++ getPackageList() : List
 }
 
-class DirectoryOption implements Doclet.Option
+class PumlDoclet
 {
-    + getArgumentCount(): int{redefines Doclet.Option::getArgumentCount}
-    + getDescription(): String{redefines Doclet.Option::getDescription}
-    + getKind(): Kind{redefines Doclet.Option::getKind}
-    + getNames(): List<String>{redefines Doclet.Option::getNames}
-    + getParameters(): String{redefines Doclet.Option::getParameters}
-    + process(String option, List<String> arguments): boolean{redefines Doclet.Option::process}
+- dca : Boolean
++ <<create>> PumlDoclet()
++ init(locale : Locale, reporter : Reporter)
++ getName() : String
++ getSupportedOptions() : Set
++ getSupportedSourceVersion() : SourceVersion
++ run(environment : DocletEnvironment)  : Boolean
+- InitPumlDiagram(env : DocletEnvironment)
+- WritePuml()
 }
-
 
 class PumlElement
 {
-    +toDCA(): String{abstract}
++ <<create>> PumlElement()
++ {abstract} toDCA() : String
++ {abstract} toDCC() : String
++ {static} GetElementTypeString(element : Element) : String
++ {static} TypeToString(type : TypeMirror) : String
+- {static} ExtractTypeString(FullName : String) : String
 }
 
-class PumlDiagram extends PumlElement
+class PumlEnum
 {
-    - skinparam: String
-    - directory: String
-    - filename: String
-    - package: List<PumlPackage>
-    - env: DocletEnvironment
-    + <<create>> PumlDiagram(DocletEnvironment env)
-    - RetrievePackages()
-    + toDCA(): String{redefines PumlElement::toDCA}
-    + setDirectory(String directory)
-    + setFilename(String filename)
-    + getDirectory(): String
-    + getFilename(): String
-    + getPackageList(): List<PumlPackage>
++ <<create>> PumlEnum(element : Element)
++ getName() : String
++ toDCA() : String
++ toDCC() : String
++ getEnumElements() : String
 }
 
-class PumlPackage extends PumlElement
+class PumlInterface
 {
-    - classList: List<PumlClass>
-    - interfaceList: List<PumlInterface>
-    - enumList: List<PumlEnum>
-    - element: Element
-    + <<create>> PumlPackage(Element element)
-    - RetrieveElements()
-    + toDCA(): String{redefines PumlElement::toDCA}
-    + getName(): String
-}
-
-class PumlClass extends PumlElement
-{
-    - element: Element
-    + <<create>> PumlPackage(Element element)
-    + getName(): String
-    + toDCA(): String{redefines PumlElement::toDCA}
-    - getPrimitiveVariables(): String
-}
-
-class PumlEnum extends PumlElement
-{
-    - element: Element
-    + <<create>> PumlPackage(Element element)
-    + getName(): String
-    + toDCA(): String{redefines PumlElement::toDCA}
-    - getEnumElements(): String
-}
-
-class PumlInterface extends PumlElement
-{
-    - element: Element
-    + <<create>> PumlPackage(Element element)
-    + getName(): String
-    + toDCA(): String{redefines PumlElement::toDCA}
++ <<create>> PumlInterface(element : Element)
++ getName() : String
++ toDCA() : String
++ toDCC() : String
++ linksToString() : String
+- RetrieveMethods()
 }
 
 class PumlLink
 {
-    - firstElement: String
-    - secondElement: String
-    - linkType: LinkType
-    + <<create>> PumlLink(String firstElement,String secondElement, LinkType linkType)
-    + getLinkType(): LinkType
-    + getFirstElement(): String
-    + getSecondElement(): String
-    {static}+ RetrieveLinks(Element element, ArrayList<PumlVariable> variableList): ArrayList<PumlLink>
-    {static}- getSuperClassLink(Element element): PumlLink
-    {static}- getInterfacesLinks(Element element): ArrayList<PumlLink>
-    {static}- getAssociatons(Element element, ArrayList<PumlVariable> variableList): ArrayList<PumlLink>
-    {static}+ linksToString(ArrayList<PumlLink> links): String
++ <<create>> PumlLink(firstElement : String, secondElement : String, linkType : LinkType)
++ getLinkType() : LinkType
++ getFirstElement() : String
++ getSecondElement() : String
++ {static} RetrieveLinks(element : Element, variableList : ArrayList) : ArrayList
+- {static} getSuperClassLink(element : Element) : PumlLink
+- {static} getInterfacesLinks(element : Element) : ArrayList
+- {static} getAssociatons(element : Element, variableList : ArrayList) : ArrayList
++ {static} linksToString(links : ArrayList) : String
++ toDCA() : String
++ toDCC() : String
 }
 
-class PumlVariable extends PumlElement
+class PumlMethod
 {
-    - Element: element
-    - VariableKind: kind
-    + <<create>> PumlVariable(Element element, VariableKind kind)
-    + TypeToString(): String
-    + toDCA(): String
-    + getElement(): Element
-    + getKind(): VariableKind
++ <<create>> PumlMethod(element : Element)
+- RetrieveParameters()
++ toDCA() : String
++ toDCC() : String
 }
 
-enum LinkType
+class PumlPackage
 {
-    EXTENDS
-    IMPLEMENTS
-    ASSOCIATE
++ <<create>> PumlPackage(element : Element)
+- RetrieveElements()
++ toDCA() : String
++ toDCC() : String
++ getName() : String
 }
 
-enum VariableKind
+class PumlParameter
 {
-    PRIMITIVE
-    OBJECT
-    ENUM
++ <<create>> PumlParameter(variableElement : VariableElement)
++ toDCA() : String
++ toDCC() : String
+}
+
+class PumlVariable
+{
++ <<create>> PumlVariable(element : Element, kind : VariableKind)
++ toDCA() : String
++ toDCC() : String
++ getElement() : Element
++ getKind() : VariableKind
+}
+
+class "<<enumeration>>\n LinkType" as LinkType
+{
+EXTENDS
+IMPLEMENTS
+ASSOCIATE
+}
+
+class "<<enumeration>>\n VariableKind" as VariableKind
+{
+PRIMITIVE
+OBJECT
+ENUM
 }
 
 PumlDoclet ..> PumlDiagram : use

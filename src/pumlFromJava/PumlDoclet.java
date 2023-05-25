@@ -270,7 +270,7 @@ public class PumlDoclet implements Doclet {
          ********************************************************************/
         @Override
         public int getArgumentCount() {
-            return 1;
+            return 0;
         }
 
         /********************************************************************
