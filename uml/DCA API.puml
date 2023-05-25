@@ -27,6 +27,9 @@ class PumlLink
 
 class PumlVariable extends PumlElement
 
+class PumlParameter extends PumlElement
+
+class PumlMethod extends PumlElement
 
 enum LinkType
 
@@ -42,6 +45,8 @@ PumlLink ..> LinkType : use
 PumlInterface o--> PumlLink
 PumlClass o--> PumlLink
 VariableKind ..> PumlVariable
+PumlParameter o..> PumlVariable: use
+PumlMethod o..> PumlParameter : use
 }
 
 @enduml

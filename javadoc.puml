@@ -8,122 +8,51 @@ hide empty members
 Package "pumlFromJava" {
 class Java2Puml
 {
-+ <<create>> Java2Puml() 
-+ {static} main(args : String[]) 
 }
 
 class PumlClass
 {
-+ <<create>> PumlClass(element : Element) 
-+ getName() : String
-+ toDCA() : String
-+ toDCC() : String
-- RetrieveVariables() 
-- RetrieveMethods() 
-+ getLinks() : ArrayList
 }
 
 class PumlDiagram
 {
-+ <<create>> PumlDiagram(env : DocletEnvironment) 
-- RetrievePackages() 
-+ toDCA() : String
-+ toDCC() : String
-+ setDirectory(directory : String) 
-+ setFilename(filename : String) 
-+ getDirectory() : String
-+ getFilename() : String
-+ getPackageList() : List
 }
 
 class PumlDoclet
 {
-- dca : Boolean
-+ <<create>> PumlDoclet() 
-+ init(locale : Locale, reporter : Reporter) 
-+ getName() : String
-+ getSupportedOptions() : Set
-+ getSupportedSourceVersion() : SourceVersion
-+ run(environment : DocletEnvironment)  : Boolean
-- InitPumlDiagram(env : DocletEnvironment) 
-- WritePuml() 
+dca
 }
 
 class PumlElement
 {
-+ <<create>> PumlElement() 
-+ {abstract} toDCA() : String
-+ {abstract} toDCC() : String
-+ {static} GetElementTypeString(element : Element) : String
-+ {static} TypeToString(type : TypeMirror) : String
-- {static} ExtractTypeString(FullName : String) : String
 }
 
 class PumlEnum
 {
-+ <<create>> PumlEnum(element : Element) 
-+ getName() : String
-+ toDCA() : String
-+ toDCC() : String
-+ getEnumElements() : String
 }
 
 class PumlInterface
 {
-+ <<create>> PumlInterface(element : Element) 
-+ getName() : String
-+ toDCA() : String
-+ toDCC() : String
-+ linksToString() : String
-- RetrieveMethods() 
 }
 
 class PumlLink
 {
-+ <<create>> PumlLink(firstElement : String, secondElement : String, linkType : LinkType) 
-+ getLinkType() : LinkType
-+ getFirstElement() : String
-+ getSecondElement() : String
-+ {static} RetrieveLinks(element : Element, variableList : ArrayList) : ArrayList
-- {static} getSuperClassLink(element : Element) : PumlLink
-- {static} getInterfacesLinks(element : Element) : ArrayList
-- {static} getAssociatons(element : Element, variableList : ArrayList) : ArrayList
-+ {static} linksToString(links : ArrayList) : String
-+ toDCA() : String
-+ toDCC() : String
 }
 
 class PumlMethod
 {
-+ <<create>> PumlMethod(element : Element) 
-- RetrieveParameters() 
-+ toDCA() : String
-+ toDCC() : String
 }
 
 class PumlPackage
 {
-+ <<create>> PumlPackage(element : Element) 
-- RetrieveElements() 
-+ toDCA() : String
-+ toDCC() : String
-+ getName() : String
 }
 
 class PumlParameter
 {
-+ <<create>> PumlParameter(variableElement : VariableElement) 
-+ toDCA() : String
-+ toDCC() : String
 }
 
 class PumlVariable
 {
-+ <<create>> PumlVariable(element : Element, kind : VariableKind) 
-+ toDCA() : String
-+ toDCC() : String
-+ getElement() : Element
-+ getKind() : VariableKind
 }
 
 class "<<enumeration>>\n LinkType" as LinkType
@@ -139,6 +68,46 @@ PRIMITIVE
 OBJECT
 ENUM
 }
+
+
+PumlClass --|> PumlElement
+PumlClass -- TypeElement
+PumlClass -- ArrayList
+PumlClass -- ArrayList
+PumlClass -- ArrayList
+
+PumlDiagram --|> PumlElement
+PumlDiagram -- DocletEnvironment
+
+PumlDoclet ..|> Doclet
+PumlDoclet -- PumlDiagram
+
+
+PumlEnum --|> PumlElement
+PumlEnum -- Element
+
+PumlInterface --|> PumlElement
+PumlInterface -- Element
+PumlInterface -- ArrayList
+PumlInterface -- ArrayList
+
+PumlLink --|> PumlElement
+PumlLink -- LinkType
+
+PumlMethod --|> PumlElement
+PumlMethod -- Element
+PumlMethod -- ExecutableElement
+PumlMethod -- ArrayList
+
+PumlPackage --|> PumlElement
+PumlPackage -- Element
+
+PumlParameter --|> PumlElement
+PumlParameter -- VariableElement
+
+PumlVariable --|> PumlElement
+PumlVariable -- Element
+PumlVariable -- VariableKind
 
 }
 

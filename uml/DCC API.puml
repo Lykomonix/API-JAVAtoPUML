@@ -13,7 +13,7 @@ class Java2Puml
 + {static} main(args : String[])
 }
 
-class PumlClass
+class PumlClass extends PumlElement
 {
 + <<create>> PumlClass(element : Element)
 + getName() : String
@@ -24,7 +24,7 @@ class PumlClass
 + getLinks() : ArrayList
 }
 
-class PumlDiagram
+class PumlDiagram extends PumlElement
 {
 + <<create>> PumlDiagram(env : DocletEnvironment)
 - RetrievePackages()
@@ -60,7 +60,7 @@ class PumlElement
 - {static} ExtractTypeString(FullName : String) : String
 }
 
-class PumlEnum
+class PumlEnum extends PumlElement
 {
 + <<create>> PumlEnum(element : Element)
 + getName() : String
@@ -69,7 +69,7 @@ class PumlEnum
 + getEnumElements() : String
 }
 
-class PumlInterface
+class PumlInterface extends PumlElement
 {
 + <<create>> PumlInterface(element : Element)
 + getName() : String
@@ -79,7 +79,7 @@ class PumlInterface
 - RetrieveMethods()
 }
 
-class PumlLink
+class PumlLink extends PumlElement
 {
 + <<create>> PumlLink(firstElement : String, secondElement : String, linkType : LinkType)
 + getLinkType() : LinkType
@@ -94,7 +94,7 @@ class PumlLink
 + toDCC() : String
 }
 
-class PumlMethod
+class PumlMethod extends PumlElement
 {
 + <<create>> PumlMethod(element : Element)
 - RetrieveParameters()
@@ -102,7 +102,7 @@ class PumlMethod
 + toDCC() : String
 }
 
-class PumlPackage
+class PumlPackage extends PumlElement
 {
 + <<create>> PumlPackage(element : Element)
 - RetrieveElements()
@@ -111,14 +111,14 @@ class PumlPackage
 + getName() : String
 }
 
-class PumlParameter
+class PumlParameter extends PumlElement
 {
 + <<create>> PumlParameter(variableElement : VariableElement)
 + toDCA() : String
 + toDCC() : String
 }
 
-class PumlVariable
+class PumlVariable extends PumlElement
 {
 + <<create>> PumlVariable(element : Element, kind : VariableKind)
 + toDCA() : String
@@ -127,7 +127,7 @@ class PumlVariable
 + getKind() : VariableKind
 }
 
-class "<<enumeration>>\n LinkType" as LinkType
+class "<<enumeration>>\n LinkType" as LinkType extends PumlElement
 {
 EXTENDS
 IMPLEMENTS
@@ -151,6 +151,8 @@ PumlLink ..> LinkType : use
 PumlInterface o--> PumlLink
 PumlClass o--> PumlLink
 VariableKind ..> PumlVariable
+PumlParameter o..> PumlVariable : use
+PumlMethod o..> PumlParameter : use
 }
 
 @enduml
