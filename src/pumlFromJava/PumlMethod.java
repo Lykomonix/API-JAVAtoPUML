@@ -112,4 +112,12 @@ public class PumlMethod extends PumlElement {
 
         return builder.toString();
     }
+
+    public ArrayList<PumlParameter> getParameters() {
+        return parameters;
+    }
+
+    public Element getElement() {
+        return element;
+    }
 }

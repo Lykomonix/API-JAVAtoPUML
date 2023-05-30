@@ -2,9 +2,11 @@ package pumlFromJava;
 
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class PumlLink extends PumlElement
 
@@ -59,7 +61,7 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
     in: Element element, ArrayList<PumlVariable> variableList
     out: ArrayList<PumlLink>
      ********************************************************************/
-    public static ArrayList<PumlLink> RetrieveLinks(Element element, ArrayList<PumlVariable> variableList)
+    public static ArrayList<PumlLink> RetrieveLinks(Element element, ArrayList<PumlVariable> variableList, ArrayList<PumlMethod> methodList)
     {
         ArrayList<PumlLink> links = new ArrayList<>();
 
@@ -67,7 +69,7 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
         links.addAll(getInterfacesLinks(element));
         if(variableList != null)
         {
-            links.addAll(getAssociatons(element, variableList));
+            links.addAll(getAssociatons(element, variableList, methodList));
         }
 
         return links;
@@ -119,7 +121,7 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
     in: Element element, ArrayList<PumlVariable> variableList
     out: ArrayList<PumlLink>
      ********************************************************************/
-    private static ArrayList<PumlLink> getAssociatons(Element element, ArrayList<PumlVariable> variableList)
+    private static ArrayList<PumlLink> getAssociatons(Element element, ArrayList<PumlVariable> variableList, ArrayList<PumlMethod> methodList)
     {
         ArrayList<PumlLink> links = new ArrayList<>();
 
@@ -127,16 +129,44 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
         {
             if(variable.getKind() == VariableKind.OBJECT)
             {
-                if(!GetElementTypeString(variable.getElement()).equals("String")
-                        && !GetElementTypeString(variable.getElement()).equals("Set")
-                        && !GetElementTypeString(variable.getElement()).equals("List"))
+                String type = GetElementTypeString(variable.getElement());
+                if(!type.equals("String") && !type.equals("List") && !type.equals("Set"))
                 {
                     PumlLink link = new PumlLink(element.getSimpleName().toString(),
                             GetElementTypeString(variable.getElement()), LinkType.ASSOCIATE);
 
                     links.add(link);
                 }
+                else if (type.equals("List") || type.equals("Set"))
+                {
+                    PumlLink link = new PumlLink(element.getSimpleName().toString(),
+                            ExtractContainedTypeString(variable.getElement().asType()), LinkType.LIST);
+
+                    links.add(link);
+                }
             }
+        }
+
+        for(PumlMethod method : methodList)
+        {
+            if(!method.getElement().getSimpleName().toString().equals("<init>"))
+            {
+                for(PumlParameter parameter : method.getParameters())
+                {
+                    String type = TypeToString(parameter.getVariableElement().asType());
+                    if(!type.contains("String") && !type.contains("char") && !type.contains("int") && !type.contains("List") )
+                    {
+                        PumlLink link = new PumlLink(element.getSimpleName().toString(),
+                                TypeToString(parameter.getVariableElement().asType()), LinkType.USE);
+
+                        if(!links.contains(link))
+                        {
+                            links.add(link);
+                        }
+                    }
+                }
+            }
+
         }
 
         return links;
@@ -153,6 +183,7 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
 
         for(PumlLink link : links)
         {
+
             if(link.getLinkType() == LinkType.EXTENDS && !link.getSecondElement().equals("Object"))
             {
                 builder.append(link.getFirstElement() + " --|> " + link.getSecondElement() + "\n");
@@ -165,9 +196,35 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
             {
                 builder.append(link.getFirstElement() + " -- " + link.getSecondElement() + "\n");
             }
+            else if(link.getLinkType() == LinkType.LIST)
+            {
+                builder.append(link.getFirstElement() + " \"*\" " + " -- " + link.getSecondElement() + "\n");
+            }
+            else if(link.getLinkType() == LinkType.USE)
+            {
+                builder.append(link.getFirstElement() + " ..> " + link.getSecondElement() + " : <<use>> \n");
+            }
         }
 
         return builder.toString();
+    }
+
+    private static String ExtractContainedTypeString(TypeMirror type)
+    {
+        String FullName = type.toString();
+
+        if(FullName.contains("<"))
+        {
+            String[] FullNameSplit = FullName.split("\\<");
+
+            return FullNameSplit[1].split("\\.")[FullNameSplit[0].split("\\.").length - 1].split(">")[0];
+        }
+        else
+        {
+            String[] FullNameSplit = FullName.split("\\.");
+
+            return FullNameSplit[FullNameSplit.length - 1];
+        }
     }
 
     @Override
@@ -179,6 +236,19 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
     public String toDCC() {
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj.getClass() != PumlLink.class)
+        {
+            throw new IllegalArgumentException("AH !");
+        }
+        PumlLink link = (PumlLink) obj;
+
+        return this.firstElement.equals(link.firstElement)
+                && this.secondElement.equals(link.secondElement)
+                && this.getLinkType() == link.getLinkType();
+    }
 }
 
 /********************************************************************
@@ -186,5 +256,5 @@ LinkType est une énumération qui permet de stocker les différents type de lie
  ********************************************************************/
 enum LinkType
 {
-    EXTENDS,IMPLEMENTS,ASSOCIATE;
+    EXTENDS,IMPLEMENTS,ASSOCIATE,LIST,USE;
 }

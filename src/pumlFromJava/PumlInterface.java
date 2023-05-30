@@ -25,7 +25,7 @@ public class PumlInterface extends PumlElement {
     public PumlInterface(Element element)
     {
         this.element = element;
-        links = PumlLink.RetrieveLinks(element,null);
+        links = PumlLink.RetrieveLinks(element,null,methodList);
         RetrieveMethods();
     }
 

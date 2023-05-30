@@ -44,4 +44,8 @@ public class PumlParameter extends PumlElement{
 
         return builder.toString();
     }
+
+    public VariableElement getVariableElement() {
+        return variableElement;
+    }
 }

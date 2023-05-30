@@ -31,7 +31,7 @@ public class PumlClass extends PumlElement {
         this.element = (TypeElement)element;
         RetrieveVariables();
         RetrieveMethods();
-        links = PumlLink.RetrieveLinks(this.element, variableList);
+        links = PumlLink.RetrieveLinks(this.element, variableList, methodList);
     }
 
     /********************************************************************

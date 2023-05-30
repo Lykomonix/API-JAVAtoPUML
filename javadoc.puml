@@ -5,109 +5,104 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 hide empty members
 
-Package "pumlFromJava" {
-class Java2Puml
+Package "western" {
+class Boisson
 {
 }
 
-class PumlClass
+class Brigand
+{
+recompense
+estLibre
+}
+
+class Cowboy
+{
+gains
+}
+
+class Dame
+{
+estLibre
+}
+
+class Histoire4
 {
 }
 
-class PumlDiagram
+class Narrateur
 {
 }
 
-class PumlDoclet
-{
-dca
-}
-
-class PumlElement
+class Personnage
 {
 }
 
-class PumlEnum
+class Ripou
 {
 }
 
-class PumlInterface
+class Substantif
 {
 }
 
-class PumlLink
+class "<<interface>>\n HorsLaLoi" as HorsLaLoi
+
+class "<<interface>>\n Nommable" as Nommable
+
+class "<<enumeration>>\n Genre" as Genre
 {
+FEMININ
+MASCULIN
 }
 
-class PumlMethod
-{
-}
+Boisson -- Substantif
+Boisson -- Boisson
 
-class PumlPackage
-{
-}
+Brigand --|> Personnage
+Brigand ..|> HorsLaLoi
+Brigand "*"  -- Dame
+Brigand -- Cowboy
+Brigand -- Boisson
+Brigand ..> Dame : <<use>> 
+Brigand ..> Cowboy : <<use>> 
+Brigand ..> Boisson : <<use>> 
 
-class PumlParameter
-{
-}
+Cowboy --|> Personnage
+Cowboy "*"  -- HorsLaLoi
+Cowboy -- Boisson
+Cowboy ..> Dame : <<use>> 
+Cowboy ..> HorsLaLoi : <<use>> 
+Cowboy ..> Boisson : <<use>> 
 
-class PumlVariable
-{
-}
-
-class "<<enumeration>>\n LinkType" as LinkType
-{
-EXTENDS
-IMPLEMENTS
-ASSOCIATE
-}
-
-class "<<enumeration>>\n VariableKind" as VariableKind
-{
-PRIMITIVE
-OBJECT
-ENUM
-}
+Dame --|> Personnage
+Dame -- Cowboy
+Dame -- HorsLaLoi
+Dame -- Boisson
+Dame ..> HorsLaLoi : <<use>> 
+Dame ..> Cowboy : <<use>> 
+Dame ..> Boisson : <<use>> 
 
 
-PumlClass --|> PumlElement
-PumlClass -- TypeElement
-PumlClass -- ArrayList
-PumlClass -- ArrayList
-PumlClass -- ArrayList
+Narrateur --|> Personnage
+Narrateur ..> Boisson : <<use>> 
 
-PumlDiagram --|> PumlElement
-PumlDiagram -- DocletEnvironment
+Personnage ..|> Nommable
+Personnage -- Boisson
+Personnage -- Boisson
+Personnage ..> Boisson : <<use>> 
 
-PumlDoclet ..|> Doclet
-PumlDoclet -- PumlDiagram
+Ripou --|> Cowboy
+Ripou ..|> HorsLaLoi
+Ripou -- Brigand
+Ripou ..> Dame : <<use>> 
+Ripou ..> Cowboy : <<use>> 
 
+Substantif -- Genre
+Substantif ..> Genre : <<use>> 
 
-PumlEnum --|> PumlElement
-PumlEnum -- Element
+HorsLaLoi --|> Nommable
 
-PumlInterface --|> PumlElement
-PumlInterface -- Element
-PumlInterface -- ArrayList
-PumlInterface -- ArrayList
-
-PumlLink --|> PumlElement
-PumlLink -- LinkType
-
-PumlMethod --|> PumlElement
-PumlMethod -- Element
-PumlMethod -- ExecutableElement
-PumlMethod -- ArrayList
-
-PumlPackage --|> PumlElement
-PumlPackage -- Element
-
-PumlParameter --|> PumlElement
-PumlParameter -- VariableElement
-
-PumlVariable --|> PumlElement
-PumlVariable -- Element
-PumlVariable -- VariableKind
 
 }
 
