@@ -71,7 +71,7 @@ public class PumlPackage extends PumlElement{
 
         for(PumlClass element : classList)
         {
-            builder.append(PumlLink.linksToString(element.getLinks()) + "\n");
+            builder.append(PumlLink.linksToStringDCA(element.getLinks()) + "\n");
         }
 
         for(PumlInterface element : interfaceList)
@@ -107,17 +107,17 @@ public class PumlPackage extends PumlElement{
             builder.append(element.toDCC() + "\n");
         }
 
-        /**
+
         for(PumlClass element : classList)
         {
-            builder.append(PumlLink.linksToString(element.getLinks()) + "\n");
+            builder.append(PumlLink.linksToStringDCC(element.getLinks()) + "\n");
         }
-
+        /*
         for(PumlInterface element : interfaceList)
         {
             builder.append(element.linksToString() + "\n");
         }
-        **/
+        */
 
         return builder.toString();
     }

@@ -56,7 +56,7 @@ public class PumlClass extends PumlElement {
 
         for(PumlVariable variable : variableList)
         {
-            if(variable.getKind() == VariableKind.PRIMITIVE)
+            if(variable.getVariableKind() == VariableKind.PRIMITIVE)
             {
                 builder.append(variable.toDCA());
             }
@@ -82,7 +82,7 @@ public class PumlClass extends PumlElement {
 
         for(PumlVariable variable : variableList)
         {
-            if(variable.getKind() == VariableKind.PRIMITIVE)
+            if(variable.getVariableKind() == VariableKind.PRIMITIVE)
             {
                 builder.append(variable.toDCC());
             }

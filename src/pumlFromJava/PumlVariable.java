@@ -80,7 +80,7 @@ public class PumlVariable extends PumlElement {
      * in: Ø
      * out VariableKind
      ********************************************************************/
-    public VariableKind getKind() {
+    public VariableKind getVariableKind() {
         return kind;
     }
 }
