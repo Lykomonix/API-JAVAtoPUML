@@ -61,7 +61,10 @@ public class PumlVariable extends PumlElement {
             default -> builder.append( this.element.getSimpleName() + " : " + GetElementTypeString(this.element) + "\n");
         }
 
-
+        if(this.element.getModifiers().contains(Modifier.FINAL))
+        {
+            builder.append(" {readOnly}");
+        }
 
         return builder.toString();
     }
