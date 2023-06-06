@@ -4,6 +4,8 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.Set;
 
 /********************************************************************
  * PumlVariable hérite de PumlElement et permet de gérer les Variables dans les diagrammes
@@ -42,12 +44,16 @@ public class PumlVariable extends PumlElement {
     @Override
     public String toDCC() {
         StringBuilder builder = new StringBuilder();
+        Set<Modifier> modifierList = this.element.getModifiers();
 
+        if(!(modifierList.contains(Modifier.PRIVATE) || modifierList.contains(Modifier.PUBLIC) || modifierList.contains(Modifier.PROTECTED)))
+        {
+            builder.append("~ ");
+        }
         for(Modifier modifier : this.element.getModifiers())
         {
             switch(modifier)
             {
-                case STATIC -> builder.append("{static} ");
                 case PRIVATE -> builder.append("- ");
                 case PUBLIC -> builder.append("+ ");
                 case PROTECTED -> builder.append("~ ");
@@ -56,16 +62,20 @@ public class PumlVariable extends PumlElement {
 
         switch (GetElementTypeString(this.element))
         {
-            case ("int") -> builder.append( this.element.getSimpleName() + " : " + "Integer" + "\n");
-            case("boolean") -> builder.append( this.element.getSimpleName() + " : " + "Boolean" + "\n");
-            default -> builder.append( this.element.getSimpleName() + " : " + GetElementTypeString(this.element) + "\n");
+            case ("int") -> builder.append( this.element.getSimpleName() + " : " + "Integer");
+            case("boolean") -> builder.append( this.element.getSimpleName() + " : " + "Boolean");
+            default -> builder.append( this.element.getSimpleName() + " : " + GetElementTypeString(this.element));
         }
 
+        if(this.element.getModifiers().contains(Modifier.STATIC))
+        {
+            builder.append(" {static}");
+        }
         if(this.element.getModifiers().contains(Modifier.FINAL))
         {
             builder.append(" {readOnly}")
         }
-
+        builder.append("\n");
         return builder.toString();
     }
 

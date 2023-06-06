@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.sql.SQLSyntaxErrorException;
 import java.time.temporal.ValueRange;
 import java.util.ArrayList;
+import java.util.Set;
 
 /********************************************************************
  * PumlMethode hérite de PumlElement. la classe permet de s'occuper des méthodes des classes et interfaces
@@ -59,7 +60,11 @@ public class PumlMethod extends PumlElement {
     public String toDCC() {
 
         StringBuilder builder = new StringBuilder();
-
+        Set<Modifier> modifierList = this.element.getModifiers();
+        if(!(modifierList.contains(Modifier.PRIVATE) || modifierList.contains(Modifier.PUBLIC) || modifierList.contains(Modifier.PROTECTED)))
+        {
+            builder.append("~ ");
+        }
         for (Modifier modifier : this.element.getModifiers()) {
             switch (modifier) {
                 case STATIC -> builder.append("{static} ");
@@ -76,6 +81,7 @@ public class PumlMethod extends PumlElement {
                 case PROTECTED -> builder.append("~ ");
             }
         }
+
 
         if (this.element.getSimpleName().toString().equals("<init>"))
         {

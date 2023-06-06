@@ -5,193 +5,97 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 hide empty members
 
-Package "western" {
-class Boisson
+Package "test" {
+class A
 {
-+ <<create>> Boisson(nom : String, genre : Genre) 
-+ getNom() : String
-+ getGenre() : Genre
-+ getNomAvecArticleIndefini() : String
-+ getNomAvecArticlePartitif() : String
-+ getNomAvecArticleDefini() : String
-+ getNomAvecPreposition(preposition : String) : String
+- anInt : Integer
+~ aShort : short
+~ aLong : long
++ aByte : byte
+- aFloat : float {readOnly}
+~ aDouble : double {static}
+~ aChar : char {static} {readOnly}
++ aBoolean : Boolean {static} {readOnly}
+~ A() 
+- anIntFunction(anIntParam : int)  : Integer
+~ aShortFunction(aShortParam : short) : short
+~ aLongFunction(aLongParam : long) : long
++ aByteFunction(aByteParam : byte) : byte
+- {static} aFloatFunction(aFloatParam : float) : float
+~ {static} aDoubleFunction(aDoubleParam : double) : double
+~ {static} aCharFunction(aCharParam : char) : char
++ {static} aBooleanFunction(aBooleanParam : boolean)  : Boolean
 }
 
-class Brigand
+class B
 {
-- recompense : Integer
-- estLibre : Boolean
-+ <<create>> Brigand(nom : String) 
-+ <<create>> Brigand(nom : String, boisson : Boisson) 
-+ <<create>> Brigand(nom : String, boisson : Boisson, look : String) 
-+ getLook() : String
-+ getRecompense()  : Integer
-+ estLibre()  : Boolean
-+ kidnapper(dame : Dame) 
-+ seFaireCapturer(cowBoy : Cowboy) 
-+ seFaireTirerDessus(cowBoy : Cowboy) 
-+ getPseudo() : String
-+ getCaptives() : List
-+ sePresenter() 
-+ {static} getBoissonParDefaut() : Boisson
-+ {static} setBoissonParDefaut(boisson : Boisson) 
+~ B() 
+- anIntFunction(anIntParam : Integer) : Integer
+~ aShortFunction(aShortParam : Short) : Short
+~ aLongFunction(aLongParam : Long) : Long
++ aByteFunction(aByteParam : Byte) : Byte
+- aFloatFunction(aFloatParam : Float) : Float
+~ {abstract} aDoubleFunction(aDoubleParam : Double) : Double
+~ {static} aCharacterFunction(aCharacterParam : Character) : Character
++ {static} aBooleanFunction(aBooleanParam : Boolean) : Boolean
 }
 
-class Cowboy
+class C
 {
-- gains : Integer
-+ <<create>> Cowboy(nom : String) 
-+ <<create>> Cowboy(nom : String, boisson : Boisson) 
-+ getPseudo() : String
-+ liberer(dame : Dame) 
-+ liberer(captives : List) 
-+ capturer(horsLaLoi : HorsLaLoi) 
-+ tirerSur(brigand : HorsLaLoi) 
-+ sePresenter() 
-+ {static} getBoissonParDefaut() : Boisson
-+ {static} setBoissonParDefaut(boisson : Boisson) 
+- anIntArray : int[]
+~ aShortArray : Short[]
+~ anArrayOfLongArray : long[][]
++ anArrayOfByteArray : Byte[][]
+~ C() 
+- anIntArrayFunction(anIntArrayParam : int[]) : int[]
+~ aShortArrayFunction(aShortArrayParam : Short[]) : Short[]
+~ aLong3DArrayFunction(someLongs : long[][][][]) : long[][][]
++ aByte5DArrayFunction(someBytes : Byte[][][][][][]) : Byte[][][][][]
+- aFloatListFunction(aFloatListParam : List) : List
+~ aListOfDoubleListFunction(someDoubles : List) : List
+~ aCharacterSetFunction(aCharacterSetParam : Set) : Set
++ aSetOfBooleanListFunction(someBooleans : Collection) : Set
 }
 
-class Dame
+class D
 {
-- estLibre : Boolean
-+ <<create>> Dame(nom : String) 
-+ <<create>> Dame(nom : String, boisson : Boisson) 
-+ getPseudo() : String
-+ seFaireKidnapper(horsLaLoi : HorsLaLoi) 
-+ seFaireLiberer(cowBoy : Cowboy) 
-+ estLibre()  : Boolean
-+ sePresenter() 
-+ {static} getBoissonParDefaut() : Boisson
-+ {static} setBoissonParDefaut(boisson : Boisson) 
-+ getRavisseur() : HorsLaLoi
+~ bs : B[]
+~ D() 
+- aFunction(a0 : A, a1 : A[], a2 : A[][], a3 : A[][][]) : A
+~ bFunction(b0 : B, b1 : List, b2 : List, b3 : List) : B[]
+~ {abstract} cFunction(c0 : C, c1 : List, c2 : List, c3 : List) : List
++ {static} dFunction(d0 : D, d1 : Collection, d2 : HashSet, d3 : ArrayList, d4 : HashMap) : Collection
 }
 
-class Histoire4
+class E
 {
-+ <<create>> Histoire4() 
-+ {static} main(args : String[]) 
+~ E() 
+- mapOfIntFunction(a0 : Map, a1 : HashMap, a2 : TreeMap, a3 : Map) : Map
+~ {abstract} mapOfDoubleArrayFunction(a0 : Map, a1 : Map, a2 : HashMap, a3 : TreeMap) : Map
+~ mapOfAFunction(a0 : Map, a1 : Map, a2 : Map, a3 : Map) : Map
++ {static} mapOfArrayOfAFunction(a0 : Map, a1 : Map, a2 : Map, a3 : TreeMap) : Map
 }
 
-class Narrateur
+class test
 {
-+ <<create>> Narrateur() 
-+ <<create>> Narrateur(nom : String) 
-+ dire(texte : String) 
-+ boire(boisson : Boisson) 
-+ boire() 
-+ getPseudo() : String
-}
-
-class Personnage
-{
-+ <<create>> Personnage(nom : String) 
-+ <<create>> Personnage(nom : String, boisson : Boisson) 
-+ dire(texte : String) 
-+ sePresenter() 
-+ boire(boisson : Boisson) 
-+ boire() 
-+ getNom() : String
-+ getBoisson() : Boisson
-+ {static} getPseudos(personnages : List) : String
-+ {static} getBoissonParDefaut() : Boisson
-}
-
-class Ripou
-{
-+ <<create>> Ripou(nom : String) 
-+ <<create>> Ripou(nom : String, boisson : Boisson) 
-+ <<create>> Ripou(nom : String, boisson : Boisson, look : String) 
-+ getLook() : String
-+ estLibre()  : Boolean
-+ getRecompense()  : Integer
-+ kidnapper(dame : Dame) 
-+ getCaptives() : List
-+ seFaireCapturer(cowBoy : Cowboy) 
-+ seFaireTirerDessus(cowBoy : Cowboy) 
-+ getPseudo() : String
-+ sePresenter() 
-+ liberer(dame : Dame) 
-}
-
-class Substantif
-{
-+ <<create>> Substantif(nom : String, genre : Genre) 
-+ getNom() : String
-+ getGenre() : Genre
-+ toString() : String
-+ {static} isVowel(c : char)  : Boolean
-+ {static} startsWithVowel(s : String)  : Boolean
-+ getArticleIndefini() : String
-+ avecArticleIndefini() : String
-+ {static} getArticleDefini(genre : Genre) : String
-+ getArticleDefini() : String
-+ avecArticleDefini() : String
-+ {static} faireElision(article : String) : String
-+ elision()  : Boolean
-+ getArticlePartitif() : String
-+ avecArticlePartitif() : String
-+ avecElision(article : String) : String
-+ avecPreposition(preposition : String) : String
-}
-
-class "<<interface>>\n HorsLaLoi" as HorsLaLoi
-{
-+ {abstract} estLibre()  : Boolean
-+ {abstract} getRecompense()  : Integer
-+ {abstract} kidnapper(dame : Dame) 
-+ {abstract} seFaireCapturer(cowBoy : Cowboy) 
-+ {abstract} seFaireTirerDessus(cowBoy : Cowboy) 
-+ {abstract} getLook() : String
-+ {abstract} getCaptives() : List
-
-}
-
-class "<<interface>>\n Nommable" as Nommable
-{
-+ {abstract} getNom() : String
-+ {abstract} getPseudo() : String
-
-}
-
-class "<<enumeration>>\n Genre" as Genre
-{
-FEMININ
-MASCULIN
++ <<create>> test() 
 }
 
 
-Brigand --|> Personnage
-Brigand ..|> HorsLaLoi
-Brigand " * \n captives " --> Dame
-Brigand ..> Dame : <<use>> 
-Brigand ..> Cowboy : <<use>> 
-Brigand ..> Boisson : <<use>> 
 
-Cowboy --|> Personnage
-Cowboy " * \n captures " --> HorsLaLoi
-Cowboy ..> Dame : <<use>> 
-Cowboy ..> HorsLaLoi : <<use>> 
-Cowboy ..> Boisson : <<use>> 
+C " * \n aFloatList " --> Float
+C " * \n aListOfDoubleList " --> List
+C " * \n aSetOfCharacter " --> Character
+C " * \n aSetOfBooleanList " --> List
 
-Dame --|> Personnage
-Dame ..> HorsLaLoi : <<use>> 
-Dame ..> Cowboy : <<use>> 
-Dame ..> Boisson : <<use>> 
+D " * \n cs " --> C
+D " * \n ds " --> List
+D ..> A : <<use>> 
+D ..> B : <<use>> 
+D ..> C : <<use>> 
+D ..> D : <<use>> 
 
 
-Narrateur --|> Personnage
-Narrateur ..> Boisson : <<use>> 
-
-Personnage ..|> Nommable
-Personnage ..> Boisson : <<use>> 
-
-Ripou --|> Cowboy
-Ripou ..|> HorsLaLoi
-Ripou ..> Dame : <<use>> 
-Ripou ..> Cowboy : <<use>> 
-
-Substantif ..> Genre : <<use>> 
 
 }
 
