@@ -190,7 +190,10 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
                                 PumlLink link = new PumlLink(element.getSimpleName().toString(),
                                         TypeToString(parameter.getVariableElement().asType()), LinkType.USE);
 
-                                links.add(link);
+                                if(!links.contains(link))
+                                {
+                                    links.add(link);
+                                }
                             }
                         }
                     }
@@ -212,7 +215,6 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
 
         for(PumlLink link : links)
         {
-
             if(link.getLinkType() == LinkType.EXTENDS && !link.getSecondElement().equals("Object"))
             {
                 builder.append(link.getFirstElement() + " --|> " + link.getSecondElement() + "\n");
