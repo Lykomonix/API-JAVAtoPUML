@@ -5,96 +5,87 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 hide empty members
 
-Package "test" {
-class A
+Package "western" {
+class Boisson
 {
-- anInt : Integer
-~ aShort : short
-~ aLong : long
-+ aByte : byte
-- aFloat : float {readOnly}
-~ aDouble : double {static}
-~ aChar : char {static} {readOnly}
-+ aBoolean : Boolean {static} {readOnly}
-~ A() 
-- anIntFunction(anIntParam : int)  : Integer
-~ aShortFunction(aShortParam : short) : short
-~ aLongFunction(aLongParam : long) : long
-+ aByteFunction(aByteParam : byte) : byte
-- {static} aFloatFunction(aFloatParam : float) : float
-~ {static} aDoubleFunction(aDoubleParam : double) : double
-~ {static} aCharFunction(aCharParam : char) : char
-+ {static} aBooleanFunction(aBooleanParam : boolean)  : Boolean
 }
 
-class B
+class Brigand
 {
-~ B() 
-- anIntFunction(anIntParam : Integer) : Integer
-~ aShortFunction(aShortParam : Short) : Short
-~ aLongFunction(aLongParam : Long) : Long
-+ aByteFunction(aByteParam : Byte) : Byte
-- aFloatFunction(aFloatParam : Float) : Float
-~ {abstract} aDoubleFunction(aDoubleParam : Double) : Double
-~ {static} aCharacterFunction(aCharacterParam : Character) : Character
-+ {static} aBooleanFunction(aBooleanParam : Boolean) : Boolean
+recompense
+estLibre
 }
 
-class C
+class Cowboy
 {
-- anIntArray : int[]
-~ aShortArray : Short[]
-~ anArrayOfLongArray : long[][]
-+ anArrayOfByteArray : Byte[][]
-~ C() 
-- anIntArrayFunction(anIntArrayParam : int[]) : int[]
-~ aShortArrayFunction(aShortArrayParam : Short[]) : Short[]
-~ aLong3DArrayFunction(someLongs : long[][][][]) : long[][][]
-+ aByte5DArrayFunction(someBytes : Byte[][][][][][]) : Byte[][][][][]
-- aFloatListFunction(aFloatListParam : List) : List
-~ aListOfDoubleListFunction(someDoubles : List) : List
-~ aCharacterSetFunction(aCharacterSetParam : Set) : Set
-+ aSetOfBooleanListFunction(someBooleans : Collection) : Set
+gains
 }
 
-class D
+class Dame
 {
-~ bs : B[]
-~ D() 
-- aFunction(a0 : A, a1 : A[], a2 : A[][], a3 : A[][][]) : A
-~ bFunction(b0 : B, b1 : List, b2 : List, b3 : List) : B[]
-~ {abstract} cFunction(c0 : C, c1 : List, c2 : List, c3 : List) : List
-+ {static} dFunction(d0 : D, d1 : Collection, d2 : HashSet, d3 : ArrayList, d4 : HashMap) : Collection
+estLibre
 }
 
-class E
+class Histoire4
 {
-~ E() 
-- mapOfIntFunction(a0 : Map, a1 : HashMap, a2 : TreeMap, a3 : Map) : Map
-~ {abstract} mapOfDoubleArrayFunction(a0 : Map, a1 : Map, a2 : HashMap, a3 : TreeMap) : Map
-~ mapOfAFunction(a0 : Map, a1 : Map, a2 : Map, a3 : Map) : Map
-+ {static} mapOfArrayOfAFunction(a0 : Map, a1 : Map, a2 : Map, a3 : TreeMap) : Map
 }
 
-class test
+class Narrateur
 {
-+ <<create>> test() 
 }
 
+class Personnage
+{
+}
+
+class Ripou
+{
+}
+
+class Substantif
+{
+}
+
+class "<<interface>>\n HorsLaLoi" as HorsLaLoi
+
+class "<<interface>>\n Nommable" as Nommable
+
+class "<<enumeration>>\n Genre" as Genre
+{
+FEMININ
+MASCULIN
+}
+
+Boisson -- Substantif
+Boisson -- Boisson
+
+Brigand --|> Personnage
+Brigand ..|> HorsLaLoi
+Brigand -- Cowboy
+Brigand -- Boisson
+
+Cowboy --|> Personnage
+Cowboy -- Boisson
+
+Dame --|> Personnage
+Dame -- Cowboy
+Dame -- HorsLaLoi
+Dame -- Boisson
 
 
-C " * \n aFloatList " --> Float
-C " * \n aListOfDoubleList " --> List
-C " * \n aSetOfCharacter " --> Character
-C " * \n aSetOfBooleanList " --> List
+Narrateur --|> Personnage
 
-D " * \n cs " --> C
-D " * \n ds " --> List
-D ..> A : <<use>> 
-D ..> B : <<use>> 
-D ..> C : <<use>> 
-D ..> D : <<use>> 
+Personnage ..|> Nommable
+Personnage -- Boisson
+Personnage -- Boisson
 
+Ripou --|> Cowboy
+Ripou ..|> HorsLaLoi
+Ripou -- Brigand
+
+Substantif -- Genre
+
+HorsLaLoi --|> Nommable
 
 
 }
