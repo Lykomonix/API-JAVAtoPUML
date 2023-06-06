@@ -152,6 +152,7 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
         {
             if(variable.getVariableKind() == VariableKind.OBJECT)
             {
+
                 DeclaredType declaredType = (DeclaredType) variable.getElement().asType();
 
                 TypeElement typeElement = (TypeElement) declaredType.asElement();
@@ -176,8 +177,6 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
             {
                 for(PumlParameter parameter : method.getParameters())
                 {
-                    boolean isAccepted = true;
-
                     if(!TypeToString(parameter.getVariableElement().asType()).equals("String"))
                     {
                         TypeKind parameterKind = parameter.getVariableElement().asType().getKind();
@@ -186,25 +185,12 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
                         {
                             DeclaredType declaredType = (DeclaredType) parameter.getVariableElement().asType();
 
-                            TypeElement typeElement = (TypeElement) declaredType.asElement();
-
-                            for(TypeMirror typeMirror : typeElement.getInterfaces())
-                            {
-                                if(TypeToString(typeMirror).equals(Collection.class.getSimpleName()))
-                                {
-                                    isAccepted = false;
-                                }
-                            }
-
-                            if(isAccepted)
+                            if(declaredType.asElement().getEnclosingElement().equals(element.getEnclosingElement()))
                             {
                                 PumlLink link = new PumlLink(element.getSimpleName().toString(),
                                         TypeToString(parameter.getVariableElement().asType()), LinkType.USE);
 
-                                if(!links.contains(link))
-                                {
-                                    links.add(link);
-                                }
+                                links.add(link);
                             }
                         }
                     }
