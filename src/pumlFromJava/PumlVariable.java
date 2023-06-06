@@ -73,7 +73,7 @@ public class PumlVariable extends PumlElement {
         }
         if(this.element.getModifiers().contains(Modifier.FINAL))
         {
-            builder.append(" {readOnly}")
+            builder.append(" {readOnly}");
         }
         builder.append("\n");
         return builder.toString();
