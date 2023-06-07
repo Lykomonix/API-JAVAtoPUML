@@ -2,8 +2,12 @@ package pumlFromJava;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.TypeMirror;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -95,6 +99,29 @@ public class PumlVariable extends PumlElement {
      ********************************************************************/
     public VariableKind getVariableKind() {
         return kind;
+    }
+
+
+    public static boolean IsCollection(PumlVariable variable)
+    {
+        boolean result = false;
+
+        if(variable.getVariableKind() != VariableKind.PRIMITIVE)
+        {
+            DeclaredType declaredType = (DeclaredType) variable.getElement().asType();
+
+            TypeElement typeElement = (TypeElement) declaredType.asElement();
+
+            for (TypeMirror typeMirror : typeElement.getInterfaces())
+            {
+                if (TypeToString(typeMirror).equals(Collection.class.getSimpleName()))
+                {
+                    result = true;
+                }
+            }
+        }
+
+        return result;
     }
 }
 

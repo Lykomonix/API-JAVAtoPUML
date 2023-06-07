@@ -8,6 +8,8 @@ hide empty members
 Package "western" {
 class Boisson
 {
+- substantif : Substantif {readOnly}
++ EAU : Boisson {static} {readOnly}
 + <<create>> Boisson(nom : String, genre : Genre) 
 + getNom() : String
 + getGenre() : Genre
@@ -19,8 +21,12 @@ class Boisson
 
 class Brigand
 {
+~ LOOK_PAR_DEFAUT : String {static}
+- look : String
 - recompense : Integer
 - estLibre : Boolean
+- gardien : Cowboy
+- boissonParDefaut : Boisson {static}
 + <<create>> Brigand(nom : String) 
 + <<create>> Brigand(nom : String, boisson : Boisson) 
 + <<create>> Brigand(nom : String, boisson : Boisson, look : String) 
@@ -40,6 +46,7 @@ class Brigand
 class Cowboy
 {
 - gains : Integer
+- boissonParDefaut : Boisson {static}
 + <<create>> Cowboy(nom : String) 
 + <<create>> Cowboy(nom : String, boisson : Boisson) 
 + getPseudo() : String
@@ -55,6 +62,9 @@ class Cowboy
 class Dame
 {
 - estLibre : Boolean
+- sauveur : Cowboy
+- ravisseur : HorsLaLoi
+- boissonParDefaut : Boisson {static}
 + <<create>> Dame(nom : String) 
 + <<create>> Dame(nom : String, boisson : Boisson) 
 + getPseudo() : String
@@ -85,6 +95,9 @@ class Narrateur
 
 class Personnage
 {
+- BOISSON_PAR_DEFAUT : Boisson {static}
+- nom : String
+- boisson : Boisson
 + <<create>> Personnage(nom : String) 
 + <<create>> Personnage(nom : String, boisson : Boisson) 
 + dire(texte : String) 
@@ -99,6 +112,7 @@ class Personnage
 
 class Ripou
 {
+- brigand : Brigand
 + <<create>> Ripou(nom : String) 
 + <<create>> Ripou(nom : String, boisson : Boisson) 
 + <<create>> Ripou(nom : String, boisson : Boisson, look : String) 
@@ -116,6 +130,8 @@ class Ripou
 
 class Substantif
 {
+- nom : String
+- genre : Genre
 + <<create>> Substantif(nom : String, genre : Genre) 
 + getNom() : String
 + getGenre() : Genre
@@ -163,13 +179,13 @@ MASCULIN
 
 Brigand --|> Personnage
 Brigand ..|> HorsLaLoi
-Brigand " * \n captives " --> Dame
+Brigand " * \n captives " o--> Dame
 Brigand ..> Dame : <<use>> 
 Brigand ..> Cowboy : <<use>> 
 Brigand ..> Boisson : <<use>> 
 
 Cowboy --|> Personnage
-Cowboy " * \n captures " --> HorsLaLoi
+Cowboy " * \n captures " o--> HorsLaLoi
 Cowboy ..> Dame : <<use>> 
 Cowboy ..> HorsLaLoi : <<use>> 
 Cowboy ..> Boisson : <<use>> 

@@ -5,48 +5,89 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 hide empty members
 
-Package "pumlFromJava" {
+Package "western" {
+class Boisson
+{
+}
 
-class Java2Puml
+class Brigand
+{
+recompense
+estLibre
+}
 
-class PumlDoclet implements Doclet
+class Cowboy
+{
+gains
+}
 
-class PumlElement
+class Dame
+{
+estLibre
+}
 
-class PumlDiagram extends PumlElement
+class Histoire4
+{
+}
 
-class PumlClass extends PumlElement
+class Narrateur
+{
+}
 
-class PumlEnum extends PumlElement
+class Personnage
+{
+}
 
-class PumlInterface extends PumlElement
+class Ripou
+{
+}
 
-class PumlPackage extends PumlElement
+class Substantif
+{
+}
 
-class PumlLink
+class "<<interface>>\n HorsLaLoi" as HorsLaLoi
 
-class PumlVariable extends PumlElement
+class "<<interface>>\n Nommable" as Nommable
 
-class PumlParameter extends PumlElement
+class "<<enumeration>>\n Genre" as Genre
+{
+FEMININ
+MASCULIN
+}
 
-class PumlMethod extends PumlElement
+Boisson -- Substantif
+Boisson -- Boisson
 
-enum LinkType
+Brigand --|> Personnage
+Brigand ..|> HorsLaLoi
+Brigand -- Cowboy
+Brigand -- Boisson
 
-enum VariableKind
+Cowboy --|> Personnage
+Cowboy -- Boisson
 
-PumlDoclet ..> PumlDiagram : use
-Java2Puml ..> PumlDoclet : lance
-PumlDiagram o...> PumlPackage : use
-PumlPackage o..> PumlClass : use
-PumlPackage o..> PumlInterface : use
-PumlPackage o..> PumlEnum : use
-PumlLink ..> LinkType : use
-PumlInterface o--> PumlLink
-PumlClass o--> PumlLink
-VariableKind ..> PumlVariable
-PumlParameter o..> PumlVariable: use
-PumlMethod o..> PumlParameter : use
+Dame --|> Personnage
+Dame -- Cowboy
+Dame -- HorsLaLoi
+Dame -- Boisson
+
+
+Narrateur --|> Personnage
+
+Personnage ..|> Nommable
+Personnage -- Boisson
+Personnage -- Boisson
+
+Ripou --|> Cowboy
+Ripou ..|> HorsLaLoi
+Ripou -- Brigand
+
+Substantif -- Genre
+
+HorsLaLoi --|> Nommable
+
+
 }
 
 @enduml

@@ -82,7 +82,7 @@ public class PumlClass extends PumlElement {
 
         for(PumlVariable variable : variableList)
         {
-            if(variable.getVariableKind() == VariableKind.PRIMITIVE)
+            if(!PumlVariable.IsCollection(variable))
             {
                 builder.append(variable.toDCC());
             }
