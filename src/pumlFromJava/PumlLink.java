@@ -223,9 +223,9 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
             {
                 builder.append(link.getFirstElement() + " ..|> " + link.getSecondElement() + "\n");
             }
-            else if(link.getLinkType() == LinkType.LIST)
+            else if(link.getLinkType() == LinkType.LIST)//là ici c'est KC
             {
-                builder.append(link.getFirstElement() + " --> " + link.getSecondElement() + "\n");
+                builder.append(link.getFirstElement() + " o--> " + link.getSecondElement() + "\n");
             }
             else if(link.getLinkType() == LinkType.USE)
             {
