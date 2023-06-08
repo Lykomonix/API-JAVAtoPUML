@@ -5,209 +5,202 @@ skinparam classAttributeIconSize 0
 skinparam classFontStyle Bold
 hide empty members
 
-Package "western" {
-class Boisson
+Package "pumlFromJava" {
+class Java2Puml
 {
-- substantif : Substantif {readOnly}
-+ EAU : Boisson {static} {readOnly}
-+ <<create>> Boisson(nom : String, genre : Genre) 
-+ getNom() : String
-+ getGenre() : Genre
-+ getNomAvecArticleIndefini() : String
-+ getNomAvecArticlePartitif() : String
-+ getNomAvecArticleDefini() : String
-+ getNomAvecPreposition(preposition : String) : String
-}
-
-class Brigand
-{
-~ LOOK_PAR_DEFAUT : String {static}
-- look : String
-- recompense : Integer
-- estLibre : Boolean
-- gardien : Cowboy
-- boissonParDefaut : Boisson {static}
-+ <<create>> Brigand(nom : String) 
-+ <<create>> Brigand(nom : String, boisson : Boisson) 
-+ <<create>> Brigand(nom : String, boisson : Boisson, look : String) 
-+ getLook() : String
-+ getRecompense()  : Integer
-+ estLibre()  : Boolean
-+ kidnapper(dame : Dame) 
-+ seFaireCapturer(cowBoy : Cowboy) 
-+ seFaireTirerDessus(cowBoy : Cowboy) 
-+ getPseudo() : String
-+ getCaptives() : List
-+ sePresenter() 
-+ {static} getBoissonParDefaut() : Boisson
-+ {static} setBoissonParDefaut(boisson : Boisson) 
-}
-
-class Cowboy
-{
-- gains : Integer
-- boissonParDefaut : Boisson {static}
-+ <<create>> Cowboy(nom : String) 
-+ <<create>> Cowboy(nom : String, boisson : Boisson) 
-+ getPseudo() : String
-+ liberer(dame : Dame) 
-+ liberer(captives : List) 
-+ capturer(horsLaLoi : HorsLaLoi) 
-+ tirerSur(brigand : HorsLaLoi) 
-+ sePresenter() 
-+ {static} getBoissonParDefaut() : Boisson
-+ {static} setBoissonParDefaut(boisson : Boisson) 
-}
-
-class Dame
-{
-- estLibre : Boolean
-- sauveur : Cowboy
-- ravisseur : HorsLaLoi
-- boissonParDefaut : Boisson {static}
-+ <<create>> Dame(nom : String) 
-+ <<create>> Dame(nom : String, boisson : Boisson) 
-+ getPseudo() : String
-+ seFaireKidnapper(horsLaLoi : HorsLaLoi) 
-+ seFaireLiberer(cowBoy : Cowboy) 
-+ estLibre()  : Boolean
-+ sePresenter() 
-+ {static} getBoissonParDefaut() : Boisson
-+ {static} setBoissonParDefaut(boisson : Boisson) 
-+ getRavisseur() : HorsLaLoi
-}
-
-class Histoire4
-{
-+ <<create>> Histoire4() 
++ <<create>> Java2Puml() 
 + {static} main(args : String[]) 
 }
 
-class Narrateur
+class PumlClass
 {
-+ <<create>> Narrateur() 
-+ <<create>> Narrateur(nom : String) 
-+ dire(texte : String) 
-+ boire(boisson : Boisson) 
-+ boire() 
-+ getPseudo() : String
+- element : TypeElement
+- links : ArrayList
+- variableList : ArrayList
+- methodList : ArrayList
++ <<create>> PumlClass(element : Element) 
++ getName() : String
++ toDCA() : String
++ toDCC() : String
+- RetrieveVariables() 
+- RetrieveMethods() 
++ getLinks() : ArrayList
 }
 
-class Personnage
+class PumlDiagram
 {
-- BOISSON_PAR_DEFAUT : Boisson {static}
-- nom : String
-- boisson : Boisson
-+ <<create>> Personnage(nom : String) 
-+ <<create>> Personnage(nom : String, boisson : Boisson) 
-+ dire(texte : String) 
-+ sePresenter() 
-+ boire(boisson : Boisson) 
-+ boire() 
-+ getNom() : String
-+ getBoisson() : Boisson
-+ {static} getPseudos(personnages : List) : String
-+ {static} getBoissonParDefaut() : Boisson
+- skinparam : String
+- directory : String
+- filename : String
+- env : DocletEnvironment
++ <<create>> PumlDiagram(env : DocletEnvironment) 
+- RetrievePackages() 
++ toDCA() : String
++ toDCC() : String
++ setDirectory(directory : String) 
++ setFilename(filename : String) 
++ getDirectory() : String
++ getFilename() : String
++ getPackageList() : List
 }
 
-class Ripou
+class PumlDoclet
 {
-- brigand : Brigand
-+ <<create>> Ripou(nom : String) 
-+ <<create>> Ripou(nom : String, boisson : Boisson) 
-+ <<create>> Ripou(nom : String, boisson : Boisson, look : String) 
-+ getLook() : String
-+ estLibre()  : Boolean
-+ getRecompense()  : Integer
-+ kidnapper(dame : Dame) 
-+ getCaptives() : List
-+ seFaireCapturer(cowBoy : Cowboy) 
-+ seFaireTirerDessus(cowBoy : Cowboy) 
-+ getPseudo() : String
-+ sePresenter() 
-+ liberer(dame : Dame) 
+- pumlDiagram : PumlDiagram
+- filename : String
+- directory : String
+- dca : Boolean
++ <<create>> PumlDoclet() 
++ init(locale : Locale, reporter : Reporter) 
++ getName() : String
++ getSupportedOptions() : Set
++ getSupportedSourceVersion() : SourceVersion
++ run(environment : DocletEnvironment)  : Boolean
+- InitPumlDiagram(env : DocletEnvironment) 
+- WritePuml() 
 }
 
-class Substantif
+class PumlElement
 {
-- nom : String
-- genre : Genre
-+ <<create>> Substantif(nom : String, genre : Genre) 
-+ getNom() : String
-+ getGenre() : Genre
-+ toString() : String
-+ {static} isVowel(c : char)  : Boolean
-+ {static} startsWithVowel(s : String)  : Boolean
-+ getArticleIndefini() : String
-+ avecArticleIndefini() : String
-+ {static} getArticleDefini(genre : Genre) : String
-+ getArticleDefini() : String
-+ avecArticleDefini() : String
-+ {static} faireElision(article : String) : String
-+ elision()  : Boolean
-+ getArticlePartitif() : String
-+ avecArticlePartitif() : String
-+ avecElision(article : String) : String
-+ avecPreposition(preposition : String) : String
++ <<create>> PumlElement() 
++ {abstract} toDCA() : String
++ {abstract} toDCC() : String
++ {static} GetElementTypeString(element : Element) : String
++ {static} TypeToString(type : TypeMirror) : String
+- {static} ExtractTypeString(FullName : String) : String
 }
 
-class "<<interface>>\n HorsLaLoi" as HorsLaLoi
+class PumlEnum
 {
-+ {abstract} estLibre()  : Boolean
-+ {abstract} getRecompense()  : Integer
-+ {abstract} kidnapper(dame : Dame) 
-+ {abstract} seFaireCapturer(cowBoy : Cowboy) 
-+ {abstract} seFaireTirerDessus(cowBoy : Cowboy) 
-+ {abstract} getLook() : String
-+ {abstract} getCaptives() : List
-
+- element : Element
++ <<create>> PumlEnum(element : Element) 
++ getName() : String
++ toDCA() : String
++ toDCC() : String
++ getEnumElements() : String
 }
 
-class "<<interface>>\n Nommable" as Nommable
+class PumlInterface
 {
-+ {abstract} getNom() : String
-+ {abstract} getPseudo() : String
-
+- element : Element
+- links : ArrayList
+- methodList : ArrayList
++ <<create>> PumlInterface(element : Element) 
++ getName() : String
++ toDCA() : String
++ toDCC() : String
++ linksToString() : String
+- RetrieveMethods() 
 }
 
-class "<<enumeration>>\n Genre" as Genre
+class PumlLink
 {
-FEMININ
-MASCULIN
+- firstElementName : String
+- secondElementName : String
+- linkType : LinkType
++ <<create>> PumlLink(firstElementName : String, secondElementName : String, linkType : LinkType) 
++ getLinkType() : LinkType
++ getFirstElement() : String
++ getSecondElement() : String
++ {static} RetrieveLinks(element : Element, variableList : ArrayList, methodList : ArrayList) : ArrayList
+- {static} getSuperClassLink(element : Element) : PumlLink
+- {static} getInterfacesLinks(element : Element) : ArrayList
+- {static} getAssociatonsDCA(element : Element, variableList : ArrayList) : ArrayList
+- {static} getAssociatonsDCC(element : Element, variableList : ArrayList, methodList : ArrayList) : ArrayList
++ {static} linksToStringDCC(links : ArrayList) : String
++ {static} linksToStringDCA(links : ArrayList) : String
+- {static} ExtractContainedTypeString(type : TypeMirror) : String
++ toDCA() : String
++ toDCC() : String
++ equals(obj : Object)  : Boolean
+}
+
+class PumlMethod
+{
+- element : Element
+- executableElement : ExecutableElement
+- parameters : ArrayList
++ <<create>> PumlMethod(element : Element) 
+- RetrieveParameters() 
++ toDCA() : String
++ toDCC() : String
++ getParameters() : ArrayList
++ getElement() : Element
+}
+
+class PumlPackage
+{
+- element : Element
++ <<create>> PumlPackage(element : Element) 
+- RetrieveElements() 
++ toDCA() : String
++ toDCC() : String
++ getName() : String
+}
+
+class PumlParameter
+{
+- variableElement : VariableElement
++ <<create>> PumlParameter(variableElement : VariableElement) 
++ toDCA() : String
++ toDCC() : String
++ getVariableElement() : VariableElement
+}
+
+class PumlVariable
+{
+- element : Element
+- kind : VariableKind
++ <<create>> PumlVariable(element : Element, kind : VariableKind) 
++ toDCA() : String
++ toDCC() : String
++ getElement() : Element
++ getVariableKind() : VariableKind
++ {static} IsCollection(variable : PumlVariable)  : Boolean
+}
+
+class "<<enumeration>>\n LinkType" as LinkType
+{
+EXTENDS
+IMPLEMENTS
+DCA_ASSOCIATE
+LIST
+USE
+}
+
+class "<<enumeration>>\n VariableKind" as VariableKind
+{
+PRIMITIVE
+OBJECT
+ENUM
 }
 
 
-Brigand --|> Personnage
-Brigand ..|> HorsLaLoi
-Brigand " * \n captives " o--> Dame
-Brigand ..> Dame : <<use>> 
-Brigand ..> Cowboy : <<use>> 
-Brigand ..> Boisson : <<use>> 
+PumlClass --|> PumlElement
 
-Cowboy --|> Personnage
-Cowboy " * \n captures " o--> HorsLaLoi
-Cowboy ..> Dame : <<use>> 
-Cowboy ..> HorsLaLoi : <<use>> 
-Cowboy ..> Boisson : <<use>> 
+PumlDiagram --|> PumlElement
+PumlDiagram " * \n packageList " o--> PumlPackage
 
-Dame --|> Personnage
-Dame ..> HorsLaLoi : <<use>> 
-Dame ..> Cowboy : <<use>> 
-Dame ..> Boisson : <<use>> 
+PumlDoclet ..|> Doclet
 
 
-Narrateur --|> Personnage
-Narrateur ..> Boisson : <<use>> 
+PumlEnum --|> PumlElement
 
-Personnage ..|> Nommable
-Personnage ..> Boisson : <<use>> 
+PumlInterface --|> PumlElement
 
-Ripou --|> Cowboy
-Ripou ..|> HorsLaLoi
-Ripou ..> Dame : <<use>> 
-Ripou ..> Cowboy : <<use>> 
+PumlLink --|> PumlElement
 
-Substantif ..> Genre : <<use>> 
+PumlMethod --|> PumlElement
+
+PumlPackage --|> PumlElement
+PumlPackage " * \n classList " o--> PumlClass
+PumlPackage " * \n interfaceList " o--> PumlInterface
+PumlPackage " * \n enumList " o--> PumlEnum
+
+PumlParameter --|> PumlElement
+
+PumlVariable --|> PumlElement
+PumlVariable ..> PumlVariable : <<use>> 
 
 }
 

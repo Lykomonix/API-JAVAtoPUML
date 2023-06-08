@@ -285,7 +285,7 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
         {
             String[] FullNameSplit = FullName.split("\\<");
 
-            return FullNameSplit[1].split("\\.")[FullNameSplit[0].split("\\.").length - 1].split(">")[0];
+            return FullNameSplit[1].split("\\.")[FullNameSplit[1].split("\\.").length - 1].split(">")[0];
         }
         else
         {
