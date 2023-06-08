@@ -76,7 +76,7 @@ public class PumlInterface extends PumlElement {
     }
 
     /********************************************************************
-     * linksToString permet de gérer les liens
+     * linksToString retourne un lien
      * in: Ø
      * out: String
      ********************************************************************/

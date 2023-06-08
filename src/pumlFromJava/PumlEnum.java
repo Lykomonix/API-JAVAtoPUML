@@ -24,7 +24,7 @@ public class PumlEnum extends PumlElement{
     }
 
     /********************************************************************
-     * getName est un getteur qui récupère le nom de l'element
+     * getName est un getteur qui récupère le nom de l'élément
      * in: Ø
      * out: String
      ********************************************************************/

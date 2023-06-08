@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Set;
 
 /********************************************************************
- * PumlDoclet est une classe qui implemente l'interface Doclet. C'est notre doclet
+ * PumlDoclet est une classe qui implémente l'interface Doclet. C'est notre doclet.
  ********************************************************************/
 public class PumlDoclet implements Doclet {
     private PumlDiagram pumlDiagram;
@@ -20,7 +20,7 @@ public class PumlDoclet implements Doclet {
     private boolean dca = false;
 
     /********************************************************************
-     * init est une redéfinition
+     * init est une redéfinition qui permet d'initialiser le doclet
      * in: Locale locale, Reporter reporter
      * out: void
      ********************************************************************/
@@ -30,7 +30,7 @@ public class PumlDoclet implements Doclet {
     }
 
     /********************************************************************
-     * getName est un getteur redéfini qui récupère le nom des classes
+     * getName est un getteur redéfini qui récupère le nom du doclet
      * in: Ø
      * out: String
      ********************************************************************/
@@ -50,7 +50,7 @@ public class PumlDoclet implements Doclet {
     }
 
     /********************************************************************
-     * getSupportedSourceVersion est un getteur redéfini qui récupère la version de java
+     * getSupportedSourceVersion est un getteur redéfini qui récupère la version de java supporter pas le doclet
      * in: Ø
      * out: SourceVersion
      ********************************************************************/
@@ -60,7 +60,7 @@ public class PumlDoclet implements Doclet {
     }
 
     /********************************************************************
-     * run est une classe redéfini. Elle permet de générer un lieu pour écrire le code puml
+     * run est une classe redéfini. C'est le point d'entrée du doclet qui permet de définir une zone pour écrire
      * in: DocletEnvironment environment
      * out: boolean
      ********************************************************************/
@@ -126,7 +126,7 @@ public class PumlDoclet implements Doclet {
     }
 
     /********************************************************************
-     * OutOption est une nested classe qui implemente l'interface Doclet.Option
+     * OutOption est une nested classe qui implémente l'interface Doclet.Option
      ********************************************************************/
     private class OutOption implements Doclet.Option
     {
@@ -141,7 +141,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getDescription est un getteur redéfini qui récupère la description
+         * getDescription est un getteur redéfini qui récupère la description de l'option
          * in: Ø
          * out: String
          ********************************************************************/
@@ -151,7 +151,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getKind est un getteur redéfini qui récupère le type de base
+         * getKind est un getteur redéfini qui récupère le type de l'option
          * in: Ø
          * out: Kind
          ********************************************************************/
@@ -161,7 +161,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getNames est un getteur redéfini qui récupère
+         * getNames est un getteur redéfini qui récupère les noms qui permette d'identifier l'option
          * in: Ø
          * out : List<String>
          ********************************************************************/
@@ -171,7 +171,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getParameters est un getteur redéfini qui récupère les paramètres
+         * getParameters est un getteur redéfini qui récupère les paramètres de l'option
          * in: Ø
          * out: String
          ********************************************************************/
@@ -181,7 +181,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * process est une classe redéfini qui récupère le nom du fichier
+         * process est une classe redéfini qui utilise l'option
          * in: String option, List<String> arguments
          * out: boolean
          ********************************************************************/
@@ -193,12 +193,12 @@ public class PumlDoclet implements Doclet {
     }
 
     /********************************************************************
-     * DirectoryOption est une Nested classe qui implemente Doclet.Option
+     * DirectoryOption est une Nested classe qui implémente Doclet.Option
      ********************************************************************/
     private class DirectoryOption implements Doclet.Option
     {
         /********************************************************************
-         * getArgumentCount est un getteur redéfini qui récupère le nombre d'argument
+         * getArgumentCount est un getteur redéfini qui récupère le nombre d'argument de l'option
          * in: Ø
          * out: int
          ********************************************************************/
@@ -208,7 +208,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getDescription est un getteur redéfini qui récupère la description
+         * getDescription est un getteur redéfini qui récupère la description de l'option
          * in: Ø
          * out: String
          ********************************************************************/
@@ -218,7 +218,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getKind est un getteur redéfini qui récupère le type de base
+         * getKind est un getteur redéfini qui récupère le type de l'option
          * in: Ø
          * out: Kind
          ********************************************************************/
@@ -228,7 +228,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getNames est un getteur redéfini qui récupère
+         * getNames est un getteur redéfini qui récupère les nom qui définissent l'option
          * in: Ø
          * out : List<String>
          ********************************************************************/
@@ -238,7 +238,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getParameters est un getteur redéfini qui récupère les paramètres
+         * getParameters est un getteur redéfini qui récupère les paramètres de l'option
          * in: Ø
          * out: String
          ********************************************************************/
@@ -248,7 +248,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * process est une classe redéfini qui récupère le nom du fichier
+         * process est une classe redéfini qui utilise l'option
          * in: String option, List<String> arguments
          * out: boolean
          ********************************************************************/
@@ -260,11 +260,11 @@ public class PumlDoclet implements Doclet {
     }
 
     /********************************************************************
-     * DCAOption
+     * DCAOption est une classe qui implémente l'interface Doclet.Option
      ********************************************************************/
     private class DCAOption implements Doclet.Option {
         /********************************************************************
-         * getArgumentCount est un getteur redéfini qui récupère le nombre d'argument
+         * getArgumentCount est un getteur redéfini qui récupère le nombre d'argument de l'option
          * in: Ø
          * out: int
          ********************************************************************/
@@ -274,7 +274,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getDescription est un getteur redéfini qui récupère la description
+         * getDescription est un getteur redéfini qui récupère la description de l'option
          * in: Ø
          * out: String
          ********************************************************************/
@@ -284,7 +284,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getKind est un getteur redéfini qui récupère le type de base
+         * getKind est un getteur redéfini qui récupère le type de l'option
          * in: Ø
          * out: Kind
          ********************************************************************/
@@ -294,7 +294,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getNames est un getteur redéfini qui récupère
+         * getNames est un getteur redéfini qui récupère la liste des noms qui définissent l'option
          * in: Ø
          * out : List<String>
          ********************************************************************/
@@ -304,7 +304,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * getParameters est un getteur redéfini qui récupère les paramètres
+         * getParameters est un getteur redéfini qui récupère les paramètres de l'option
          * in: Ø
          * out: String
          ********************************************************************/
@@ -314,7 +314,7 @@ public class PumlDoclet implements Doclet {
         }
 
         /********************************************************************
-         * process est une classe redéfini qui récupère le nom du fichier
+         * process est une classe redéfini qui utilise l'option
          * in: String option, List<String> arguments
          * out: boolean
          ********************************************************************/

@@ -119,10 +119,20 @@ public class PumlMethod extends PumlElement {
         return builder.toString();
     }
 
+    /********************************************************************
+     * getParameters est
+     * in: Ø
+     * out: ArrayList<PumlParameter>
+     ********************************************************************/
     public ArrayList<PumlParameter> getParameters() {
         return parameters;
     }
 
+    /********************************************************************
+     * PumlMethod est un constructeur
+     * in: Element element
+     * out: NULL
+     ********************************************************************/
     public Element getElement() {
         return element;
     }

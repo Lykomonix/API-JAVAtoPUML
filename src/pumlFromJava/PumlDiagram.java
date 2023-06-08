@@ -39,7 +39,7 @@ public class PumlDiagram extends PumlElement{
     }
 
     /********************************************************************
-     * RetrievePackages permet de récupérer les packages d'un code
+     * RetrievePackages permet de récupérer les packages
      * in: Ø
      * out: void
      ********************************************************************/

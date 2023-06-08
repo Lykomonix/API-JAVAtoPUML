@@ -23,7 +23,7 @@ public class PumlVariable extends PumlElement {
      * PumlVariable est un constructeur
      * in: Element element, VariableKind kind
      * out: NULL
-     ********************************************************************/
+     ****************************************************************/
     public PumlVariable(Element element, VariableKind kind)
     {
         this.element = element;
@@ -101,7 +101,11 @@ public class PumlVariable extends PumlElement {
         return kind;
     }
 
-
+    /********************************************************************
+     * IsCollection est un méthode de classe qui permet de savoir si la variable est une collection
+     * in: PumlVariable variable
+     * out boolean
+     ********************************************************************/
     public static boolean IsCollection(PumlVariable variable)
     {
         boolean result = false;

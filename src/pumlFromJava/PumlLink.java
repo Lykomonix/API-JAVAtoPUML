@@ -39,7 +39,7 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
     }
 
     /********************************************************************
-    getFirstElement est un getteur qui permet de récupérer le premier element du lien
+    getFirstElement est un getteur qui permet de récupérer le premier élément du lien
     in:
     out: String
      ********************************************************************/
@@ -48,7 +48,7 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
     }
 
     /********************************************************************
-    getSecondElement est un getteur qui permet de récupérer le Second element du lien
+    getSecondElement est un getteur qui permet de récupérer le Second élément du lien
     in:
     out: String
      ********************************************************************/
@@ -117,6 +117,11 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
         return links;
     }
 
+    /********************************************************************
+     * getAssociatonsDCA est un getteur qui récupère les associations d'un DCA
+     * in : Element element, ArrayList<PumlVariable> variableList
+     * out : ArrayList<PumlLink>
+     ********************************************************************/
     private static ArrayList<PumlLink> getAssociatonsDCA(Element element, ArrayList<PumlVariable> variableList)
     {
         ArrayList<PumlLink> links = new ArrayList<>();
@@ -140,9 +145,9 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
 
 
     /********************************************************************
-    getAssociatons permet de récupérer les liens de type association
-    in: Element element, ArrayList<PumlVariable> variableList
-    out: ArrayList<PumlLink>
+     * getAssociatons est un getteur qui récupère les associations d'un DCC
+     * in: Element element, ArrayList<PumlVariable> variableList
+     * out: ArrayList<PumlLink>
      ********************************************************************/
     private static ArrayList<PumlLink> getAssociatonsDCC(Element element, ArrayList<PumlVariable> variableList, ArrayList<PumlMethod> methodList)
     {
@@ -207,9 +212,9 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
     }
 
     /********************************************************************
-    linksToString permet de former la chaine de caractère qui permet de coder le lien
-    in: ArrayList<PumlLink> links
-    out: String
+     * linksToStringDCC permet de former la chaine de caractère qui permet de coder le lien d'un DCC
+     * in: ArrayList<PumlLink> links
+     * out: String
      ********************************************************************/
     public static String linksToStringDCC(ArrayList<PumlLink> links) {
 
@@ -238,6 +243,11 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
         return builder.toString();
     }
 
+    /********************************************************************
+     * linksToStringDA permet de former la chaine de caractère qui permet de coder le lien d'un DCA
+     * in: ArrayList<PumlLink> links
+     * out: String
+     ********************************************************************/
     public static String linksToStringDCA(ArrayList<PumlLink> links) {
 
         StringBuilder builder = new StringBuilder();
@@ -262,6 +272,11 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
         return builder.toString();
     }
 
+    /********************************************************************
+     * ExtractContainedTypeString permet de récupérer le type qui est contenu dans une collection
+     * in: TypeMirror type
+     * out: String
+     ********************************************************************/
     private static String ExtractContainedTypeString(TypeMirror type)
     {
         String FullName = type.toString();
@@ -280,16 +295,31 @@ La classe PumlLink permet de gérer les liens entre les classes / enum et interf
         }
     }
 
+    /********************************************************************
+     * toDCA est un redéfinition qui permet de gérer les link dans un DCA
+     * in: Ø
+     * out: String
+     ********************************************************************/
     @Override
     public String toDCA() {
         return null;
     }
 
+    /********************************************************************
+     * toDC est un redéfinition qui permet de gérer les link dans un DCC
+     * in: Ø
+     * out: String
+     ********************************************************************/
     @Override
     public String toDCC() {
         return null;
     }
 
+    /********************************************************************
+     * equals est une fonction redéfinit qui permet de voir s'il s'agit d'une association réflexive
+     * in: Object obj
+     * out: boolean
+     ********************************************************************/
     @Override
     public boolean equals(Object obj) {
         if(obj.getClass() != PumlLink.class)

@@ -36,6 +36,8 @@ public class PumlClass extends PumlElement {
 
     /********************************************************************
      * getName est un getteur qui récupère le nom de la classe
+     * in : Ø
+     * out : String
      ********************************************************************/
     public String getName() {
         return this.element.getSimpleName().toString();
@@ -99,7 +101,7 @@ public class PumlClass extends PumlElement {
     }
 
     /********************************************************************
-     * RetrieveVariables permet de récupérer les champs d'une classe
+     * RetrieveVariables permet de récupérer les variables d'une classe
      * in: Ø
      * out: void
      ********************************************************************/

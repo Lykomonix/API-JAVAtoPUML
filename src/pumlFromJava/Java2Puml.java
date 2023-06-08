@@ -5,7 +5,7 @@ import java.util.spi.ToolProvider;
 public class Java2Puml
 {
     /********************************************************************
-     * c'est le main
+     * c'est le point d'entrée du programme
      ********************************************************************/
     public static void main(String[] args)
     {

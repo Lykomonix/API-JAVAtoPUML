@@ -45,6 +45,11 @@ public class PumlParameter extends PumlElement{
         return builder.toString();
     }
 
+    /********************************************************************
+     * getVariableElement est un getteur qui récupèrent
+     * in: Ø
+     * out: VariableElement
+     ********************************************************************/
     public VariableElement getVariableElement() {
         return variableElement;
     }
